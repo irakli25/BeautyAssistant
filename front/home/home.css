@@ -1,0 +1,32 @@
+#need-job {
+	position: absolute;
+    right: 23%;
+    top: 70%;
+    background: #7d1317;
+    color: #FFF;
+    padding: 15px;
+    border-color: #7d1317;
+    border-radius: 12px 50px;
+    cursor: pointer;
+    border: none;
+	transition: background 0.4s;
+}
+#need-assistant {
+	position: absolute;
+    right: 10%;
+    top: 70%;
+    background: #7d1317;
+    color: #FFF;
+    padding: 15px;
+    border-color: #7d1317;
+    border-radius: 12px 50px;
+    cursor: pointer;
+    border: none;
+		transition: background 0.4s;
+}
+
+#need-assistant:hover, #need-job:hover {
+	background:#FFF;
+	color:#7d1317;
+
+}

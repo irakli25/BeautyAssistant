@@ -1,2 +1,0 @@
-# BeautyAssistant
-BeautyAssistant
