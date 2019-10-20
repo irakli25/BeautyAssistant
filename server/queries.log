@@ -1,0 +1,136 @@
+[2019-09-23 07:57:13 PM CEST]	INSERT INTO staff
+        SET datetime = NOW(),
+                `name`  = 'test2 test2',
+                `email` = 'test2@gmail.com',
+                `password` = 'fdasghfdhgasgdhhasdgvshdhasfyr3wterewqerwqyetqwrtyrgha' 
+[2019-09-23 08:00:11 PM CEST]	INSERT INTO staff
+        SET datetime = NOW(),
+                `name`  = '',
+                `email` = '',
+                `password` = '' 
+[2019-09-23 08:00:35 PM CEST]	INSERT INTO staff
+        SET datetime = NOW(),
+                `name`  = '',
+                `email` = '',
+                `password` = '' 
+[2019-09-23 08:01:11 PM CEST]	INSERT INTO staff
+        SET datetime = NOW(),
+                `name`  = '',
+                `email` = '',
+                `password` = '' 
+[2019-09-23 08:02:59 PM CEST]	INSERT INTO staff
+        SET datetime = NOW(),
+                `name`  = 'irakli tabukashvili',
+                `email` = 'testtabuka@gmail.com',
+                `password` = 'qwerty' 
+[2019-09-23 08:02:59 PM CEST]	INSERT INTO staff
+        SET datetime = NOW(),
+                `name`  = 'irakli tabukashvili',
+                `email` = 'testtabuka@gmail.com',
+                `password` = 'qwerty' 
+[2019-09-23 08:03:20 PM CEST]	INSERT INTO staff
+        SET datetime = NOW(),
+                `name`  = 'irakli tabukashvili',
+                `email` = 'testtabuka@gmail.com',
+                `password` = 'qwerty' 
+[2019-09-23 08:03:21 PM CEST]	INSERT INTO staff
+        SET datetime = NOW(),
+                `name`  = 'irakli tabukashvili',
+                `email` = 'testtabuka@gmail.com',
+                `password` = 'qwerty' 
+[2019-09-23 08:12:03 PM CEST]	SELECT * FROM `staff` WHERE `email` = 'testtabuka@gmail.com'
+[2019-09-23 08:12:31 PM CEST]	SELECT * FROM `staff` WHERE `email` = 'testtabuka@gmail.com'
+[2019-09-23 08:12:51 PM CEST]	SELECT * FROM `staff` WHERE `email` = 'testtabuka1@gmail.com'
+[2019-09-23 08:12:52 PM CEST]	INSERT INTO staff
+                    SET `datetime` = NOW(),
+                        `name`  = 'irakli tabukashvili',
+                        `email` = 'testtabuka1@gmail.com',
+                        `password` = 'd8578edf8458ce06fbc5bb76a58c5ca4' 
+[2019-09-23 08:12:55 PM CEST]	SELECT * FROM `staff` WHERE `email` = 'testtabuka1@gmail.com'
+[2019-09-23 08:23:50 PM CEST]	SELECT * FROM `client` WHERE `email` = ''
+[2019-09-23 08:23:51 PM CEST]	INSERT INTO client
+                    SET `datetime` = NOW(),
+                        `name`  = '',
+                        `email` = '',
+                        `password` = 'd41d8cd98f00b204e9800998ecf8427e' 
+[2019-09-23 08:34:44 PM CEST]	SELECT * FROM `client` WHERE `email` = 'retertreter'
+[2019-09-23 08:34:44 PM CEST]	INSERT INTO client
+                    SET `datetime` = NOW(),
+                        `name`  = 'ertertert',
+                        `email` = 'retertreter',
+                        `password` = '202cb962ac59075b964b07152d234b70' 
+[2019-09-23 08:43:07 PM CEST]	SELECT * FROM `client` WHERE `email` = 'test@gmail.com'
+[2019-09-23 08:43:07 PM CEST]	INSERT INTO client
+                    SET `datetime` = NOW(),
+                        `name`  = 'ირაკლი თაბუკაშვილი',
+                        `email` = 'test@gmail.com',
+                        `password` = 'b0e06ad2c76ede6e238707ab772f6be0' 
+[2019-09-23 08:49:38 PM CEST]	SELECT * FROM `client` WHERE `email` = 'test@gmail.com'
+[2019-09-23 08:49:46 PM CEST]	SELECT * FROM `client` WHERE `email` = 'test1@gmail.com'
+[2019-09-23 08:49:46 PM CEST]	INSERT INTO client
+                    SET `datetime` = NOW(),
+                        `name`  = 'ირაკლი',
+                        `surname`  = 'თაბუკაშვილი',
+                        `email` = 'test1@gmail.com',
+                        `password` = '202cb962ac59075b964b07152d234b70' 
+[2019-09-23 08:50:32 PM CEST]	SELECT * FROM `client` WHERE `email` = 'test1@gmail.com'
+[2019-10-01 09:20:02 PM CEST]	SELECT * FROM `users` WHERE `email` = 'staff@mail.com'
+[2019-10-01 09:20:02 PM CEST]	INSERT INTO users
+                    SET `datetime` = NOW(),
+                        `user_type_id` = '1',
+                        `name`  = 'staff',
+                        `surname`  = 'stafer',
+                        `email` = 'staff@mail.com',
+                        `password` = '1253208465b1efa876f982d8a9e73eef' 
+[2019-10-01 09:20:39 PM CEST]	SELECT * FROM `users` WHERE `email` = 'client@mail.com'
+[2019-10-01 09:20:39 PM CEST]	INSERT INTO users
+                    SET `datetime` = NOW(),
+                        `user_type_id` = '2',
+                        `name`  = 'client',
+                        `surname`  = 'clienter',
+                        `email` = 'client@mail.com',
+                        `password` = '62608e08adc29a8d6dbc9754e659f125' 
+[2019-10-01 09:52:32 PM CEST]	SELECT `password` FROM `users` WHERE `email` = '' 
+[2019-10-01 09:53:17 PM CEST]	SELECT `password` FROM `users` WHERE `email` = '' 
+[2019-10-01 09:54:20 PM CEST]	SELECT `password` FROM `users` WHERE `email` = '' 
+[2019-10-01 10:01:02 PM CEST]	SELECT `password` FROM `users` WHERE `email` = '' 
+[2019-10-01 10:01:54 PM CEST]	SELECT `password` FROM `users` WHERE `email` = '' 
+[2019-10-01 10:02:17 PM CEST]	SELECT `password` FROM `users` WHERE `email` = '' 
+[2019-10-01 10:03:24 PM CEST]	SELECT `password` FROM `users` WHERE `email` = '' 
+[2019-10-01 10:03:47 PM CEST]	SELECT `password` FROM `users` WHERE `email` = '' 
+[2019-10-01 10:04:19 PM CEST]	SELECT `password` FROM `users` WHERE `email` = '' 
+[2019-10-01 10:05:03 PM CEST]	SELECT `password` FROM `users` WHERE `email` = '' 
+[2019-10-01 10:09:23 PM CEST]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = '' 
+[2019-10-01 10:10:52 PM CEST]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = '' 
+[2019-10-01 10:12:25 PM CEST]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = '' 
+[2019-10-01 10:13:22 PM CEST]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'client@mail.com' 
+[2019-10-01 10:14:36 PM CEST]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'client@mail.com' 
+[2019-10-01 10:14:55 PM CEST]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'client@mail.com' 
+[2019-10-01 10:16:07 PM CEST]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'client@mail.com' 
+[2019-10-01 10:16:29 PM CEST]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'client@mail.com' 
+[2019-10-01 10:17:26 PM CEST]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'client@mail.com' 
+[2019-10-01 10:18:47 PM CEST]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'client@mail.com' 
+[2019-10-01 10:20:09 PM CEST]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'client@mail.com' 
+[2019-10-01 10:29:17 PM CEST]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 
+[2019-10-01 10:30:54 PM CEST]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 
+[2019-10-01 10:39:50 PM CEST]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 
+[2019-10-01 10:40:33 PM CEST]	SELECT * FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com'
+[2019-10-01 10:40:33 PM CEST]	INSERT INTO users
+                    SET `datetime` = NOW(),
+                        `user_type_id` = '2',
+                        `name`  = 'ირაკლი',
+                        `surname`  = 'თაბუკაშვილი',
+                        `email` = 'iraklitabukashvili77@gmail.com',
+                        `password` = 'b0e06ad2c76ede6e238707ab772f6be0' 
+[2019-10-01 10:40:54 PM CEST]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 
+[2019-10-01 10:43:02 PM CEST]	SELECT * FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com'
+[2019-10-01 10:43:02 PM CEST]	INSERT INTO users
+                    SET `datetime` = NOW(),
+                        `user_type_id` = '2',
+                        `name`  = 'ირაკლი',
+                        `surname`  = 'თაბუკაშვილი',
+                        `email` = 'iraklitabukashvili77@gmail.com',
+                        `password` = 'b0e06ad2c76ede6e238707ab772f6be0' 
+[2019-10-01 10:44:00 PM CEST]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 
+[2019-10-01 10:44:41 PM CEST]	SELECT * FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com'
+[2019-10-01 11:14:44 PM CEST]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 

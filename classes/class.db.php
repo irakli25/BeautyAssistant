@@ -24,10 +24,10 @@
 class DB
 {
     // DB Connection Settings
-    private $db_name    = 'beautyassistant';
-    private $db_user    = 'root';
-    private $db_pass    = 'irakli-25';
-    private $db_host    = '127.0.0.1';
+    private $db_name    = 'CYiQ9q0mlT';
+    private $db_user    = 'CYiQ9q0mlT';
+    private $db_pass    = 'WwJGh6iQc8';
+    private $db_host    = 'remotemysql.com';
     private $db_charset = 'utf8mb4';
 
     // Debug Settings

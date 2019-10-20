@@ -3,35 +3,74 @@ nav{
 }
 .logo{
     float: left;
-    left: 42px;
+    left: 50px;
     position: absolute;
-    top: 0;
+    top: 10px;
 }
 .navigation_ul{
   list-style-type: none;
-    position: absolute;
-    top: -20px;
-    left: 170px;
-    width: 92%;
-    background: #FFF;
-    border-bottom-left-radius: 50px;
-    padding: 12px;
-    padding-left: 60px;
+  position: relative;
+  left: 230px;
+  width: 84%;
+  background: #FFF;
+  border-radius: 13px;
+  padding: 5px;
+  border: 2px solid #d015ed;
+  padding-left: 60px;
+  height: 50px;
 }
+
+.social {
+  right: 400px;
+  position: absolute;
+  display: flex!important;
+  top: 5px;
+  justify-content: space-around;
+  width: 150px!important;
+}
+
+.fb{
+  background-image:url('../media/icons/fb_icon.jpg');
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  width:40px; height:40px;
+}
+
+.instagram{
+  background-image:url('../media/icons/instagram_icon.jpg');
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  width:40px; height:40px;
+}
+
+.call{
+  background-image:url('../media/icons/call_icon.jpg');
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  width:40px; height:40px;
+}
+
 .navigation_ul li{
 	display: inline-block;
 	width: 10vw;
 }
-.navigation_ul li a, #in{
-	color: #B80C13;
+.navigation_ul li a, .in{
+	color: #444;
 	text-decoration: none;
 	font-size: 1em;
   font-weight: bold;
 }
-.navigation_ul li a:hover, #in:hover{
-	color: #000;
+.menu_list{
+  position:absolute;
+  top: 15px;
 }
-#in{
+.navigation_ul li a:hover, .in:hover{
+	color: #d015ed;
+}
+.in{
   cursor:pointer;
 }
 header{

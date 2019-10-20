@@ -24,30 +24,147 @@ $(document).on("click", "#need-job", function () {
 $(document).on("click", "#need-assistant", function () {
     window.location="?pg=3";
 })
+class userlogin {
+    constructor(){
+        this.email = $("#login_email").val();
+        this.pass  = $("#login_pass").val();
+        this.sendAjax();
+    }
 
+    sendAjax(){
+        $.ajax({
+            url:"server/login.php",
+            data:this,
+            success:function(data){
+                if(data.Error != ""){
+                    webalert(data.Error,"alert");
+                }
+                else{
+                    if(data.result){
+                        window.location="?pg=1";
+                    }
+                    else{
+                        webalert(data.result,"alert");
+                    }
+            }
+            }
+        })
+    }
+}
 class person {
         
     constructor(type){
         this.name = $("#name").val();
+        this.surname = $("#surname").val();
         this.email = $("#email").val();
         this.pass = $("#pass").val();
         this.conpass = $("#conpass").val();
-        this.action = type;
+        this.type = type;
     }
+
+    confirm () {
+        if  (this.conpass == this.pass) {
+            return true;
+        }
+        else{
+            webalert("პაროლები ერთმანეთს არ დაემთხვა !", "alert");
+        }
+    }
+
+    check_name(){
+        if(this.name != ""){
+            $("#name").css("border-color","#ccc");
+            return true;
+        }
+        else {
+            $("#name").css("border-color","red");
+            webalert("შეავსეთ ყველა ველი !");
+            return false;
+        }
+    }
+
+    check_surname(){
+        if(this.name != ""){
+            $("#surname").css("border-color","#ccc");
+            return true;
+        }
+        else {
+            $("#surname").css("border-color","red");
+            webalert("შეავსეთ ყველა ველი !");
+            return false;
+        }
+    }
+
+    check_email(){
+        if(this.email != ""){
+            $("#email").css("border-color","#ccc");
+            return true;
+        }
+        else {
+            $("#email").css("border-color","red");
+            webalert("შეავსეთ ყველა ველი !");
+            return false;
+        }
+    }
+
+    check_pass(){
+        if(this.pass != ""){
+            $("#pass").css("border-color","#ccc");
+            return true;
+        }
+        else {
+            $("#pass").css("border-color","red");
+            webalert("შეავსეთ ყველა ველი !");
+            return false;
+        }
+    }
+
+    check_conpass(){
+        if(this.conpass != ""){
+            $("#conpass").css("border-color","#ccc");
+            return true;
+        }
+        else {
+            $("#conpass").css("border-color","red");
+            webalert("შეავსეთ ყველა ველი !");
+            return false;
+        }
+    }
+
+    sendAjax () {
+        if(this.check_name() && this.check_surname() && this.check_email()  && this.check_pass() && this.check_conpass() && this.confirm()){
+            $.ajax({
+                url:"server/register.php",
+                data:this,
+                success:function(data){
+                    if(data.Error !=''){
+                        webalert(data.Error,"alert");
+                    }
+                    else {
+                        if(data.result){
+                            webalert(`${data.name} თქვენ წარმატებით გაიარეთ რეგისტრაცია`,"success");
+                        }
+                    }
+                }
+        
+            })
+        }
+
+    }
+
 }
 
 $(document).on("click","#register_client", function(){
-    var client = new person('11');
-    $.ajax({
-        url:"server/register.php",
-        data:client,
-        success:function(data){
-            if(data.Error !=''){
-                webalert(data.Error,"alert");
-            }
-        }
+    var client = new person('2');
+    client.sendAjax();
 
-    })
+})
+
+
+$(document).on("click","#register_staff", function(){
+    var client = new person('1');
+    client.sendAjax();
+
 })
 
 
@@ -70,3 +187,28 @@ function webalert(content, type){
 
    
 }
+
+
+
+
+
+$(document).on("click","#login_button", function(){
+    var login = new userlogin();
+})
+
+$(document).on("click","#logout", function(){
+    $.ajax({
+        url:"server/logout.php",
+        success:function(data){
+            if(data.Error !=''){
+                webalert(data.Error,"alert");
+            }
+            else {
+                if(data.result == "logout"){
+                    location.reload(true);
+                }
+            }
+        }
+
+    })
+})
