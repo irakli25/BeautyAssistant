@@ -134,3 +134,77 @@
 [2019-10-01 10:44:00 PM CEST]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 
 [2019-10-01 10:44:41 PM CEST]	SELECT * FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com'
 [2019-10-01 11:14:44 PM CEST]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 
+[2019-10-23 10:33:52 PM CEST]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 
+[2019-10-27 01:17:26 PM CET]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 
+[2019-10-27 01:40:49 PM CET]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 
+[2019-10-27 01:45:20 PM CET]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 
+[2019-10-27 03:18:00 PM CET]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 
+[2019-10-27 03:54:39 PM CET]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 
+[2019-10-27 03:54:39 PM CET]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 
+[2019-10-27 03:54:45 PM CET]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 
+[2019-10-27 04:06:15 PM CET]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 
+[2019-10-27 04:08:05 PM CET]	SELECT * FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com'
+[2019-10-27 04:08:05 PM CET]	INSERT INTO users
+                    SET `datetime` = NOW(),
+                        `uid`      = CONCAT(SUBSTRING(MD5(now()), 1, 3), '$' ,SUBSTRING(MD5(now()), 1, 3)),
+                        `user_type_id` = '1',
+                        `name`  = 'ირაკლი',
+                        `surname`  = 'თაბუკაშვილი',
+                        `email` = 'iraklitabukashvili77@gmail.com',
+                        `password` = 'b0e06ad2c76ede6e238707ab772f6be0' 
+[2019-10-27 04:36:07 PM CET]	SELECT * FROM `users` WHERE `email` = 'iraklitabuuikashvili77@gmail.com'
+[2019-10-27 04:36:26 PM CET]	SELECT * FROM `users` WHERE `email` = 'iraklitabuuikashvili77@gmail.com'
+[2019-10-27 04:36:59 PM CET]	SELECT * FROM `users` WHERE `email` = 'ewrewr@df'
+[2019-10-27 04:37:04 PM CET]	SELECT * FROM `users` WHERE `email` = 'ewrewr@df'
+[2019-10-27 04:37:05 PM CET]	SELECT * FROM `users` WHERE `email` = 'ewrewr@df'
+[2019-10-27 04:37:05 PM CET]	SELECT * FROM `users` WHERE `email` = 'ewrewr@df'
+[2019-10-27 04:37:05 PM CET]	SELECT * FROM `users` WHERE `email` = 'ewrewr@df'
+[2019-10-27 04:37:05 PM CET]	SELECT * FROM `users` WHERE `email` = 'ewrewr@df'
+[2019-10-27 04:37:05 PM CET]	SELECT * FROM `users` WHERE `email` = 'ewrewr@df'
+[2019-10-27 04:40:49 PM CET]	SELECT * FROM `users` WHERE `email` = 'ewrewr@df'
+[2019-10-27 04:41:32 PM CET]	SELECT * FROM `users` WHERE `email` = 'ewrewr@df'
+[2019-10-27 04:41:32 PM CET]	SELECT SUBSTRING(MD5(now()), 1, 3) AS `md`
+[2019-10-27 04:41:32 PM CET]	SELECT SUBSTRING(MD5('wer'), 1, 3) AS `md`
+[2019-10-27 04:41:32 PM CET]	INSERT INTO users
+                    SET `datetime` = NOW(),
+                        `uid`      = '429$22c',
+                        `user_type_id` = '1',
+                        `name`  = 'wer',
+                        `surname`  = 'ewrewr',
+                        `email` = 'ewrewr@df',
+                        `password` = '202cb962ac59075b964b07152d234b70' 
+[2019-10-27 04:41:53 PM CET]	SELECT * FROM `users` WHERE `email` = 'erwrx'
+[2019-10-27 04:41:53 PM CET]	SELECT SUBSTRING(MD5(now()), 1, 3) AS `md`
+[2019-10-27 04:41:53 PM CET]	SELECT SUBSTRING(MD5('wer'), 1, 3) AS `md`
+[2019-10-27 04:41:53 PM CET]	INSERT INTO users
+                    SET `datetime` = NOW(),
+                        `uid`      = '58d$22c',
+                        `user_type_id` = '1',
+                        `name`  = 'wer',
+                        `surname`  = 'ewrewr',
+                        `email` = 'erwrx',
+                        `password` = '202cb962ac59075b964b07152d234b70' 
+[2019-10-27 04:42:38 PM CET]	SELECT * FROM `users` WHERE `email` = 'erwrx@re'
+[2019-10-27 04:42:38 PM CET]	SELECT SUBSTRING(MD5(now()), 1, 3) AS `md`
+[2019-10-27 04:42:38 PM CET]	SELECT SUBSTRING(MD5('erwrx@re'), 1, 3) AS `md`
+[2019-10-27 04:42:38 PM CET]	INSERT INTO users
+                    SET `datetime` = NOW(),
+                        `uid`      = '4d9$20d',
+                        `user_type_id` = '1',
+                        `name`  = 'wer',
+                        `surname`  = 'ewrewr',
+                        `email` = 'erwrx@re',
+                        `password` = '202cb962ac59075b964b07152d234b70' 
+[2019-10-27 04:43:14 PM CET]	SELECT * FROM `users` WHERE `email` = 'czxcdwfew@'
+[2019-10-27 04:43:14 PM CET]	INSERT INTO users
+                    SET `datetime` = NOW(),
+                        `uid`      = 'client',
+                        `user_type_id` = '2',
+                        `name`  = 'xzczxc',
+                        `surname`  = 'cxzczx',
+                        `email` = 'czxcdwfew@',
+                        `password` = '202cb962ac59075b964b07152d234b70' 
+[2019-10-27 04:44:13 PM CET]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 
+[2019-10-28 07:08:30 PM CET]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 
+[2019-10-30 07:31:37 PM CET]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 
+[2019-10-31 06:51:35 PM CET]	SELECT `id`, `password`, `name` FROM `users` WHERE `email` = 'iraklitabukashvili77@gmail.com' 

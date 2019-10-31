@@ -14,15 +14,16 @@ $(document).on("click","#id01", function (e){
 })
 
 $(document).on("click","#login", function (){
+    $(".container-hamburger").trigger("click");
     $("#id01").css("display","block");
 })
 
 $(document).on("click", "#need-job", function () {
-    window.location="?pg=2";
+    window.location="?route=2";
 })
 
 $(document).on("click", "#need-assistant", function () {
-    window.location="?pg=3";
+    window.location="?route=3";
 })
 class userlogin {
     constructor(){
@@ -41,7 +42,7 @@ class userlogin {
                 }
                 else{
                     if(data.result){
-                        window.location="?pg=1";
+                        window.location="?route=1";
                     }
                     else{
                         webalert(data.result,"alert");

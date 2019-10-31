@@ -55,7 +55,7 @@ img.login_logo {
 
 .close:hover,
 .close:focus {
-    color:#B80C13;
+    color:#d015ed;
     cursor: pointer;
 }
 
@@ -98,7 +98,7 @@ img.login_logo {
 {
   width: 50%;
   margin-left: 25%;
-    background-color: #B80C13;
+    background-color: #d015ed;
     color: white;
     padding: 14px 20px;
 

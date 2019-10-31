@@ -2,7 +2,11 @@
 <header>
 	<nav>
 		<div class="logo">
-			<a href="?pg=1"><img src="media/icons/mainlogo.png" alt="logo" width="120" /></a>
+			<!-- <a href="?route=1"><img src="media/icons/mainlogo.png" alt="logo" width="120" /></a> -->
+			<div class="pic"></div>
+			<span>Beauty Assistant</span>
+			<div class="div1"></div>
+			<div class="div2"></div>
 		</div>
 		<ul class="navigation_ul">
 			<?php
@@ -10,24 +14,35 @@
 			$query = "SELECT `pages_id`, `name` FROM `menu` WHERE `active` = 1";
 			$result = $mysql->query($query);
 			while ($arr = $result->fetch_assoc()) {
-				echo "<li><a href='?pg=" . $arr['pages_id'] . "' class='menu_list'>" . $arr['name'] . "</a></li>";
+				echo "<li><a href='?route=" . $arr['pages_id'] . "' class='menu_list'>" . $arr['name'] . "</a></li>";
 			}
 
 
 		
 
 			if(isset($_SESSION['USER'])){
-				echo '<li class="dropbtn"><div>
+				$query = "SELECT `uid` FROM `users` WHERE `id` = '$_SESSION[USER]'";
+				$res = $mysql->getResult($query);
+				echo '<li class="dropbtn fullscreen">
+				<div>
 				<span class="in " href="#"  >'.$_SESSION['USER_NAME'].'</span>
-				  <div class="dropdown-content">
-					<a  href="#" class="">ჩემი კაბინეტი</a>
-					<a href="#" class="" id="logout">გასვლა</a>
-				</div> 
-				</div></li>';
+				  	<div class="dropdown-content">
+						<a  href="?route=7&uid='.$res.'" class="">ჩემი კაბინეტი</a>
+						<a href="#" class="" id="logout">გასვლა</a>
+					</div> 
+				</div></li>
+				<li class="mobile_li">
+						<a  href="?route=7&uid='.$res.'" class="">ჩემი კაბინეტი</a>
+				
+				</li>
+				<li class="mobile_li">
+						<a href="#" class="" id="logout">გასვლა</a>
+				
+				</li>';
 			}
 			else{
 				echo '<li class="dropbtn"><div>
-				<span class="in menu_list" id="login" href="#"  >შესვლა</span>
+				<span class="in" id="login" href="#"  >შესვლა</span>
 				 
 				</div></li>';
 
@@ -47,5 +62,9 @@
 		</ul>
 		<p class="clear"></p>
 	</nav>
-
+	<div class="container-hamburger" onclick="hamburger(this)">
+		<div class="bar1"></div>
+		<div class="bar2"></div>
+		<div class="bar3"></div>
+	</div>
 </header>

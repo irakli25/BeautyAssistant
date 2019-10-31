@@ -27,3 +27,5 @@ class Page
 		echo "</div>";
 	}
 }
+
+?>

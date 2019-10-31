@@ -5,6 +5,21 @@ $(document).ready(function (){
  
 })
 
+function hamburger(x) {
+  var width = $(".navigation_ul").css("width");
+  access = $(".container-hamburger").css("display") == "none" ? false : true;
+  if(access){
+    if(width == "9px"){
+      $(".navigation_ul").css("display","flex");
+      $(".navigation_ul").css("width","50%");
+    }
+    else {
+      $(".navigation_ul").css("width","0");
+      $(".navigation_ul").toggle();
+    }
+    x.classList.toggle("change");
+}
+}
 
 function animate(n=0){
   var services = $(".services div");

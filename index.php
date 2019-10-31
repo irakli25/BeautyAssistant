@@ -14,6 +14,7 @@ session_start();
     <meta name="description" content="Beauty and Fashion">
     <meta name="keywords" content="HTML,CSS,XML,JavaScript">
     <meta name="author" content="Irakli Tabukashvili">
+    <meta name="theme-color" content="#d015ed" />
     <?php echo get_css();?>
     <?php echo get_js();?>
     <title>Beauty Assistant</title>
@@ -21,16 +22,16 @@ session_start();
 <body>
     <?php
 
-    if(isset($_REQUEST["pg"])){
-        $pg=$_REQUEST["pg"];
+    if(isset($_REQUEST["route"])){
+        $route=$_REQUEST["route"];
     } else {
-        $pg=1;
+        $route=1;
     }
     // menu
     require_once("front/menu.php");
 
     // content
-    $page=new Page($pg);
+    $page=new Page($route);
     $page->get_page();
 
     // footer

@@ -21,8 +21,24 @@ $type = $_REQUEST['type'];
             $error = "მომხმარებელი ამ ელფოსტით უკვე არსებობს !";
         }
         else{
+
+            if($type == "1"){
+                $query = "SELECT SUBSTRING(MD5(now()), 1, 3) AS `md`";
+                $result = $db->query($query);
+                $result1 = $result->fetch_assoc();
+                $query =  "SELECT SUBSTRING(MD5('$email'), 1, 3) AS `md`";
+                $result = $db->query($query);
+                $result2 = $result->fetch_assoc();
+                $uid = $result1['md'].'$'.$result2['md'];
+
+            }
+            else{
+                $uid = 'client'; 
+            }
+
             $query = "INSERT INTO users
                     SET `datetime` = NOW(),
+                        `uid`      = '$uid',
                         `user_type_id` = '$type',
                         `name`  = '$name',
                         `surname`  = '$surname',

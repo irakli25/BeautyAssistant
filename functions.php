@@ -9,6 +9,7 @@ function get_css(){
             <link rel='stylesheet' href='css/menu.css?v=".$rand."'>
             <link rel='stylesheet' href='front/home/home.css?v=".$rand."'>
             <link rel='stylesheet' href='front/login/login.css?v=".$rand."'>
+            <link rel='stylesheet' href='front/profile/profile.css?v=".$rand."'>
 
 
             ";
@@ -21,6 +22,8 @@ function get_js(){
             <script src='js/jquery-ui.min.js'></script>
             <script src='js/scripts.js?v=".$rand."'></script>
             <script src='front/home/home.js?v=".$rand."'></script>
+            <script src='front/profile/profile.js?v=".$rand."'></script>
+            <script src='js/fa.js' crossorigin='anonymous'></script>
            ";
     return $js;
 }

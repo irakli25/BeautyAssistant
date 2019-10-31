@@ -1,0 +1,90 @@
+.container_profile {
+    position: relative;
+    top: 170px;
+    left: 12%;
+}
+
+.row-wrapper {
+    width: 100%;
+    margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: 10% 48% 4% 4%;
+}
+
+.row-wrapper span {
+    font-size: 20px;
+    margin-right: 40px;
+}
+
+.row-wrapper input , .phone-grid-in input{
+    width: 400px;
+    border: 1px solid #d015ed;
+    border-radius: 12px;
+    padding-left: 12px;
+    padding: 10px;
+    height: 35px;
+    margin-left: 50px;
+}
+
+.edit {
+    background: #d015ed;
+    color: #FFF;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.done {
+    background: #008000;
+    color: #FFF;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.user-pic-wrap{
+    top: -40px;
+    position: relative;
+}
+
+.user-pic{
+    background-image: url(https://c.tribune.com.pk/2019/05/1966896-rabua-1557142904.png);
+    background-color: #cccccc;
+    height: 200px;
+    width: 200px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    border: 2px solid #FFF;/*#d015ed;*/
+    padding:5px;
+
+}
+
+.info-grid{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 50% 50%;
+    width: 100%;
+}
+
+.phone-grid{
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: 20%;
+    grid-gap: 22px;
+}
+
+.phone-grid-in{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 8% 48% 4%;
+}
+
+.add {
+    background: #008;
+    color: #FFF;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+}
