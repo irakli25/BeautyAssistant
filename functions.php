@@ -10,7 +10,11 @@ function get_css(){
             <link rel='stylesheet' href='front/home/home.css?v=".$rand."'>
             <link rel='stylesheet' href='front/login/login.css?v=".$rand."'>
             <link rel='stylesheet' href='front/profile/profile.css?v=".$rand."'>
-
+            
+            <!-- Kendo UI -->
+            <link rel='stylesheet' href='js/kendo/styles/kendo.common-material.min.css'/>
+            <link rel='stylesheet' href='js/kendo/styles/kendo.custom.css'/>
+            <link rel='stylesheet' href='js/kendo/styles/kendo.default-v2.min.css'/>
 
             ";
 
@@ -24,6 +28,9 @@ function get_js(){
             <script src='front/home/home.js?v=".$rand."'></script>
             <script src='front/profile/profile.js?v=".$rand."'></script>
             <script src='js/fa.js' crossorigin='anonymous'></script>
+
+            <!-- Kendo UI -->
+            <script src='js/kendo/js/kendo.all.min.js'></script>
            ";
     return $js;
 }

@@ -185,33 +185,6 @@
   display:none!important;
 }
 
-.news_wrapper::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    background-color: #F5F5F5;
-    border-radius:90%;
-}
-
-.news_wrapper::-webkit-scrollbar
-{
-	width: 7px;
-    background-color: #F5F5F5;
-    border-radius:90%;
-    
-}
-.news_wrapper::-webkit-scrollbar-thumb
-{
-    border-radius:90%;
-	background-color: #d015ed;	
-	background-image: -webkit-linear-gradient(45deg,
-	                                          rgba(255, 255, 255, .2) 25%,
-											  transparent 25%,
-											  transparent 50%,
-											  rgba(255, 255, 255, .2) 50%,
-											  rgba(255, 255, 255, .2) 75%,
-											  transparent 75%,
-											  transparent)
-}
 
 
 

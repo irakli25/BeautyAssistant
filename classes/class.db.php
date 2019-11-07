@@ -21,14 +21,16 @@
  * License URI:       https://opensource.org/licenses/MIT
  */
 
+require_once 'class.settings.php';
+
 class DB
 {
     // DB Connection Settings
-    private $db_name    = 'CYiQ9q0mlT';
-    private $db_user    = 'CYiQ9q0mlT';
-    private $db_pass    = 'WwJGh6iQc8';
-    private $db_host    = 'remotemysql.com';
-    private $db_charset = 'utf8mb4';
+    private $db_name    = Settings::DB_NAME;
+    private $db_user    = Settings::DB_USER;
+    private $db_pass    = Settings::DB_PASS;
+    private $db_host    = Settings::DB_HOST;
+    private $db_charset = Settings::DB_CHARSET;
 
     // Debug Settings
     public $debug          = true;

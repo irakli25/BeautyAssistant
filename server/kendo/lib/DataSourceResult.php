@@ -317,7 +317,7 @@ class DataSourceResult {
 
         $where = $this->where($properties, $filter, $all);
 
-        return  $where!="" ? " WHERE $where AND actived = 1 AND ".$properties[1]." is not null " : " WHERE actived = 1 AND ".$properties[1]." is not null ";
+        return  $where!="" ? " WHERE $where AND active = 1 AND ".$properties[1]." is not null " : " WHERE active = 1 AND ".$properties[1]." is not null ";
     }
 
     private function isDate($value) {
@@ -513,7 +513,7 @@ class DataSourceResult {
             $sql .= $this->filter($properties, $request->filter);
             $sql.=" LIMIT 50 ";
         }
-        else $sql.=" WHERE actived = 1 AND ".$properties[1]." is not null LIMIT 50 ";
+        else $sql.=" WHERE active = 1 AND ".$properties[1]." is not null LIMIT 50 ";
 
         $sort = $this->mergeSortDescriptors($request);
 

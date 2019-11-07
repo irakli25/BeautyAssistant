@@ -2,13 +2,15 @@
 header('Content-Type: text/html; charset=utf-8');
 require_once '../kendo/lib/DataSourceResult.php';
 require_once '../kendo/lib/Kendo/Autoload.php';
+require_once '../../classes/class.settings.php';
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
 
-require_once '../../core.php';
 $sql_details = array(
-	'user' => MYSQLUSER,
-	'pass' => MYSQLPASS,
-	'db'   => MYSQLDB,
-	'host' => MYSQLHOST
+	'user' => settings::DB_USER,
+	'pass' => settings::DB_PASS,
+	'db'   => settings::DB_NAME,
+	'host' => settings::DB_HOST
 );
 
 $id = $_REQUEST['id'];
@@ -35,12 +37,12 @@ $width = $_REQUEST['width'];
 
 							exit;
 						}
-
+						
 						$transport = new \Kendo\Data\DataSourceTransport();
 
 						$read = new \Kendo\Data\DataSourceTransportRead();
 
-						$read->url('server-side/call/filter.php?select_id='.$select_id.'&table_name='.$table_name.'&id='.$id.'&list='.$list.'')
+						$read->url('server/filters/filter.php?select_id='.$select_id.'&table_name='.$table_name.'&id='.$id.'&list='.$list.'')
 							->contentType('application/json')
 							->type('POST');
 

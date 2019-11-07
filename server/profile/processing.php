@@ -15,7 +15,7 @@ if($uid == "client"){
 
 }
 else{
-    $profile = new Staff($uid);
+    $profile = new Staff($db,$uid);
 
    echo $profile->getPage();
 }

@@ -79,6 +79,7 @@
     display: grid;
     grid-auto-flow: column;
     grid-auto-columns: 8% 48% 4%;
+    height:25px;
 }
 
 .add {
@@ -87,4 +88,156 @@
     padding: 8px;
     border-radius: 50%;
     cursor: pointer;
+    
 }
+
+.k-content{
+    background-color:transparent!important;
+}
+
+.address-grid{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 20% 20% 20%;
+}
+
+.address-in {
+    line-height:40px;
+}
+
+#corect_address{
+    width:500px;
+}
+
+.main-grid{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 15% 50%;
+}
+
+
+.coin{
+    background-image: url(/media/icons/coin.png);
+    height: 30px;
+    width: 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bautycoin{
+    display:flex;
+}
+
+.bautycoin h4{
+    margin: 10px;
+}
+
+
+.ui-tabs-nav{
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 150px 150px 140px;
+    border-bottom: 1px solid #d015ed;
+    text-decoration: none;
+    list-style: none;
+    outline:0;
+    margin-bottom:50px;
+}
+
+.ui-tabs-nav li {
+    background: #FFF;
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #d015ed;
+    border-radius: 50% 50% 0 0;
+    border-bottom: none;
+    outline:0;
+    transition:0.3s;
+    cursor:pointer;
+}
+
+
+.ui-tabs-nav li a {
+    text-decoration: none;
+    outline:0;
+}
+
+.ui-tabs-nav li.ui-state-active{
+    background:#d015ed;
+    color:#FFF;
+}
+
+.ui-tabs-nav li:hover{
+    background:#d015ed;
+    color:#FFF;
+}
+
+
+.ui-tabs-nav li.ui-state-active a{
+
+    color:#FFF;
+}
+
+.ui-tabs-nav li:hover a{
+
+    color:#FFF;
+}
+
+#add_info{
+    margin: 0px;
+    height: 200px;
+    width: 1255px;
+}
+
+.per-info {
+
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 100px 100px;
+    line-height: 10px;
+    margin-bottom: 15px;
+}
+
+.portfolio_wrap{
+    height: 400px;
+    width: 80%;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 20%;
+    grid-template-rows: 50% repeat(2, 50%);
+    grid-gap: 1%;
+    overflow: auto;
+}
+
+.portfolio-add{
+    display: flex;
+    justify-content: center;
+    padding-top: 26%;
+    border: 2px solid #d015ed;
+    border-radius: 18px;
+    cursor: pointer;
+}
+.portfolio-add i {
+    font-size: 25px;
+    color: #d015ed;
+}
+
+.portfolio-pic{
+    border: 2px solid #d015ed;
+    border-radius: 18px;
+    background-image: url(https://www.istudy.org.uk/wp-content/uploads/2017/11/shutterstock_136867901-1.jpg);
+    background-color: #cccccc;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+
+
+
+
+
+
+
