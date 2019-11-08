@@ -11,9 +11,21 @@
     grid-template-columns: 10% 48% 4% 4%;
 }
 
-.row-wrapper span {
-    font-size: 20px;
-    margin-right: 40px;
+.k-multiselect-wrap .k-select{
+    position:relative!important;
+}
+
+.k-multiselect-wrap .k-button{
+    border-radius:0!important;
+}
+
+
+.districts-grid{
+    bottom: -70px;
+    position: absolute;
+    display: grid;
+    grid-gap: 15px;
+    grid-auto-flow: row;
 }
 
 .row-wrapper input , .phone-grid-in input{

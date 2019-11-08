@@ -105,6 +105,7 @@ class Staff {
                                         
                                         ).'
                                     </div>
+                                    
                                 </div> 
                                 <div class="phone-grid">
                                         
@@ -127,6 +128,20 @@ class Staff {
                                                 <i class="fas fa-plus"></i>
                                             </button> 
                                         </div>
+                                </div>
+                                <div class="districts-grid">
+                                    <div><span>უბნები</span> </div>
+                                    <div class=" districts">
+                                            
+                                            '.( $this->isuser ? 
+                                                    ' <div>
+                                                            <select id="district_multi" ></select>
+                                                        </div>' 
+                                                        
+                                                        : ''
+                                            
+                                            ).'
+                                    </div>
                                 </div>
                         </div>
 
