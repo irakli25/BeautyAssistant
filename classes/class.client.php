@@ -9,17 +9,18 @@ class Client {
   protected $name;
   protected $surname;
   protected $email;
+  protected $birthday;
 
   function __construct ($db){
       $this->id = $_SESSION['USER'];
       $this->db = $db;
 
-      $res =  $db->getResults("SELECT `name`, `surname`, `email` FROM `users` WHERE id = $this->id LIMIT 1");
+      $res =  $db->getResults("SELECT `name`, `surname`, `email`, `birthday` FROM `users` WHERE id = '$this->id' LIMIT 1");
       $arr = $res[0];
       $this->name = $arr['name'];
       $this->surname = $arr['surname'];
       $this->email   = $arr['email'];
-
+      $this->birthday = $arr['birthday'];
 
   }
 
@@ -49,63 +50,64 @@ class Client {
                                 <div>
                                     <div class="row-wrapper">
                                         <span>სახელი</span> 
-                                        <input type="text" value="'.$this->name.'" /> 
-                                        <button class="edit">
+                                        <input id="name" type="text" value="'.$this->name.'" readonly/> 
+                                        <button class="edit" target="name"   title="ჩასწორება">
                                             <i class="fas fa-pencil-alt"></i>
                                         </button> 
-                                        <button class="done">
+                                        <button class="done" target="name"   title="შენახვა">
                                             <i class="fas fa-check"></i>
-                                        </button>
+                                        </button> 
                                         
                                     </div>
                                     <div class="row-wrapper">
                                         <span>გვარი</span> 
-                                        <input type="text" value="'.$this->surname.'" />
-                                        <button class="edit">
+                                        <input id="surname" type="text" value="'.$this->surname.'" readonly/>
+                                        <button class="edit" target="surname"   title="ჩასწორება">
                                             <i class="fas fa-pencil-alt"></i>
                                         </button> 
-                                        <button class="done">
+                                        <button class="done" target="surname"   title="შენახვა">
                                             <i class="fas fa-check"></i>
                                         </button>
                                     </div>
                                     <div class="row-wrapper">
                                         <span>ელფოსტა</span>  
-                                        <input type="text" value="'.$this->email.'" />
-                                        <button class="edit">
+                                        <input id="email" type="text" value="'.$this->email.'" readonly/>
+                                        <button class="edit" target="email"   title="ჩასწორება">
                                             <i class="fas fa-pencil-alt"></i>
                                         </button> 
-                                        <button class="done">
+                                        <button class="done" target="email"    title="შენახვა">
                                             <i class="fas fa-check"></i>
                                         </button>
                                     </div>
                                     <div class="row-wrapper">
                                         <span>დაბადების თარიღი</span>  
-                                        <input type="text" value="" />
-                                        <button class="edit">
+                                        <input id="birthday" type="text" value="" class="datepicker"  readonly/>
+                                        <input type="hidden" id="hidden_birth" value="'.$this->birthday.'" />
+                                        <button class="edit" target="birthday"   title="ჩასწორება">
                                             <i class="fas fa-pencil-alt"></i>
                                         </button> 
-                                        <button class="done">
+                                        <button class="done" target="birthday"   title="შენახვა">
                                             <i class="fas fa-check"></i>
-                                        </button>
+                                        </button> 
                                     </div>
                                 </div> 
                                 <div class="phone-grid">
-                                        
+                                <span>ტელეფონი</span>
                                         <div class="phone-grid-in">
-                                            <span>ტელეფონი</span> <input type="text" value="'.$this->email.'" />
+                                             <input type="text" value="'.$this->email.'" />
                                             <button class="add">
                                                 <i class="fas fa-plus"></i>
                                             </button> 
                                             
                                         </div>
                                         <div class="phone-grid-in">
-                                            <span></span><input type="text" value="'.$this->email.'" />
+                                            <input type="text" value="'.$this->email.'" />
                                             <button class="add">
                                                 <i class="fas fa-plus"></i>
                                             </button> 
                                         </div>
                                         <div class="phone-grid-in">
-                                            <span></span><input type="text" value="'.$this->email.'" />
+                                            <input type="text" value="'.$this->email.'" />
                                             <button class="add">
                                                 <i class="fas fa-plus"></i>
                                             </button> 

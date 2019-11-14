@@ -80,7 +80,7 @@ class DB
 
             $string = "[" . date("Y-m-d h:i:s A T") . "]" . "\t$query\n";
             // appends to file, creates if doesn't exist
-            file_put_contents($this->log_path, $string, FILE_APPEND | LOCK_EX);
+            // file_put_contents($this->log_path, $string, FILE_APPEND | LOCK_EX);
         }
     }
 

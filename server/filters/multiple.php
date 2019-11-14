@@ -3,9 +3,10 @@ header('Content-Type: text/html; charset=utf-8');
 require_once '../kendo/lib/DataSourceResult.php';
 require_once '../kendo/lib/Kendo/Autoload.php';
 require_once '../../classes/class.settings.php';
+require_once "../../classes/class.db.php";
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
+session_start();
 $sql_details = array(
 	'user' => settings::DB_USER,
 	'pass' => settings::DB_PASS,
@@ -43,7 +44,7 @@ $width = $_REQUEST['width'];
 
             $read = new \Kendo\Data\DataSourceTransportRead();
 
-            $read->url('server/filters/filter.php?select_id='.$select_id.'&table_name='.$table_name.'&id='.$id.'&list='.$list.'')
+            $read->url('server/filters/multiple.php?select_id='.$select_id.'&table_name='.$table_name.'&id='.$id.'&list='.$list.'&width='.$width)
                 ->contentType('application/json')
                 ->type('POST');
 
@@ -70,7 +71,7 @@ $width = $_REQUEST['width'];
             $multiselect->dataSource($dataSource)
                         ->dataTextField($list)
                         ->dataValueField($id)
-                        ->value(array(array("ProductName"=>"Chang","ProductID"=>"2"),array("ProductName"=>"Uncle Bob's Organic Dried Pears","ProductID"=>"7")))
+                        ->value(get_val($table_name))
                         ->autoBind(false)
                         ->filter('contains')
                         ->ignoreCase(false)
@@ -88,5 +89,23 @@ $width = $_REQUEST['width'];
 
             echo json_encode($data);
 
+
+    function get_val($table_name){
+        $table = "user_".$table_name;
+        $id = $table_name."_id";
+        $db = new DB();
+        $user_id = $_SESSION['USER'];
+        $arr = array();
+        $query = "SELECT `$id` AS `id` , `$table_name`.`name`
+        FROM `$table` 
+        JOIN `$table_name` ON `$table_name`.id = `$id`
+        WHERE `user_id` = '$user_id'";
+        $res = $db->query($query);
+        while ($r = $res->fetch_assoc()){
+            array_push($arr,array("name"=>$r['name'],"id"=>$r['id']));
+        }
+        
+        return $arr;
+    }
 
 ?>

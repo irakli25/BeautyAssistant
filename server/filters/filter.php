@@ -42,7 +42,7 @@ $width = $_REQUEST['width'];
 
 						$read = new \Kendo\Data\DataSourceTransportRead();
 
-						$read->url('server/filters/filter.php?select_id='.$select_id.'&table_name='.$table_name.'&id='.$id.'&list='.$list.'')
+						$read->url('server/filters/filter.php?select_id='.$select_id.'&table_name='.$table_name.'&id='.$id.'&list='.$list.'&width='.$width)
 							->contentType('application/json')
 							->type('POST');
 

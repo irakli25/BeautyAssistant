@@ -31,6 +31,8 @@ function get_js(){
 
             <!-- Kendo UI -->
             <script src='js/kendo/js/kendo.all.min.js'></script>
+            <script src='js/kendo/js/cultures/kendo.culture.ka-GE.min.js'></script>
+
            ";
     return $js;
 }

@@ -52,6 +52,7 @@
     padding: 8px;
     border-radius: 50%;
     cursor: pointer;
+    display:none;
 }
 
 .user-pic-wrap{
@@ -83,19 +84,28 @@
 .phone-grid{
     display: grid;
     grid-auto-flow: row;
-    grid-auto-rows: 20%;
+    grid-auto-rows: 15%;
     grid-gap: 22px;
 }
 
 .phone-grid-in{
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: 8% 48% 4%;
+    grid-auto-columns: 48% 4%;
     height:25px;
 }
 
 .add {
     background: #008;
+    color: #FFF;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    
+}
+
+.delete {
+    background: #e02e0d;
     color: #FFF;
     padding: 8px;
     border-radius: 50%;
@@ -138,7 +148,9 @@
 }
 
 .bautycoin{
-    display:flex;
+    /* display:flex; */
+    display:none;
+
 }
 
 .bautycoin h4{
@@ -211,13 +223,22 @@
     margin-bottom: 15px;
 }
 
-.portfolio_wrap{
-    height: 400px;
-    width: 80%;
+.staff-info
+{
+
     display: grid;
     grid-auto-flow: column;
+    grid-auto-columns: 130px 100px;
+    line-height: 10px;
+    margin-bottom: 15px;
+}
+.portfolio_wrap{
+    height: 330px;
+    width: 80%;
+    display: grid;
+    grid-auto-flow: row;
     grid-auto-columns: 20%;
-    grid-template-rows: 50% repeat(2, 50%);
+    grid-template-columns: 17% repeat(4, 17%);
     grid-gap: 1%;
     overflow: auto;
 }
@@ -225,10 +246,12 @@
 .portfolio-add{
     display: flex;
     justify-content: center;
-    padding-top: 26%;
+    padding-top: 40%;
     border: 2px solid #d015ed;
     border-radius: 18px;
     cursor: pointer;
+    width:250px;
+    height:250px;
 }
 .portfolio-add i {
     font-size: 25px;
@@ -238,18 +261,38 @@
 .portfolio-pic{
     border: 2px solid #d015ed;
     border-radius: 18px;
-    background-image: url(https://www.istudy.org.uk/wp-content/uploads/2017/11/shutterstock_136867901-1.jpg);
     background-color: #cccccc;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
+    background-position: center!important;
+    background-repeat: no-repeat!important;
+    background-size: cover!important;
+    width:250px;
+    height:250px;
 }
 
 
+.datepicker{
+
+    width: 85%!important;
+    border: 1px solid #d015ed;
+    border-radius: 12px!important;
+    margin-left: 52px;
+}
 
 
+.datepicker .k-picker-wrap {
+    border-radius: 12px!important;
+    border: 1px solid #d015ed!important;
+    margin: 3px!important;
+}
 
+
+.datepicker .k-select{
+    border-radius: 12px!important;
+}
+
+[type="file"]{
+    display:none;
+}
 
 
 
