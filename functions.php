@@ -27,7 +27,7 @@ function get_js(){
             <script src='js/scripts.js?v=".$rand."'></script>
             <script src='front/home/home.js?v=".$rand."'></script>
             <script src='front/profile/profile.js?v=".$rand."'></script>
-            <script src='js/fa.js' crossorigin='anonymous'></script>
+            <script src='fontawesome/js/all.js'></script>
 
             <!-- Kendo UI -->
             <script src='js/kendo/js/kendo.all.min.js'></script>

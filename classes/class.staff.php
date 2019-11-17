@@ -38,6 +38,7 @@ class Staff {
             <div class="main-grid">
                 <div class="user-pic-wrap">
                     <div class="user-pic"></div>
+                    <div class="change_user_pic"></div>
                 </div>
                 <div >
                     <h1>'.$this->name.' '.$this->surname.'</h1>
@@ -123,7 +124,7 @@ class Staff {
                                                             <select id="district_multi" ></select>
                                                         </div>' 
                                                         
-                                                        : ''
+                                                        : $this->get_district()
                                             
                                             ).'
                                     </div>
@@ -158,8 +159,10 @@ class Staff {
             <div id="id3">
                 <div class="portfolio_wrap">
                     
-                    '.$this->get_portfolio().'
-                    <div id ="up_pic_port" class="portfolio-add" ><i class="fa fa-plus-circle"></i></div>
+                    '.$this->get_portfolio().
+                    ( $this->isuser ?
+                    '<div id ="up_pic_port" class="portfolio-add" ><i class="fa fa-plus-circle"></i></div>' : ''
+                    ).'
                 </div>
             </div>
             <!-- END id3 -->
@@ -184,13 +187,14 @@ class Staff {
     while($result = $res->fetch_assoc()){
         $html.='<div class="phone-grid-in">
                     <input type="text" value="'.$result['phone'].'" readonly/>
+                    '.( $this->isuser ? '
                         <button class="delete" title="წაშლა" row_id = "'.$result['id'].'" >
                             <i class="fas fa-minus"></i>
-                        </button> 
-                </div>';
+                        </button> ' : '' ).
+                '</div>';
         $i++;
     }
-    if($i<3){
+    if($i<3 && $this->isuser ){
         $html .= '<div class="phone-grid-in">
                     <input type="text" value="" maxlength="9"/>
                     <button class="add" title="დამატება">
@@ -213,6 +217,21 @@ class Staff {
     while($result = $res->fetch_assoc()){
         $html .= '<div class="portfolio-pic" style="background-image:url(\'server/uploads/'.$result['rand_name'].'\')"></div>';
     }
+    return $html;
+  }
+
+  function get_district() {
+    $html = "<div>";
+    $mysql = $this->db;
+    $query = "SELECT  `district`.`name` 
+                    FROM user_district
+                    JOIN district On district.id = user_district.district_id
+                    WHERE user_district.user_id = $this->id";
+    $res = $mysql->query($query);
+    while($result = $res->fetch_assoc()){
+        $html .= "<span> ".$result['name'].", </span>";
+    }
+    $html .="</div>";
     return $html;
   }
 

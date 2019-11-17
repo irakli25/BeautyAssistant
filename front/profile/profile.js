@@ -17,7 +17,7 @@ $(document).ready(function ()
             var hear                =   new filter("hear","street","id","name");
             var skin                =   new filter("skin","street","id","name");
             var district_multi      =   new multiSelect("district_multi","district","id","name","1550px");
-            var experince           =   new multiSelect("experience","street","id","name","1550px");
+            var experince           =   new multiSelect("experience","experience","id","name","1550px");
             var val = "";
             $(".datepicker").kendoDatePicker({
                 culture: "ka-GE",

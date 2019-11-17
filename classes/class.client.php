@@ -15,8 +15,9 @@ class Client {
       $this->id = $_SESSION['USER'];
       $this->db = $db;
 
-      $res =  $db->getResults("SELECT `name`, `surname`, `email`, `birthday` FROM `users` WHERE id = '$this->id' LIMIT 1");
+      $res =  $db->getResults("SELECT `id`,`name`, `surname`, `email`, `birthday` FROM `users` WHERE id = '$this->id' AND `uid` = 'client' LIMIT 1");
       $arr = $res[0];
+      $this->id = $arr['id'];
       $this->name = $arr['name'];
       $this->surname = $arr['surname'];
       $this->email   = $arr['email'];
@@ -25,7 +26,8 @@ class Client {
   }
 
   function getPage(){
-        return '
+
+      if($this->id != "")  return '
         <div>
             <div class="main-grid">
                 <div class="user-pic-wrap">
