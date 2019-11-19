@@ -8,6 +8,8 @@ class Staff {
   protected $surname;
   protected $email;
   protected $birthday;
+  protected $img;
+  protected $about;
 
 
   protected $isuser;
@@ -22,12 +24,15 @@ class Staff {
       
 
 
-      $res =  $db->getResults("SELECT `name`, `surname`, `email`, `birthday` FROM `users` WHERE id = $this->id LIMIT 1");
+      $res =  $db->getResults("SELECT `name`, `surname`, `email`, `birthday`,`img`, about FROM `users` WHERE id = $this->id LIMIT 1");
       $arr = $res[0];
       $this->name      = $arr['name'];
       $this->surname   = $arr['surname'];
       $this->email     = $arr['email'];
       $this->birthday  = $arr['birthday'];
+      $this->img       = $arr['img'];
+      $this->about       = $arr['about'];
+
 
 
   }
@@ -37,22 +42,69 @@ class Staff {
         <div>
             <div class="main-grid">
                 <div class="user-pic-wrap">
-                    <div class="user-pic"></div>
-                    <div class="change_user_pic"></div>
+                    <div class="user-pic" style="background-image:url('.$this->get_img().')"> '.( $this->isuser ? ' 
+                        <div class="change_user_pic"><i class="fas fa-camera"></i></div> ' : '' ) . ' 
+                    </div>
+                    
                 </div>
                 <div >
                     <h1>'.$this->name.' '.$this->surname.'</h1>
                    
                 </div>
             </div>
+
+                                        <div class="container">
+                                    
+
+                                        
+                                        <section class="main">
+                                        
+                                            <div id="sb-container" class="sb-container">
+                                            
+                                                <div class ="tab-selector" tab = "id1" >
+                                                    <span class="sb-icon "><i class="fas fa-home"></i></span>
+                                                    <h4>პროფილი</h4>
+                                                </div>
+
+                                                <div class ="tab-selector" tab = "id2" >
+                                                    <span class="sb-icon "><i class="far fa-user"></i></span>
+                                                    <h4>ჩემს შესახებ</h4>
+                                                </div>
+
+                                                <div class ="tab-selector" tab = "id3" >
+                                                    <span class="sb-icon "><i class="fas fa-images"></i></span>
+                                                    <h4>პორტფოლიო</h4>
+                                                </div>
+
+
+                                                <div class ="tab-selector" tab = "id4" >
+                                                    <span class="sb-icon "><i class="fas fa-history"></i></span>
+                                                    <h4>ისტორია</h4>
+                                                </div>
+                                                
+                                                <div class ="tab-selector" tab = "id1" >
+                                                    <h4><span>Profile</span></h4>
+                                                    <span class="sb-toggle">დააჭირე</span>
+                                                    <h5><span>გადაშალე &hearts; </span></h5>											
+                                                </div>
+                                                
+                                                
+                                            </div><!-- sb-container -->
+                                            
+                                        </section>
+                                        
+                                    </div>
+
+
+
+
+
+
+
+
             <div id="tabs">
-                <ul>
-                    <li><a href="#id1">პროფილი</a></li>
-                    <li><a href="#id2">ჩემს შესახებ</a></li>
-                    <li><a href="#id3">პორტფოლიო</a></li>
-                    <li><a href="#id4">ისტორია</a></li>
-                </ul>
-            <div id="id1">
+                
+            <div id="id1" class="tab">
                         <div class="info-grid">
                                 <div>
                                     <div class="row-wrapper">
@@ -136,7 +188,7 @@ class Staff {
             </div>
             <!-- END id1 -->
 
-            <div id="id2">
+            <div id="id2" class="tab">
                 <div class="staff-info">
                     <label for="experience" style="margin-top:12px" >გამოცდილება</label>
                     <span>
@@ -148,15 +200,21 @@ class Staff {
 
                 <div>
                     <kendo-textbox-container  floatingLabel="First name" >
-                        <textarea id="add_info" placeholder="დაამატე ინფორმაცია" kendoTextArea></textarea>
+                        <textarea id="about" placeholder="დაამატე ინფორმაცია"  kendoTextArea readonly >'.$this->about.'</textarea>
+                        <button class="edit" target="about"   title="ჩასწორება">
+                            <i class="fas fa-pencil-alt"></i>
+                        </button> 
+                        <button class="done" target="about"   title="შენახვა">
+                            <i class="fas fa-check"></i>
+                        </button> 
                     </kendo-textbox-container>
-                
+                    
                 </div>
 
             
             </div >
             <!-- END id2 -->
-            <div id="id3">
+            <div id="id3" class="tab">
                 <div class="portfolio_wrap">
                     
                     '.$this->get_portfolio().
@@ -167,12 +225,13 @@ class Staff {
             </div>
             <!-- END id3 -->
 
-            <div id="id4">
+            <div id="id4" class="tab">
             
             </div>
             <!-- END id4 -->
         </div>
         <input id="uploader" type="file" name="up_pic" />
+        <input id="uploader_user_pic" type="file" name="uploader_user_pic" />
         <input type="hidden" id="user_id" value="'.$this->id.'" />
         
         ';
@@ -233,6 +292,13 @@ class Staff {
     }
     $html .="</div>";
     return $html;
+  }
+
+  function get_img(){
+      $mysql = $this->db;
+      $query = "SELECT `rand_name` FROM `file` WHERE `id` = '$this->img'";
+      $img = $mysql->getResult($query);
+        return 'server/uploads/'.$img;
   }
 
 }

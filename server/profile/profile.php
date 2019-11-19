@@ -63,6 +63,17 @@ switch($action){
             $db->query($query);
         }
     break;
+
+    case "update_experience" :
+        $ids = $_REQUEST['ids'];
+        $user_id = $_SESSION['USER'];
+        $query = "DELETE FROM `user_experience` WHERE `user_id` = '$user_id'";
+        $db->query($query);
+        foreach($ids as $id){
+            $query = "INSERT INTO `user_experience` SET `experience_id` = '$id', `user_id` = '$user_id', `datetime` = NOW()";
+            $db->query($query);
+        }
+    break;
     case "get_district":
         $user_id = $_REQUEST['user_id'];
         $arr = array();
@@ -89,6 +100,14 @@ switch($action){
         }
         $html .='<div id ="up_pic_port" class="portfolio-add" ><i class="fa fa-plus-circle"></i></div>';
         $data = array("html"=>$html);
+    break;
+
+    case "save_user_pic" :
+        $id = $_REQUEST['id'];
+        $user_id = $_SESSION['USER'];
+        $query = "UPDATE `users` SET `img` = '$id' WHERE id = '$user_id' ";
+        $db->query($query);
+
     break;
 
 

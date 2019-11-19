@@ -11,7 +11,8 @@ $(document).ready(function ()
         success:function(data){
             $("#profile_wrapper").html(data);
             $( "#tabs" ).tabs();
-            $( "#tabs" ).tabs({ active: 0 });
+            // $( "#tabs" ).tabs({ active: 0 });
+            tabs();
             var district              =   new filter("district","district","id","name");
             var street                =   new filter("street","street","id","name");
             var hear                =   new filter("hear","street","id","name");
@@ -34,13 +35,22 @@ $(document).ready(function ()
                  }
                 }
               });
-              
+              $( '#sb-container' ).swatchbook( {
+                // number of degrees that is between each item
+                angleInc : 20,
+                neighbor : 10,
+
+            } );
         }
     })
 })
 
 
+function tabs() {
+    $(".tab").hide();
 
+    $("#id1").show();
+}
 
 
 class filter {
@@ -105,7 +115,7 @@ $(document).on("click", ".edit", function(){
     }
     else {
         $(`#${id}`).prop("readonly",false);
-        $(`#${id}`).val('');
+        $(`#${id}`).not("[kendotextarea]").val('');
         $(`#${id}`).focus();
     }
 
@@ -217,6 +227,12 @@ $(document).on("click","#up_pic_port", function(){
 })
 
 
+$(document).on("click",".tab-selector", function (){
+    $(".tab").hide();
+    var tab = $(this).attr("tab");
+    $(`#${tab}`).show();
+})
+
 $(document).on('change', "#uploader", function() {
     var file_data = $('#uploader').prop('files')[0];   
     var form_data = new FormData();                  
@@ -252,6 +268,17 @@ $(document).on("change","#district_multi", function (){
 
 })
 
+$(document).on("change","#experience", function (){
+    var ids = $(this).val();
+    update_experience(ids);
+
+
+})
+
+
+$(document).on("click",".edit[target='birthday']", function(){
+    $(".k-i-calendar").trigger("click");
+})
 
 function update_district(ids){
     $.ajax({
@@ -270,5 +297,62 @@ function update_district(ids){
 }
 
 
+function update_experience(ids){
+    $.ajax({
+        url:"server/profile/profile.php",
+        data:{
+            act:"update_experience",
+            ids:ids
+        },
+        success:function(data){
+            if(data.error = "")
+                webalert(data.error)
+            else    
+                webalert("ცვლილება შენახულია","success");
+        }
+    })
+}
 
 
+$(document).on("click",".change_user_pic", function(){
+    $("#uploader_user_pic").trigger("click");
+});
+
+$(document).on("change","#uploader_user_pic", function(){
+    var file_data = $('#uploader_user_pic').prop('files')[0];   
+    var form_data = new FormData();                  
+    form_data.append('file', file_data);
+                                
+    $.ajax({
+        url: 'server/upload.php',   
+        data: form_data,
+        cache: false,
+        contentType: false,
+        processData: false,                         
+        success: function(data){
+            $.ajax({
+                url:"server/profile/profile.php",
+                data:{
+                    act:"save_user_pic",
+                    id:data.id
+                },
+                success:function(data_inner){
+                    $(".user-pic").attr("style",`background-image:url(${data.link})`);
+                }
+            })
+        }
+     });
+})
+
+
+
+$(document).on("click",".portfolio-pic", function (){
+    var img = $(this).attr("style");
+    $(".pic_view").attr("style",img);
+    $(".pic_view").show();
+})
+
+$(document).on("click",".pic_view span", function (){
+
+    $(".pic_view").hide();
+})
