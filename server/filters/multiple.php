@@ -4,8 +4,8 @@ require_once '../kendo/lib/DataSourceResult.php';
 require_once '../kendo/lib/Kendo/Autoload.php';
 require_once '../../classes/class.settings.php';
 require_once "../../classes/class.db.php";
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
 session_start();
 $sql_details = array(
 	'user' => settings::DB_USER,
@@ -19,6 +19,7 @@ $id = $_REQUEST['id'];
 $table_name = $_REQUEST['table_name'];
 $list =   $_REQUEST['list'];
 $select_id = $_REQUEST['select_id'];
+$get_val   = $_REQUEST['get_val'];
 
 $width = $_REQUEST['width'];
 
@@ -35,7 +36,7 @@ $width = $_REQUEST['width'];
 
                 );
 
-                echo json_encode($result->read($table_name, array($id, $list), $request,"up"));
+                echo json_encode($result->read($table_name, array($id, $list), $request));
 
                 exit;
             }
@@ -44,7 +45,7 @@ $width = $_REQUEST['width'];
 
             $read = new \Kendo\Data\DataSourceTransportRead();
 
-            $read->url('server/filters/multiple.php?select_id='.$select_id.'&table_name='.$table_name.'&id='.$id.'&list='.$list.'&width='.$width)
+            $read->url('server/filters/multiple.php?select_id='.$select_id.'&table_name='.$table_name.'&id='.$id.'&list='.$list.'&width='.$width.'&get_val='.$get_val)
                 ->contentType('application/json')
                 ->type('POST');
 
@@ -71,7 +72,7 @@ $width = $_REQUEST['width'];
             $multiselect->dataSource($dataSource)
                         ->dataTextField($list)
                         ->dataValueField($id)
-                        ->value(get_val($table_name))
+                        ->value(get_val($table_name,$get_val))
                         ->autoBind(false)
                         ->filter('contains')
                         ->ignoreCase(false)
@@ -90,7 +91,7 @@ $width = $_REQUEST['width'];
             echo json_encode($data);
 
 
-    function get_val($table_name){
+    function get_val($table_name,$get){
         $table = "user_".$table_name;
         $id = $table_name."_id";
         $db = new DB();
@@ -104,8 +105,11 @@ $width = $_REQUEST['width'];
         while ($r = $res->fetch_assoc()){
             array_push($arr,array("name"=>$r['name'],"id"=>$r['id']));
         }
-        
-        return $arr;
+
+        if($get == "1" && sizeof($arr) > 0)
+            return $arr;
+
+        return 0;
     }
 
 ?>

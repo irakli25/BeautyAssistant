@@ -6,8 +6,8 @@ $action = $_REQUEST['act'];
 $Error  = "";
 $data = array();
 $db = new DB();
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
 switch($action){
 
     case "update_user" :
@@ -54,13 +54,46 @@ switch($action){
             $data = array("result" => $result);
     break;
     case "update_district" :
+        $done = false;
         $ids = $_REQUEST['ids'];
         $user_id = $_SESSION['USER'];
         $query = "DELETE FROM `user_district` WHERE `user_id` = '$user_id'";
         $db->query($query);
         foreach($ids as $id){
             $query = "INSERT INTO `user_district` SET `district_id` = '$id', `user_id` = '$user_id', `datetime` = NOW()";
-            $db->query($query);
+            $done = $db->query($query);
+        }
+        if(! $done){
+            $Error =" დაუდგენელი შეცდომა !";
+        }
+    break;
+    case "update_district_user" :
+        $done = false;
+        $id = $_REQUEST['ids'];
+        $user_id = $_SESSION['USER'];
+        $query = "DELETE FROM `user_district` WHERE `user_id` = '$user_id'";
+        $db->query($query);
+
+            $query = "INSERT INTO `user_district` SET `district_id` = '$id', `user_id` = '$user_id', `datetime` = NOW()";
+            $done = $db->query($query);
+
+        if(! $done){
+            $Error =" დაუდგენელი შეცდომა !";
+        }
+    break;
+
+    case "update_street" :
+        $done = false;
+        $id = $_REQUEST['id'];
+        $user_id = $_SESSION['USER'];
+        $query = "DELETE FROM `user_street` WHERE `user_id` = '$user_id'";
+        $db->query($query);
+
+            $query = "INSERT INTO `user_street` SET `street_id` = '$id', `user_id` = '$user_id', `datetime` = NOW()";
+            $done = $db->query($query);
+
+        if(! $done){
+            $Error =" დაუდგენელი შეცდომა !";
         }
     break;
 
@@ -107,6 +140,17 @@ switch($action){
         $user_id = $_SESSION['USER'];
         $query = "UPDATE `users` SET `img` = '$id' WHERE id = '$user_id' ";
         $db->query($query);
+
+    break;
+    case "get_images":
+
+        $query = "SELECT  img, `rand_name`
+                    FROM `users`
+                    JOIN `file` ON `users`.img = `file`.id";
+                    $res = $db->query($query);
+        while($result = $res->fetch_assoc()){
+            $data[$result['img']] = $result['rand_name'];
+        }
 
     break;
 

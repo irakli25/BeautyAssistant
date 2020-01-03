@@ -40,6 +40,27 @@ class Staff {
   function getPage(){
         return '
         <div>
+        <div class="calculator">
+                <label>მომსახურება</label>
+                <div>
+                    <select id="calc_experience" ></select>
+                </div>
+                <label>უბანი</label>
+                <div>
+                    <select id="calc_district" ></select>
+                </div>
+                <label>ასისტენტი</label>
+                <div>
+                    <span>
+                        <select id="calc_profiles" ></select>
+                    </span>
+                </div>
+                <div class="calc_price">
+                    <label>ფასი</label>
+                    <input type="text" style="width:40px" />
+                </div>
+
+            </div>
             <div class="main-grid">
                 <div class="user-pic-wrap">
                     <div class="user-pic" style="background-image:url('.$this->get_img().')"> '.( $this->isuser ? ' 
@@ -53,57 +74,41 @@ class Staff {
                 </div>
             </div>
 
-                                        <div class="container">
-                                    
-
-                                        
-                                        <section class="main">
-                                        
-                                            <div id="sb-container" class="sb-container">
-                                            
-                                                <div class ="tab-selector" tab = "id1" >
-                                                    <span class="sb-icon "><i class="fas fa-home"></i></span>
-                                                    <h4>პროფილი</h4>
-                                                </div>
-
-                                                <div class ="tab-selector" tab = "id2" >
-                                                    <span class="sb-icon "><i class="far fa-user"></i></span>
-                                                    <h4>ჩემს შესახებ</h4>
-                                                </div>
-
-                                                <div class ="tab-selector" tab = "id3" >
-                                                    <span class="sb-icon "><i class="fas fa-images"></i></span>
-                                                    <h4>პორტფოლიო</h4>
-                                                </div>
-
-
-                                                <div class ="tab-selector" tab = "id4" >
-                                                    <span class="sb-icon "><i class="fas fa-history"></i></span>
-                                                    <h4>ისტორია</h4>
-                                                </div>
-                                                
-                                                <div class ="tab-selector" tab = "id1" >
-                                                    <h4><span>Profile</span></h4>
-                                                    <span class="sb-toggle">დააჭირე</span>
-                                                    <h5><span>გადაშალე &hearts; </span></h5>											
-                                                </div>
-                                                
-                                                
-                                            </div><!-- sb-container -->
-                                            
-                                        </section>
-                                        
-                                    </div>
-
-
-
-
-
-
-
-
             <div id="tabs">
-                
+            <ul>
+                <li><a href="#id1" class="shadow">
+                    <div class="tab-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="tab-text">
+                        პროფილი
+                    </div>
+                </a></li>
+                <li><a href="#id2" class="shadow">
+                <div class="tab-icon">
+                        <i class="far fa-user"></i>
+                </div>
+                    <div class="tab-text">
+                        ჩემს შესახებ
+                    </div>
+                </a></li>
+                <li><a href="#id3" class="shadow">
+                    <div class="tab-icon">
+                            <i class="fas fa-images"></i>
+                    </div>
+                    <div class="tab-text">
+                        პორტფოლიო
+                    </div>
+                </a></li>
+                <li><a href="#id4" class="shadow">
+                    <div class="tab-icon">
+                            <i class="fas fa-history"></i>
+                    </div>
+                    <div class="tab-text">
+                        ისტორია
+                    </div>
+                </a></li>
+            </ul>
             <div id="id1" class="tab">
                         <div class="info-grid">
                                 <div>
@@ -191,9 +196,15 @@ class Staff {
             <div id="id2" class="tab">
                 <div class="staff-info">
                     <label for="experience" style="margin-top:12px" >გამოცდილება</label>
-                    <span>
-                        <select id="experience" ></select>
-                    </span>
+                    
+                    '.( $this->isuser ? 
+                    ' <span>
+                            <select id="experience" ></select>
+                        </span>' 
+                        
+                        : $this->get_experience()
+            
+            ).'
                 
                 </div>
                 
@@ -286,6 +297,21 @@ class Staff {
                     FROM user_district
                     JOIN district On district.id = user_district.district_id
                     WHERE user_district.user_id = $this->id";
+    $res = $mysql->query($query);
+    while($result = $res->fetch_assoc()){
+        $html .= "<span> ".$result['name'].", </span>";
+    }
+    $html .="</div>";
+    return $html;
+  }
+
+  function get_experience() {
+    $html = "<div>";
+    $mysql = $this->db;
+    $query = "SELECT  `experience`.`name` 
+                    FROM user_experience
+                    JOIN experience On experience.id = user_experience.experience_id
+                    WHERE user_experience.user_id = $this->id";
     $res = $mysql->query($query);
     while($result = $res->fetch_assoc()){
         $html .= "<span> ".$result['name'].", </span>";

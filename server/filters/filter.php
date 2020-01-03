@@ -3,9 +3,10 @@ header('Content-Type: text/html; charset=utf-8');
 require_once '../kendo/lib/DataSourceResult.php';
 require_once '../kendo/lib/Kendo/Autoload.php';
 require_once '../../classes/class.settings.php';
+require_once "../../classes/class.db.php";
 // error_reporting(E_ALL);
 // ini_set('display_errors', 1);
-
+session_start();
 $sql_details = array(
 	'user' => settings::DB_USER,
 	'pass' => settings::DB_PASS,
@@ -17,7 +18,7 @@ $id = $_REQUEST['id'];
 $table_name = $_REQUEST['table_name'];
 $list =   $_REQUEST['list'];
 $select_id = $_REQUEST['select_id'];
-
+$where = $_REQUEST['where'];
 $width = $_REQUEST['width'];
 
 						if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -33,7 +34,7 @@ $width = $_REQUEST['width'];
 
 							);
 
-							echo json_encode($result->read($table_name, array($id, $list), $request,"up"));
+							echo json_encode($result->read($table_name, array($id, $list), $request,"first",$where));
 
 							exit;
 						}
@@ -42,7 +43,7 @@ $width = $_REQUEST['width'];
 
 						$read = new \Kendo\Data\DataSourceTransportRead();
 
-						$read->url('server/filters/filter.php?select_id='.$select_id.'&table_name='.$table_name.'&id='.$id.'&list='.$list.'&width='.$width)
+						$read->url('server/filters/filter.php?select_id='.$select_id.'&table_name='.$table_name.'&id='.$id.'&list='.$list.'&width='.$width.'&where='.$where)
 							->contentType('application/json')
 							->type('POST');
 
@@ -64,7 +65,7 @@ $width = $_REQUEST['width'];
 						$dropDownList = new \Kendo\UI\DropDownList($select_id);
 
 						$dropDownList->dataSource($dataSource)
-									->value(0)
+									->value(get_val($table_name))
 									->dataTextField($list)
 									->dataValueField($id)
 									->filter('contains')
@@ -76,9 +77,32 @@ $width = $_REQUEST['width'];
 								
 								'. $dropDownList->render().'
 								
-								</div></body>',"element_id" =>$select_id);
+								</div></body>',"element_id" =>$select_id,"where"  => $where);
 
 
-                                echo json_encode($data);
+								echo json_encode($data);
+								
+
+
+	function get_val($table_name){
+		$table = "user_".$table_name;
+		$id = $table_name."_id";
+		$db = new DB();
+		$user_id = $_SESSION['USER'];
+		$arr = array();
+		$query = "SELECT `$id` AS `id` , `$table_name`.`name`
+		FROM `$table` 
+		JOIN `$table_name` ON `$table_name`.id = `$id`
+		WHERE `user_id` = '$user_id' LIMIT 1";
+		$res = $db->query($query);
+		$arr = $res->fetch_assoc();
+
+		if($arr['id'] != '') return $arr['id'];
+
+
+		return 0;
+	}
+
+
 
 ?>

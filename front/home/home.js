@@ -2,6 +2,7 @@
 $(document).ready(function (){
 
   animate ();
+  get_staff();
  
 })
 
@@ -43,3 +44,18 @@ function animate(n=0){
   }, 1000);
   
 }
+
+function get_staff(){
+    $.ajax({
+      url:"server/server.php",
+      data:{
+        act:'get_list_staff'
+      },
+      success:function(data){
+        $(".profile_wrapper").html(data.html);
+        $(".profile_wrapper").css("height","70vh");
+      }
+    })
+}
+
+

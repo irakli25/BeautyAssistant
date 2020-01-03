@@ -172,6 +172,14 @@
     background-size: cover;
 }
 
+[background]{
+    background-position: center!important;
+    background-repeat: no-repeat!important;
+    background-size: cover!important;
+    margin: 10px;
+    margin-right: 20px;
+}
+
 .bautycoin{
     /* display:flex; */
     display:none;
@@ -186,52 +194,40 @@
 .ui-tabs-nav{
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: 150px 150px 140px;
-    border-bottom: 1px solid #d015ed;
     text-decoration: none;
     list-style: none;
-    outline:0;
-    margin-bottom:50px;
-}
+    outline: 0;
+    margin-bottom: 50px;
+    width: 800px;
+    grid-gap: 10px;
 
-.ui-tabs-nav li {
-    background: #FFF;
-    text-align: center;
-    padding: 10px;
-    border: 1px solid #d015ed;
-    border-radius: 50% 50% 0 0;
-    border-bottom: none;
-    outline:0;
-    transition:0.3s;
-    cursor:pointer;
 }
-
 
 .ui-tabs-nav li a {
+    background: orange;
+    text-align: center;
+    border-radius: 15px 0 15px 0;
+    border-bottom: none;
+    outline: 0;
+    transition: 0.3s;
+    cursor: pointer;
     text-decoration: none;
-    outline:0;
+    outline: 0;
+    display: flex;
+    color: #333;
+    font-weight: bold;
 }
-
-.ui-tabs-nav li.ui-state-active{
-    background:#d015ed;
-    color:#FFF;
-}
-
-.ui-tabs-nav li:hover{
-    background:#d015ed;
-    color:#FFF;
-}
-
 
 .ui-tabs-nav li.ui-state-active a{
+    color:#FFF;
+}
+
+.ui-tabs-nav li a:hover{
 
     color:#FFF;
 }
 
-.ui-tabs-nav li:hover a{
 
-    color:#FFF;
-}
 
 #about{
     margin: 0px;
@@ -257,7 +253,7 @@
 
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: 130px 100px;
+    grid-auto-columns: 130px 500px;
     line-height: 10px;
     margin-bottom: 15px;
 }
@@ -346,7 +342,19 @@
     -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
-
+ #profile_wrapper .calculator {
+    height: auto;
+    width: 450px;
+    background: #FFF;
+    position: absolute;
+    top: 0;
+    right: 510px;
+    padding: 20px;
+    border: 2px solid #d015ed;
+    border-radius: 13px 1px;
+    display: grid;
+    grid-gap: 10px;
+}
 
 span.sb-icon {
     display: block;
@@ -427,7 +435,7 @@ span.sb-toggle {
 }
 
 #tabs{
-    margin-top: 130px;
+    margin-top: 30px;
 }
 
 #profile_wrapper .container {
@@ -491,3 +499,98 @@ span.sb-toggle {
 .sb-icon svg{
     font-size: 30px;
 }
+
+.tab-icon {
+    background: #FFF;
+    padding: 10px;
+    border-radius: 15px 0;
+    color: orange;
+}
+
+.tab-text{
+    padding: 10px;
+}
+
+
+.non-selected-value{
+    height:50px;
+    width: 50px;
+    border-radius:50%;
+    margin:10px;
+  
+  }
+  
+  
+  .dropdown-header {
+          border-width: 0 0 1px 0;
+          text-transform: uppercase;
+      }
+  
+      .dropdown-header > span {
+          display: inline-block;
+          padding: 10px;
+      }
+  
+      .dropdown-header > span:first-child {
+          width: 50px;
+      }
+  
+      .selected-value {
+          display: inline-block;
+          vertical-align: middle;
+          width: 24px;
+          height: 24px;
+          background-size: 100%;
+          margin-right: 5px;
+          border-radius: 50%;
+      }
+  
+      #customers-list .k-item {
+          line-height: 1em;
+          min-width: 300px;
+      }
+      
+      /* Material Theme padding adjustment*/
+      
+      .k-material #customers-list .k-item,
+      .k-material #customers-list .k-item.k-state-hover,
+      .k-materialblack #customers-list .k-item,
+      .k-materialblack #customers-list .k-item.k-state-hover {
+          padding-left: 5px;
+          border-left: 0;
+      }
+  
+      #customers-list .k-item > span {
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          display: inline-block;
+          vertical-align: top;
+          margin: 20px 10px 10px 5px;
+      }
+  
+      #customers-list .k-item > span:first-child {
+          -moz-box-shadow: inset 0 0 30px rgba(0,0,0,.3);
+          -webkit-box-shadow: inset 0 0 30px rgba(0,0,0,.3);
+          box-shadow: inset 0 0 30px rgba(0,0,0,.3);
+          margin: 10px;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+          background-size: 100%;
+          background-repeat: no-repeat;
+      }
+  
+      #customers-list h3 {
+          font-size: 1.2em;
+          font-weight: normal;
+          margin: 0 0 1px 0;
+          padding: 0;
+      }
+  
+      #customers-list p {
+          margin: 0;
+          padding: 0;
+          font-size: .8em;
+      }
+  

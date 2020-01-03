@@ -500,20 +500,29 @@ class DataSourceResult {
         return $result;
     }
 
-    public function read($table, $properties, $request = null, $update ='') {
+    public function read($table, $properties, $request = null, $mode ='', $where ='') {
         $result = array();
+        $UNION ="";
+
+        if($where != '') $where .= " AND ";
 
         $propertyNames = $this->propertyNames($properties);
 
+        if($mode == "temp"){
+            $UNION = 'SELECT 0 AS '.$propertyNames[0].' , "ასისტენტი" AS '.$propertyNames[1].', "" AS "img"  UNION ';
+        }
+        if ($mode == "first")
+            $UNION = 'SELECT 0 AS '.$propertyNames[0].' , "----" AS '.$propertyNames[1].' UNION ';
+
         $result['total'] = $this->total($table, $properties, $request);
 
-        $sql = sprintf('SELECT 0 AS '.$propertyNames[0].' , "----" AS '.$propertyNames[1].' UNION SELECT %s FROM %s', implode(', ', $propertyNames), $table);
-
+        $sql = sprintf($UNION.' SELECT %s FROM %s', implode(', ', $propertyNames), $table);
+ 
         if (isset($request->filter)) {
             $sql .= $this->filter($properties, $request->filter);
             $sql.=" LIMIT 50 ";
         }
-        else $sql.=" WHERE active = 1 AND ".$properties[1]." is not null LIMIT 50 ";
+        else $sql.=" WHERE ".$where." active = 1 AND ".$properties[1]." is not null LIMIT 50 ";
 
         $sort = $this->mergeSortDescriptors($request);
 

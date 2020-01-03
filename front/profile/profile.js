@@ -13,12 +13,17 @@ $(document).ready(function ()
             $( "#tabs" ).tabs();
             // $( "#tabs" ).tabs({ active: 0 });
             tabs();
+            let img_array;
+            get_images();
             var district              =   new filter("district","district","id","name");
-            var street                =   new filter("street","street","id","name");
+            var street                =   new filter("street","street","id","name","300px");
             var hear                =   new filter("hear","street","id","name");
             var skin                =   new filter("skin","street","id","name");
             var district_multi      =   new multiSelect("district_multi","district","id","name","1550px");
             var experince           =   new multiSelect("experience","experience","id","name","1550px");
+            var calc_experince           =   new multiSelect("calc_experience","experience","id","name","100%",0);
+            var calc_district            =   new multiSelect("calc_district","district","id","name","100%",0);
+            var calc_profiles            =   new template_filter("calc_profiles","users","id","name","100%");
             var val = "";
             $(".datepicker").kendoDatePicker({
                 culture: "ka-GE",
@@ -35,12 +40,9 @@ $(document).ready(function ()
                  }
                 }
               });
-              $( '#sb-container' ).swatchbook( {
-                // number of degrees that is between each item
-                angleInc : 20,
-                neighbor : 10,
 
-            } );
+              
+
         }
     })
 })
@@ -54,6 +56,31 @@ function tabs() {
 
 
 class filter {
+    constructor(select_id, table,id, list, width = "300px", where = ''){
+        this.select_id = select_id;
+        this.table_name = table;
+        this.id = id;
+        this.list = list;
+        this.width = `width: ${width}`;
+        this.where = where;
+        this.send();
+    }
+    send(){
+        $.ajax({
+        url:"server/filters/filter.php",
+        data:this,
+        type:"GET",
+        success:function(data){
+            let element = $("#"+data.element_id).parent();
+            element.addClass(`select_wrapper_${data.element_id}`);
+            $(`.select_wrapper_${data.element_id}`).html("");
+            $(`.select_wrapper_${data.element_id}`).html(data.page);
+        }
+    })
+    }
+}
+
+class template_filter {
     constructor(select_id, table,id, list, width = "300px"){
         this.select_id = select_id;
         this.table_name = table;
@@ -64,7 +91,7 @@ class filter {
     }
     send(){
         $.ajax({
-        url:"server/filters/filter.php",
+        url:"server/filters/template_filter.php",
         data:this,
         type:"GET",
         success:function(data){
@@ -76,13 +103,15 @@ class filter {
 
 
 class multiSelect {
-    constructor(select_id, table,id, list, width = "300px"){
+    constructor(select_id, table,id, list, width = "300px",val = 1){
         this.select_id = select_id;
         this.table_name = table;
         this.id = id;
         this.list = list;
         this.width = `width: ${width}`;
+        this.get_val = val;
         this.send();
+        
     }
     send(){
         $.ajax({
@@ -97,9 +126,6 @@ class multiSelect {
 
 }
 
-$(document).on("click","li[role='tab']",function(){
-    $(this).children('a').click();
-})
 
 
 $(document).on("click", ".edit", function(){
@@ -275,6 +301,20 @@ $(document).on("change","#experience", function (){
 
 })
 
+$(document).on("change","#district", function (){
+    var ids = $(this).val();
+    update_district_user(ids);
+    var street                =   new filter("street","street","id","name","300px",`district_id = ${$("#district").val()}`);
+
+})
+
+
+$(document).on("change","#street", function (){
+    var id = $(this).val();
+    update_street(id);
+
+
+})
 
 $(document).on("click",".edit[target='birthday']", function(){
     $(".k-i-calendar").trigger("click");
@@ -288,7 +328,39 @@ function update_district(ids){
             ids:ids
         },
         success:function(data){
-            if(data.error = "")
+            if(data.error != "")
+                webalert(data.error)
+            else    
+                webalert("ცვლილება შენახულია","success");
+        }
+    })
+}
+
+function update_street(id){
+    $.ajax({
+        url:"server/profile/profile.php",
+        data:{
+            act:"update_street",
+            id:id
+        },
+        success:function(data){
+            if(data.error != "")
+                webalert(data.error)
+            else    
+                webalert("ცვლილება შენახულია","success");
+        }
+    })
+}
+
+function update_district_user(ids){
+    $.ajax({
+        url:"server/profile/profile.php",
+        data:{
+            act:"update_district_user",
+            ids:ids
+        },
+        success:function(data){
+            if(data.error != "")
                 webalert(data.error)
             else    
                 webalert("ცვლილება შენახულია","success");
@@ -305,7 +377,7 @@ function update_experience(ids){
             ids:ids
         },
         success:function(data){
-            if(data.error = "")
+            if(data.error != "")
                 webalert(data.error)
             else    
                 webalert("ცვლილება შენახულია","success");
@@ -356,3 +428,22 @@ $(document).on("click",".pic_view span", function (){
 
     $(".pic_view").hide();
 })
+
+function get_images(){
+    $.ajax({
+        url:"server/profile/profile.php",
+        data:{
+            act:"get_images"
+        },
+        success:function(data){
+            img_array = data;
+            
+        }
+    })
+}
+
+function get_img(img){
+    if(img_array[img] != undefined)
+       return `background-image: url(server/uploads/${img_array[img]})`;
+    return "background-image: url(media/icons/crown.png)";
+}

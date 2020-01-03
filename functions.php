@@ -10,12 +10,6 @@ function get_css(){
             <link rel='stylesheet' href='js/kendo/styles/kendo.common-material.min.css'/>
             <link rel='stylesheet' href='js/kendo/styles/kendo.custom.css'/>
             <link rel='stylesheet' href='js/kendo/styles/kendo.default-v2.min.css'/>
-
-            
-            <link rel='stylesheet' type='text/css' href='css/demo.css' />
-            <link rel='stylesheet' type='text/css' href='css/style3.css' />
-            <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700,300,300italic' rel='stylesheet' type='text/css'>
-    
     
             <link rel='stylesheet' href='css/modern-normalize.css'/>
             <link rel='stylesheet' href='css/style.css?v=".$rand."'>
@@ -23,7 +17,6 @@ function get_css(){
             <link rel='stylesheet' href='front/home/home.css?v=".$rand."'>
             <link rel='stylesheet' href='front/login/login.css?v=".$rand."'>
             <link rel='stylesheet' href='front/profile/profile.css?v=".$rand."'>
-            
 
             
             ";
@@ -43,9 +36,6 @@ function get_js(){
             <script src='js/kendo/js/kendo.all.min.js'></script>
             <script src='js/kendo/js/cultures/kendo.culture.ka-GE.min.js'></script>
 
-            <script type='text/javascript' src='js/modernizr.custom.79639.js'></script> 
-
-		    <script type='text/javascript' src='js/jquery.swatchbook.js'></script>
 
            ";
     return $js;

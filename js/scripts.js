@@ -185,6 +185,9 @@ function webalert(content, type){
     $(".alert_wrapper").append(`<div class="alert error_${i}"><span>${content}</span><span class="closebtn" >&times;</span></div>`);
         $(".error_"+i).css("background",color);
         $(".error_"+i).css("display","block");
+        setTimeout(() => {
+            $(".error_"+i).css("display","none");
+        }, 5000);
 
    
 }

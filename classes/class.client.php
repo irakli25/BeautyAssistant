@@ -48,56 +48,33 @@ class Client {
                 </div>
             </div>
 
-
-
-
-                            <div class="container">
-                                                    
-
-                                                        
-                            <section class="main">
-                            
-                                <div id="sb-container" class="sb-container">
-                                
-                                    <div class ="tab-selector" tab = "id1" >
-                                        <span class="sb-icon "><i class="fas fa-home"></i></span>
-                                        <h4>პროფილი</h4>
-                                    </div>
-
-                                    <div class ="tab-selector" tab = "id2" >
-                                        <span class="sb-icon "><i class="far fa-user"></i></span>
-                                        <h4>შენ შესახებ</h4>
-                                    </div>
-
-
-
-                                    <div class ="tab-selector" tab = "id3" >
-                                        <span class="sb-icon "><i class="fas fa-history"></i></span>
-                                        <h4>ისტორია</h4>
-                                    </div>
-                                    
-                                    <div class ="tab-selector" tab = "id1" >
-                                        <h4><span>Profile</span></h4>
-                                        <span class="sb-toggle">დააჭირე</span>
-                                        <h5><span>გადაშალე &hearts; </span></h5>											
-                                    </div>
-                                    
-                                    
-                                </div><!-- sb-container -->
-                                
-                            </section>
-                            
-                        </div>
-
-
-
-
-
-
-
-
             <div id="tabs">
-                
+            <ul>
+                <li><a href="#id1" class="shadow">
+                    <div class="tab-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="tab-text">
+                        პროფილი
+                    </div>
+                </a></li>
+                <li><a href="#id2" class="shadow">
+                <div class="tab-icon">
+                        <i class="far fa-user"></i>
+                </div>
+                    <div class="tab-text">
+                        შენს შესახებ
+                    </div>
+                </a></li>
+                <li><a href="#id3" class="shadow">
+                    <div class="tab-icon">
+                            <i class="fas fa-history"></i>
+                    </div>
+                    <div class="tab-text">
+                        ისტორია
+                    </div>
+                </a></li>
+            </ul>
             <div id="id1" class="tab">
                         <div class="info-grid">
                                 <div>
@@ -197,7 +174,13 @@ class Client {
 
                 <div>
                     <kendo-textbox-container  floatingLabel="First name" >
-                        <textarea id="add_info" placeholder="დაამატე ინფორმაცია" kendoTextArea></textarea>
+                    <textarea id="about" placeholder="დაამატე ინფორმაცია"  kendoTextArea readonly >'.$this->about.'</textarea>
+                        <button class="edit" target="about"   title="ჩასწორება">
+                            <i class="fas fa-pencil-alt"></i>
+                        </button> 
+                        <button class="done" target="about"   title="შენახვა">
+                            <i class="fas fa-check"></i>
+                        </button> 
                     </kendo-textbox-container>
                 
                 </div>

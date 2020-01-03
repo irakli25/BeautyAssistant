@@ -139,53 +139,102 @@
     width:70px; height:70px;
   }
   
-  .news_text h4{
+  .profile_text h4{
     margin-top: 5px;
   }
 
-  .news_text p{
+  .profile_text p{
     font-size: 12px;
     margin-top: -3px;
   }
   
-  .news_text{
+  .profile_text{
     margin-left:50px;
 
   }
   
-  .news_image{
-    width: 500px;
-    background-image:url('http://images.media-allrecipes.com/userphotos/960x960/4552561.jpg');
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
+  .profile_image{
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    background-image: url(http://images.media-allrecipes.com/userphotos/960x960/4552561.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
 
   }
   
-  .news {
+  .profile {
     background: #FFF;
     padding: 10px;
     border-radius: 13px 1px;
-    display: flex;
     margin: 20px;
     height: 130px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 20% 80%;
+    place-content: center;
   }
 
-.news_wrapper{
+.profile_wrapper{
   position: absolute;
-  border: 2px solid #d015ed;
+  box-shadow: inset 1px 1px 55px -5px #d015ed;
   border-radius: 13px 1px;
   width: 50%;
-  height: 70vh;
+  height: 0vh;
   right: 80px;
   overflow-y: auto;
+  transition:0.3s;
+  
 }
 
 .mobile_li{
   display:none!important;
 }
 
+.calculator{
+  height: auto;
+  width: 450px;
+  background: #FFF;
+  position: absolute;
+  top: 300px;
+  left: 230px;
+  padding: 20px;
+  border: 2px solid #d015ed;
+  border-radius: 13px 1px;
+  display: grid;
+  grid-gap: 10px;
+}
 
+.calc_price{
+  display: flex;
+  justify-content: space-evenly;
+  width: 50%;
+}
+
+
+
+/***********************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***********************************************/
 
 
 /*(for phones - screens less than 768px wide)*/
@@ -280,7 +329,7 @@ header {
   left: 5%;
 }
 
-.news_wrapper{
+.profile_wrapper{
   width: 90%;
     height: 80vh;
     right: 5%;
@@ -357,24 +406,19 @@ body{
 }
 
 
-.news{
-
-  height: 59px;
-}
-
-.news_image {
+.profile_image {
   width: 100px;
 }
-.news_text {
+.profile_text {
   margin-left: 20px;
 }
-.news_text h4 {
+.profile_text h4 {
   margin-top: 7px;
   font-size: 12px;
 }
 
 
-.news_text p {
+.profile_text p {
     display: none;
 }
 .main-buttons button{
@@ -434,7 +478,7 @@ body{
     top: 10px;
 }
 
-.news_wrapper {
+.profile_wrapper {
   width: 36%;
   right: 15px;
 }
@@ -455,7 +499,7 @@ body{
   .social {
     right: 385px;
   }
-  .news_wrapper{
+  .profile_wrapper{
     width:40%;
     right: 15px;
   }
@@ -469,7 +513,7 @@ body{
   .social {
     right: 240px;
   }
-  .news_wrapper{
+  .profile_wrapper{
     width:40%;
   }
 }
@@ -485,7 +529,7 @@ body{
         .main-buttons {
           top: 240vh;
         }
-        .news_wrapper{
+        .profile_wrapper{
           top: 305vh;
         }
         body {
@@ -505,7 +549,7 @@ body{
         .main-buttons {
           top: 71vh;
         }
-        .news_wrapper{
+        .profile_wrapper{
           top: 97vh;
         }
         body {
@@ -524,7 +568,7 @@ body{
         .main-buttons {
           top: 66vh;
         }
-        .news_wrapper{
+        .profile_wrapper{
           top: 91vh;
         }
         body {
@@ -543,7 +587,7 @@ body{
         .main-buttons {
           top: 30vh;
         }
-        .news_wrapper{
+        .profile_wrapper{
           top: 44vh;
         }
       }
@@ -556,7 +600,7 @@ body{
         .main-buttons {
           top: 37vh;
         }
-        .news_wrapper{
+        .profile_wrapper{
           top: 51vh;
         }
         body {
