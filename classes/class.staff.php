@@ -41,26 +41,30 @@ class Staff {
         return '
         <div>
         <div class="calculator">
-                <label>მომსახურება</label>
-                <div>
-                    <select id="calc_experience" ></select>
-                </div>
-                <label>უბანი</label>
-                <div>
-                    <select id="calc_district" ></select>
-                </div>
-                <label>ასისტენტი</label>
-                <div>
-                    <span>
-                        <select id="calc_profiles" ></select>
-                    </span>
-                </div>
-                <div class="calc_price">
-                    <label>ფასი</label>
-                    <input type="text" style="width:40px" />
-                </div>
+			<label>მომსახურება</label>
+			<div>
+				<select id="calc_experience" ></select>
+			</div>
+			<label>უბანი</label>
+			<div>
+				<select id="calc_district" ></select>
+			</div>
+			<label>ასისტენტი</label>
+			<div>
+				<span>
+					<select id="calc_profiles" ></select>
+				</span>
+			</div>
+			<div class="calc_price">
+				<label>ფასი :</label>
+				<span>27.50</span>
+			</div>
+			<div>
 
-            </div>
+				<button id="calculate_button">გვერდზე გადასვლა</button>
+			</div>
+
+		</div>
             <div class="main-grid">
                 <div class="user-pic-wrap">
                     <div class="user-pic" style="background-image:url('.$this->get_img().')"> '.( $this->isuser ? ' 
@@ -106,6 +110,14 @@ class Staff {
                     </div>
                     <div class="tab-text">
                         ისტორია
+                    </div>
+                </a></li>
+                <li><a href="#id5" class="shadow">
+                    <div class="tab-icon">
+                            <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="tab-text">
+                        ჩემი ფინანსები
                     </div>
                 </a></li>
             </ul>
@@ -240,10 +252,14 @@ class Staff {
             
             </div>
             <!-- END id4 -->
+            <div id="id5" class="tab">
+                '.$this->get_finance().'
+            </div>
+            <!-- END id5 -->
         </div>
         <input id="uploader" type="file" name="up_pic" />
         <input id="uploader_user_pic" type="file" name="uploader_user_pic" />
-        <input type="hidden" id="user_id" value="'.$this->id.'" />
+        <input type="hidden" id="profile_id" value="'.$this->id.'" />
         
         ';
   }
@@ -325,6 +341,26 @@ class Staff {
       $query = "SELECT `rand_name` FROM `file` WHERE `id` = '$this->img'";
       $img = $mysql->getResult($query);
         return 'server/uploads/'.$img;
+  }
+
+  function get_finance() {
+    $html = "<div class='finance'>";
+    $mysql = $this->db;
+    $query = "SELECT  users.id , experience.`name`, experience.`id` AS `ex_id`, finance.price
+
+                FROM users 
+                JOIN user_experience ON user_experience.user_id = users.id
+                JOIN experience ON experience.id = user_experience.experience_id
+                JOIN finance ON finance.user_id = users.id AND experience.id = finance.experience_id
+                WHERE users.id = $this->id";
+
+    $res = $mysql->query($query);
+
+    while($result = $res->fetch_assoc()){
+        $html .= "<div class='finance_input'> <label>".$result['name']."</label><input class='f_in' id='".$result['ex_id']."' type='number' value='".$result['price']."' /> </div>";
+    }
+    $html .="</div><div  class='finance_button'><button id='save_finance' >შენახვა</button></div>";
+    return $html;
   }
 
 }

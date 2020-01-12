@@ -1,6 +1,8 @@
 <?php
 $rand=rand();
 
+// $rand=1.0;
+
 
 function get_css(){
     global $rand;

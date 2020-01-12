@@ -209,10 +209,20 @@
 
 .calc_price{
   display: flex;
-  justify-content: space-evenly;
-  width: 50%;
+  justify-content: space-between;
+  width: 30%;
+  margin-top: 25px;
 }
 
+#calculate_button {
+  width: 90%;
+  border-radius: 5px;
+  background-color: #d015ed;
+  border: none;
+  padding: 7px;
+  color: #FFF;
+  margin-left: 5%;
+}
 
 
 /***********************************/

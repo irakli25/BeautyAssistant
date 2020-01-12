@@ -500,7 +500,7 @@ class DataSourceResult {
         return $result;
     }
 
-    public function read($table, $properties, $request = null, $mode ='', $where ='') {
+    public function read($table, $properties, $request = null, $mode ='',  $where ='', $query = '') {
         $result = array();
         $UNION ="";
 
@@ -522,7 +522,10 @@ class DataSourceResult {
             $sql .= $this->filter($properties, $request->filter);
             $sql.=" LIMIT 50 ";
         }
-        else $sql.=" WHERE ".$where." active = 1 AND ".$properties[1]." is not null LIMIT 50 ";
+        else $sql.= " WHERE ".$where." active = 1 AND ".$properties[1]." is not null LIMIT 50 ";
+
+       
+        
 
         $sort = $this->mergeSortDescriptors($request);
 
@@ -533,7 +536,14 @@ class DataSourceResult {
         if (isset($request->skip) && isset($request->take)) {
             $sql .= $this->page();
         }
-      
+
+        if($query != '')
+        {
+            $sql = $query;
+            
+        }
+        
+        // echo $sql;
         $statement = $this->db->prepare($sql);
         
         if (isset($request->filter)) {

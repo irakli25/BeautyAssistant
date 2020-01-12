@@ -81,7 +81,37 @@ switch($action){
             $Error =" დაუდგენელი შეცდომა !";
         }
     break;
+    case "save_finance":
+        $id = $_REQUEST['id'];
+        $arr = $_REQUEST['arr'];
+        foreach($arr as $k => $v ){
+            $query = "SELECT * FROM `finance` WHERE `experience_id` = $k AND `user_id` = $id ";
+            $num = $db->numRows($query);
+            if($num == 0){
+                $query = "INSERT INTO `finance` SET `datetime` = now(), `user_id` = '$id', `experience_id` = '$k', `price` = '$v'";
+                $db->query($query);
+            }
+            else{
+                $query = "UPDATE `finance` SET `datetime` = now(), `price` = '$v' WHERE `user_id` = '$id' AND `experience_id` = '$k'";
+                $db->query($query);
+            }
+        }
+    break;
 
+    case "get_price":
+        $profile = $_REQUEST['profile'];
+        $experience = $_REQUEST['exp'];
+        $exp = implode(",", $experience);
+        $query = "SELECT SUM(price) AS `price`
+                    FROM finance
+                    WHERE user_id = '$profile' AND experience_id in ($exp)";
+
+        $req = $db->query($query);
+        $res = $req->fetch_assoc();
+
+        $data = array("price" => $res['price']);
+
+    break;
     case "update_street" :
         $done = false;
         $id = $_REQUEST['id'];

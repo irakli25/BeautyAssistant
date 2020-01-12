@@ -198,7 +198,7 @@
     list-style: none;
     outline: 0;
     margin-bottom: 50px;
-    width: 800px;
+    width: max-content;
     grid-gap: 10px;
 
 }
@@ -216,6 +216,7 @@
     display: flex;
     color: #333;
     font-weight: bold;
+    width:180px;
 }
 
 .ui-tabs-nav li.ui-state-active a{
@@ -347,8 +348,9 @@
     width: 450px;
     background: #FFF;
     position: absolute;
-    top: 0;
-    right: 510px;
+    top: -65px!important;
+    right: 375px!important;
+    left: unset!important;
     padding: 20px;
     border: 2px solid #d015ed;
     border-radius: 13px 1px;
@@ -593,4 +595,46 @@ span.sb-toggle {
           padding: 0;
           font-size: .8em;
       }
+
+      .finance{
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-gap: 10px;
+      }
+
+      .finance_input{
+        display: flex;
+        justify-content: space-between;
+        width: 30%;
+      }
+
+      .finance_input input {
+        width: 60px;
+      }
   
+
+      .finance_button{
+          margin-top:60px;
+      }
+
+     .finance_button button {
+        width: 150px;
+        padding: 5px;
+        border-radius: 7px;
+        border: none;
+        color: #FFF;
+        background-color: #d015ed;
+      }
+
+      #calc_assistant{
+          display:none;
+      }
+
+      #calc_text{
+        width: 50%;
+        margin-left: 25%;
+        text-align: center;
+        line-height: 25px;
+        margin-top: 10px;
+        color: #d015ed;
+      }

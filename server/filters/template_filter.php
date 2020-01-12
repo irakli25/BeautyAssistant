@@ -20,6 +20,34 @@ $select_id = $_REQUEST['select_id'];
 
 $width = $_REQUEST['width'];
 
+$exp = $_REQUEST['exp'];
+$dist = $_REQUEST['dist'];
+
+if (is_array($exp)){
+	$expe = implode(",",$exp);
+	$size = sizeof($exp);
+}
+else{
+	$expe = $exp;
+	$arr = explode(",",$exp);
+	$size = sizeof($arr);
+}
+
+
+$query = "SELECT 0 AS id , 'ასისტენტი' AS name, '' AS 'img'  
+
+UNION  SELECT users.id,  users.name, users.img 
+
+FROM users 
+
+JOIN user_experience ON user_experience.user_id = users.id
+JOIN user_district ON user_district.user_id = users.id
+
+WHERE  users.active = 1 AND users.name is not null AND user_experience.experience_id in ($expe) AND user_district.district_id = $dist
+group by users.id
+having count(distinct  user_experience.experience_id) = $size";
+
+
 						if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							header('Content-Type: application/json');
 
@@ -33,7 +61,7 @@ $width = $_REQUEST['width'];
 
 							);
 
-							echo json_encode($result->read($table_name, array($id, $list,'img'), $request,"temp"));
+							echo json_encode($result->read($table_name, array($id, $list,'img'), $request,"temp", '', $query));
 
 							exit;
 						}
@@ -42,7 +70,7 @@ $width = $_REQUEST['width'];
 
 						$read = new \Kendo\Data\DataSourceTransportRead();
 
-						$read->url('server/filters/template_filter.php?select_id='.$select_id.'&table_name='.$table_name.'&id='.$id.'&list='.$list.'&width='.$width)
+						$read->url('server/filters/template_filter.php?select_id='.$select_id.'&table_name='.$table_name.'&id='.$id.'&list='.$list.'&width='.$width.'&exp='.$expe.'&dist='.$dist)
 							->contentType('application/json')
 							->type('POST');
 

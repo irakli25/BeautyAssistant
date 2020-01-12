@@ -22,8 +22,8 @@ $(document).ready(function ()
             var district_multi      =   new multiSelect("district_multi","district","id","name","1550px");
             var experince           =   new multiSelect("experience","experience","id","name","1550px");
             var calc_experince           =   new multiSelect("calc_experience","experience","id","name","100%",0);
-            var calc_district            =   new multiSelect("calc_district","district","id","name","100%",0);
-            var calc_profiles            =   new template_filter("calc_profiles","users","id","name","100%");
+            var calc_district            =   new filter("calc_district","district","id","name","100%");
+            
             var val = "";
             $(".datepicker").kendoDatePicker({
                 culture: "ka-GE",
@@ -81,12 +81,14 @@ class filter {
 }
 
 class template_filter {
-    constructor(select_id, table,id, list, width = "300px"){
+    constructor(select_id, table,id, list, width = "300px",exp,dist){
         this.select_id = select_id;
         this.table_name = table;
         this.id = id;
         this.list = list;
         this.width = `width: ${width}`;
+        this.exp = exp;
+        this.dist = dist;
         this.send();
     }
     send(){
@@ -446,4 +448,69 @@ function get_img(img){
     if(img_array[img] != undefined)
        return `background-image: url(server/uploads/${img_array[img]})`;
     return "background-image: url(media/icons/crown.png)";
+}
+
+$(document).on("click", "#save_finance", function(){
+    var arr = new Object();
+    $.each($(".f_in"),function(x,v){
+        arr[$(v).attr('id')] = v.value;
+    })
+    $.ajax({
+        url:"server/profile/profile.php",
+        data:{
+            act:"save_finance",
+            arr:arr,
+            id:$("#profile_id").val()
+        },
+        success:function(data){
+            if(data.error != "")
+                webalert(data.error)
+            else    
+                webalert("ცვლილება შენახულია","success");
+        }
+    })
+})
+
+
+
+function show_assistant(){
+    $("#calc_text").hide();
+    $("#calc_assistant").show();
+}
+function hide_assistant(){
+    $("#calc_text").show();
+    $("#calc_assistant").hide();
+}
+
+
+$(document).on("change", "#calc_experience, #calc_district", function(){
+    $("#calc_profiles_span").html('<select id="calc_profiles" ></select>');
+    var calc_profiles            =   new template_filter("calc_profiles","users","id","name","100%",$("#calc_experience").val(),$("#calc_district").val());
+    if(!($("#calc_experience").val() == 0 || $("#calc_district").val() == 0)){
+        show_assistant();
+    }
+    else{
+        hide_assistant();
+    }
+    get_calc_price();
+
+})
+
+$(document).on("change","#calc_profiles", function(){
+    get_calc_price();
+})
+
+
+function get_calc_price() {
+    $.ajax({
+        url:"server/profile/profile.php",
+        data:{
+            act:"get_price",
+            exp:$("#calc_experience").val(),
+            profile:$("#calc_profiles").val()
+        },
+        success:function(data){
+            $("#calc_price").html(data.price);
+        }
+    })
 }
