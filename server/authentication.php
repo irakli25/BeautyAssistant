@@ -8,8 +8,8 @@ $db = new DB();
 $email = $_REQUEST['email'];
 
 $query = "UPDATE users
-                    SET `authentication` = '1',
-                        `email` = '$email' ";
+                    SET `authentication` = '1'
+                        WHERE `email` = '$email' ";
 $db->query($query);  
 
 header("Location: https://beautyassistant.herokuapp.com");
