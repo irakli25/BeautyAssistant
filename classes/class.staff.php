@@ -41,30 +41,35 @@ class Staff {
         return '
         <div>
         <div class="calculator">
-			<label>მომსახურება</label>
-			<div>
-				<select id="calc_experience" ></select>
-			</div>
-			<label>უბანი</label>
-			<div>
-				<select id="calc_district" ></select>
-			</div>
-			<label>ასისტენტი</label>
-			<div>
-				<span>
-					<select id="calc_profiles" ></select>
-				</span>
-			</div>
-			<div class="calc_price">
-				<label>ფასი :</label>
-				<span>27.50</span>
-			</div>
-			<div>
+            <label>მომსახურება</label>
+            <div>
+                <select id="calc_experience" ></select>
+            </div>
+            <label>უბანი</label>
+            <div>
+                <select id="calc_district" ></select>
+            </div>
+            <div id="calc_text">
+                <label>აირჩიეთ მომსახურება და სასურველი უბანი</label>
+            </div>
+            <div id="calc_assistant">
+                <label> აირჩიე ასისტენტი</label>
+                <div>
+                    <span id = "calc_profiles_span">
+                        <select id="calc_profiles" ></select>
+                    </span>
+                </div>
+            </div>
+            <div class="calc_price">
+                <label>ფასი :</label>
+                <span id="calc_price">00.00</span>
+            </div>
+            <div>
 
-				<button id="calculate_button">გვერდზე გადასვლა</button>
-			</div>
+                <button id="calculate_button">გვერდზე გადასვლა</button>
+            </div>
 
-		</div>
+        </div>
             <div class="main-grid">
                 <div class="user-pic-wrap">
                     <div class="user-pic" style="background-image:url('.$this->get_img().')"> '.( $this->isuser ? ' 

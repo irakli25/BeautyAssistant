@@ -112,6 +112,20 @@ switch($action){
         $data = array("price" => $res['price']);
 
     break;
+    case "get_uid":
+        $id = $_REQUEST['id'];
+        if($id > 0){
+            $query = "SELECT `uid` FROM users WHERE id = $id";
+            $req = $db->query($query);
+            $res = $req->fetch_assoc();
+            $link = "?route=7&uid=".$res['uid'];
+            $data = array("link" => $link);
+        }
+        else{
+            $Error = "შეცდომა ! არასწორი ასისტენტი";
+        }
+        
+    break;
     case "update_street" :
         $done = false;
         $id = $_REQUEST['id'];

@@ -47,6 +47,7 @@ $type = $_REQUEST['type'];
             $result   =  $db->query($query);  
             $data['result'] = $result;
             $data['name']  = $name;  
+            $data['email']  = $email;  
         }
    
 $data['Error'] = $error;

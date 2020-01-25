@@ -132,6 +132,8 @@ class person {
         }
     }
 
+
+
     sendAjax () {
         if(this.check_name() && this.check_surname() && this.check_email()  && this.check_pass() && this.check_conpass() && this.confirm()){
             $.ajax({
@@ -143,6 +145,8 @@ class person {
                     }
                     else {
                         if(data.result){
+                            var  mail = new Mail(data.email,"Email authentication",html(data.email));
+                            mail.send();
                             webalert(`${data.name} თქვენ წარმატებით გაიარეთ რეგისტრაცია`,"success");
                         }
                     }
@@ -192,7 +196,9 @@ function webalert(content, type){
    
 }
 
-
+function html(email){
+    return `<a href='https://beautyassistant.herokuapp.com/server/authentication.php?email=${email}'><button>Beauty Assistant</button></a>`;
+}
 
 
 
@@ -216,3 +222,19 @@ $(document).on("click","#logout", function(){
 
     })
 })
+
+
+class Mail {
+    constructor(mail,subject,html){
+        this.mail = mail;
+        this.subject = subject;
+        this.html = html;
+    }
+    send(){
+        $.ajax({
+            url:"server/mailsender.php",
+            data:this
+
+        })
+    }
+}

@@ -1,0 +1,12 @@
+$(document).ready(function(){
+    $.ajax({
+        url:"server/server.php",
+        data:{
+            act:"get_mail"
+        },
+        success:function(data){
+            $("#email_text").html(data.email);
+            $("#authentication_text").show();
+        }
+    })
+})

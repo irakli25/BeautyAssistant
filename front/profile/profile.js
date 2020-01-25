@@ -476,10 +476,12 @@ $(document).on("click", "#save_finance", function(){
 function show_assistant(){
     $("#calc_text").hide();
     $("#calc_assistant").show();
+    
 }
 function hide_assistant(){
     $("#calc_text").show();
     $("#calc_assistant").hide();
+    
 }
 
 
@@ -498,6 +500,28 @@ $(document).on("change", "#calc_experience, #calc_district", function(){
 
 $(document).on("change","#calc_profiles", function(){
     get_calc_price();
+    if($(this).val() > 0){
+        $("#calculate_button").show();
+    }
+    else{
+        $("#calculate_button").hide();
+    }
+})
+
+$(document).on("click","#calculate_button", function(){
+    $.ajax({
+        url:"server/profile/profile.php",
+        data:{
+            act:"get_uid",
+            id:$("#calc_profiles").val()
+        },
+        success:function(data){
+            if(data.error != "")
+                webalert(data.error)
+            else
+                window.location = data.link;
+        }
+    })
 })
 
 

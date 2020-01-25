@@ -3,6 +3,8 @@ $(document).ready(function (){
 
   animate ();
   get_staff();
+
+ 
  
 })
 
@@ -58,4 +60,8 @@ function get_staff(){
     })
 }
 
+
+$(document).on("click", ".profile", function(){
+  window.location = $(this).attr("link");
+})
 

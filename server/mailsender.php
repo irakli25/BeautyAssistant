@@ -13,6 +13,11 @@ use PHPMailer\PHPMailer\SMTP;
 
 require '../vendor/autoload.php';
 
+
+$address = $_REQUEST['mail'];
+$subject = $_REQUEST['subject'];
+$html = $_REQUEST['html'];
+
 //Create a new PHPMailer instance
 $mail = new PHPMailer;
 $mail->CharSet = 'UTF-8';
@@ -54,21 +59,15 @@ $mail->setFrom('beautyassistantgeorgia@gmail.com', 'Beauty Assistant');
 // $mail->addReplyTo('replyto@example.com', 'First Last');
 
 //Set who the message is to be sent to
-$mail->AddCC('gvaladzetea353@gmail.com');
-$mail->AddBCC('darsavelidze1988@gmail.com');
-$mail->AddBCC('iraklitabukashvili77@gmail.com');
+$mail->AddCC($address);
+// $mail->AddBCC('iraklitabukashvili77@gmail.com');
 
 //Set the subject line
-$mail->Subject = 'გილოცავთ !';
+$mail->Subject = $subject;
 
 //Read an HTML message body from an external file, convert referenced images to embedded,
 //convert HTML into a basic plain-text alternative body
-$mail->msgHTML('<html> <p style="font-size: 25px;
-font-family: initial;">BeautyAssistant გილოცავთ ახალ წელს და გისურვებთ წარმატებებს ! </p>
-
-<img width:320 src="https://happynewyear2020.com/wp-content/uploads/2019/10/happy-new-year-2020-images-and-wallpaper-768x497.jpg" />
-
-</html>');
+$mail->msgHTML($html);
 
 //Replace the plain text body with one created manually
 $mail->AltBody = 'This is a plain-text message body';
@@ -76,33 +75,39 @@ $mail->AltBody = 'This is a plain-text message body';
 //Attach an image file
 // $mail->addAttachment('images/phpmailer_mini.png');
 
+
+$error = "";
 //send the message, check for errors
 if (!$mail->send()) {
-    echo 'Mailer Error: '. $mail->ErrorInfo;
+    $error = 'Mailer Error: '. $mail->ErrorInfo;
 } else {
-    echo 'Message sent!';
+    $res = 'Message sent!';
     //Section 2: IMAP
     //Uncomment these to save your message in the 'Sent Mail' folder.
-    #if (save_mail($mail)) {
-    #    echo "Message saved!";
-    #}
+    // if (save_mail($mail)) {
+    //     $res = "Message saved!";
+    // }
 }
+
+$data = array("message" => $res, "error" => $error);
+
+echo json_encode($data);
 
 //Section 2: IMAP
 //IMAP commands requires the PHP IMAP Extension, found at: https://php.net/manual/en/imap.setup.php
 //Function to call which uses the PHP imap_*() functions to save messages: https://php.net/manual/en/book.imap.php
 //You can use imap_getmailboxes($imapStream, '/imap/ssl', '*' ) to get a list of available folders or labels, this can
 //be useful if you are trying to get this working on a non-Gmail IMAP server.
-function save_mail($mail)
-{
-    //You can change 'Sent Mail' to any other folder or tag
-    $path = '{imap.gmail.com:993/imap/ssl}[Gmail]/Sent Mail';
+// function save_mail($mail)
+// {
+//     //You can change 'Sent Mail' to any other folder or tag
+//     $path = '{imap.gmail.com:993/imap/ssl}[Gmail]/Sent Mail';
 
-    //Tell your server to open an IMAP connection using the same username and password as you used for SMTP
-    $imapStream = imap_open($path, $mail->Username, $mail->Password);
+//     //Tell your server to open an IMAP connection using the same username and password as you used for SMTP
+//     $imapStream = imap_open($path, $mail->Username, $mail->Password);
 
-    $result = imap_append($imapStream, $path, $mail->getSentMIMEMessage());
-    imap_close($imapStream);
+//     $result = imap_append($imapStream, $path, $mail->getSentMIMEMessage());
+//     imap_close($imapStream);
 
-    return $result;
-}
+//     return $result;
+// }

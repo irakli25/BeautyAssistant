@@ -22,13 +22,15 @@ session_start();
 <body>
     <?php
 
+    // menu
+    require_once("front/menu.php");
+
     if(isset($_REQUEST["route"])){
         $route=$_REQUEST["route"];
     } else {
         $route=1;
     }
-    // menu
-    require_once("front/menu.php");
+
 
     // content
     $page=new Page($route);
