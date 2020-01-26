@@ -148,7 +148,7 @@ class person {
                             var  mail = new Mail(data.email,"Email authentication",html(data.email,data.name));
                             mail.send();
                             webalert(`${data.name} თქვენ წარმატებით გაიარეთ რეგისტრაცია`,"success");
-                            // location.href = "https://beautyassistant.herokuapp.com";
+                            location.href = "https://beautyassistant.herokuapp.com";
                         }
                     }
                 }
