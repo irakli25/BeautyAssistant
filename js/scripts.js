@@ -145,7 +145,7 @@ class person {
                     }
                     else {
                         if(data.result){
-                            var  mail = new Mail(data.email,"Email authentication",html(data.email));
+                            var  mail = new Mail(data.email,"Email authentication",html(data.email,data.name));
                             mail.send();
                             webalert(`${data.name} თქვენ წარმატებით გაიარეთ რეგისტრაცია`,"success");
                             location.href = "https://beautyassistant.herokuapp.com";
@@ -197,8 +197,23 @@ function webalert(content, type){
    
 }
 
-function html(email){
-    return `<a href='https://beautyassistant.herokuapp.com/server/authentication.php?email=${email}'><button>Beauty Assistant</button></a>`;
+function html(email,name){
+    return `
+    <p>გამარჯობა ${name},</p>
+    <p>რეგისტრაციის დასასრულებლად დააჭირე ღილაკს</p>
+    <a href='https://beautyassistant.herokuapp.com/server/authentication.php?email=${email}'>
+    <button
+    style="border-radius: 5px;
+    background-color: #d015ed;
+    border: 1px solid transparent;
+    padding: 7px;
+    color: #FFF;
+    margin-left: 5%;
+    cursor: pointer;"
+    >რეგისტრაციის დასრულება</button></a>
+    
+    
+    `;
 }
 
 
