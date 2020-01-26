@@ -45,6 +45,11 @@ $type = $_REQUEST['type'];
                         `email` = '$email',
                         `password` = '$pass' ";
             $result   =  $db->query($query);  
+            if($result){
+                $_SESSION['USER'] = $db->lastId();
+                $_SESSION['USER_NAME'] = $name;
+            }
+
             $data['result'] = $result;
             $data['name']  = $name;  
             $data['email']  = $email;  
