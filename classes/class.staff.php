@@ -39,6 +39,62 @@ class Staff {
 
   function getPage(){
         return '
+
+        <div id="order_window" class="modal">
+
+        <div class="modal-content animate" >
+          <div class="imgcontainer">
+            <span  id ="close_order_window" class="close" title="Close Modal">&times;</span>
+            
+          </div>
+
+          <div class="container">
+            <label><b>თქვენი შეკვეთა</b></label>
+            <p>ასისტენტი : <b id="get_assistant"  user_id="'.$this->id.'" >'.$this->name.' '.$this->surname.'</b> </p> 
+            <p> მომსახურება : </p> <p id="get_service"></p>
+                        <div class="address-grid" style="grid-auto-flow: row"> 
+                            <div class="address-in">
+                                <label for="district" style="margin-top:12px" >უბანი</label>
+                                <span>
+                                    <select id="district" ></select>
+                                </span>
+                            
+                            </div>
+                            <div class="address-in" >
+                                <label for="street" style="margin-top:12px" >ქუჩა</label>
+                                <span>
+                                    <select id="street" ></select>
+                                </span>
+                            
+                            </div>
+                            <div class="address-in" >
+                                <div>
+                                    <label for="street" style="margin-top:12px" >დააზუსტე მისამართი</label>
+                                </div>
+                                    <kendo-textbox-container floatingLabel="corect_address">
+                                            <input class="register_in" id="corect_address" kendoTextBox />
+                                    </kendo-textbox-container>
+                            
+                            </div>
+                        
+                        
+                        </div>
+           
+
+                        <p><b>გთხოვთ გადაამოწმოთ შეკვეთის დეტალები, შეკვეთის შემთხვევაში მას ვერ გააუქმებთ !</b></p>
+
+                        <button id="order_done_button" form="none" class="register_button" type="submit" >შეკვეთა</button><br/>
+
+          </div>
+
+          <div class="container" style="background-color:#f1f1f1">
+
+
+          </div>
+        </div>
+      </div>
+
+
         <div>
         <div class="calculator">
             <label>მომსახურება</label>
@@ -49,24 +105,14 @@ class Staff {
             <div>
                 <select id="calc_district" ></select>
             </div>
-            <div id="calc_text">
-                <label>აირჩიეთ მომსახურება და სასურველი უბანი</label>
-            </div>
-            <div id="calc_assistant">
-                <label> აირჩიე ასისტენტი</label>
-                <div>
-                    <span id = "calc_profiles_span">
-                        <select id="calc_profiles" ></select>
-                    </span>
-                </div>
-            </div>
+            
             <div class="calc_price">
                 <label>ფასი :</label>
                 <span id="calc_price">00.00</span>
             </div>
             <div>
 
-                <button id="calculate_button">გვერდზე გადასვლა</button>
+                <button id="order_button">შეკვეთა</button>
             </div>
 
         </div>

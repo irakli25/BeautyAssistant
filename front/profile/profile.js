@@ -11,6 +11,8 @@ $(document).ready(function ()
         success:function(data){
             $("#profile_wrapper").html(data);
             $( "#tabs" ).tabs();
+            if($("#container").attr("user") == "" || $("#container").attr("user") == $("#profile_id").val())
+                    $(".calculator").hide();
             // $( "#tabs" ).tabs({ active: 0 });
             tabs();
             let img_array;
@@ -21,8 +23,23 @@ $(document).ready(function ()
             var skin                =   new filter("skin","street","id","name");
             var district_multi      =   new multiSelect("district_multi","district","id","name","1550px");
             var experince           =   new multiSelect("experience","experience","id","name","1550px");
-            var calc_experince           =   new multiSelect("calc_experience","experience","id","name","100%",0);
+            var calc_experince           =   new multiSelect("calc_experience","experience","id","name","100%",0,getCookie("calc_experience"));
             var calc_district            =   new filter("calc_district","district","id","name","100%");
+
+            if(!(getCookie("calc_experience") == "" || getCookie("calc_district") == "")){
+               
+                var calc_profiles            =   new template_filter("calc_profiles","users","id","name","100%",getCookie("calc_experience"),getCookie("calc_district"));
+            
+                    show_assistant();
+                    $("#calc_price").html(getCookie("calc_price"));
+                    $("#order_button").show();
+                    get_calc_price();
+            }
+            else{
+                hide_assistant();
+                $("#order_button").hide();
+            }
+
             
             var val = "";
             $(".datepicker").kendoDatePicker({
@@ -63,6 +80,7 @@ class filter {
         this.list = list;
         this.width = `width: ${width}`;
         this.where = where;
+        this.profile = isNaN(Number($("#profile_id").val())) ? "" : Number($("#profile_id").val());
         this.send();
     }
     send(){
@@ -89,6 +107,7 @@ class template_filter {
         this.width = `width: ${width}`;
         this.exp = exp;
         this.dist = dist;
+        
         this.send();
     }
     send(){
@@ -105,13 +124,15 @@ class template_filter {
 
 
 class multiSelect {
-    constructor(select_id, table,id, list, width = "300px",val = 1){
+    constructor(select_id, table,id, list, width = "300px",val = 1, arr = ''){
         this.select_id = select_id;
         this.table_name = table;
         this.id = id;
         this.list = list;
         this.width = `width: ${width}`;
         this.get_val = val;
+        this.arr = arr;
+        this.profile = isNaN(Number($("#profile_id").val())) ? "" : Number($("#profile_id").val());
         this.send();
         
     }
@@ -490,9 +511,11 @@ $(document).on("change", "#calc_experience, #calc_district", function(){
     var calc_profiles            =   new template_filter("calc_profiles","users","id","name","100%",$("#calc_experience").val(),$("#calc_district").val());
     if(!($("#calc_experience").val() == 0 || $("#calc_district").val() == 0)){
         show_assistant();
+        $("#order_button").show();
     }
     else{
         hide_assistant();
+        $("#order_button").hide();
     }
     get_calc_price();
 
@@ -526,15 +549,25 @@ $(document).on("click","#calculate_button", function(){
 
 
 function get_calc_price() {
+    var profile = "";
+    if(isNaN(Number($("#profile_id").val()))){
+        profile = $("#calc_profiles").val();
+    }
+    else{
+        profile = Number($("#profile_id").val());
+    }
     $.ajax({
         url:"server/profile/profile.php",
         data:{
             act:"get_price",
             exp:$("#calc_experience").val(),
-            profile:$("#calc_profiles").val()
+            profile:profile
         },
         success:function(data){
-            $("#calc_price").html(data.price);
+            var p = data.price;
+            var price = Number(p).toFixed(2);
+            $("#calc_price").html(price);
+            setCookie("calc_price",price);
         }
     })
 }

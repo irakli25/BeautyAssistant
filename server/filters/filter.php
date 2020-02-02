@@ -21,6 +21,17 @@ $select_id = $_REQUEST['select_id'];
 $where = $_REQUEST['where'];
 $width = $_REQUEST['width'];
 
+$profile  = $_REQUEST['profile'];
+$query ="";
+
+if($select_id == "calc_district" && $profile != ""){
+    $query ="SELECT district.id, 	district.`name`
+
+    FROM district
+    JOIN user_district ON district_id = district.id
+    WHERE user_district.user_id = '$profile'";
+}
+
 						if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							header('Content-Type: application/json');
 
@@ -34,7 +45,7 @@ $width = $_REQUEST['width'];
 
 							);
 
-							echo json_encode($result->read($table_name, array($id, $list), $request,"first",$where));
+							echo json_encode($result->read($table_name, array($id, $list), $request,"first",$where,$query));
 
 							exit;
 						}
@@ -43,7 +54,7 @@ $width = $_REQUEST['width'];
 
 						$read = new \Kendo\Data\DataSourceTransportRead();
 
-						$read->url('server/filters/filter.php?select_id='.$select_id.'&table_name='.$table_name.'&id='.$id.'&list='.$list.'&width='.$width.'&where='.$where)
+						$read->url('server/filters/filter.php?select_id='.$select_id.'&table_name='.$table_name.'&id='.$id.'&list='.$list.'&width='.$width.'&where='.$where.'&profile='.$profile)
 							->contentType('application/json')
 							->type('POST');
 

@@ -440,13 +440,13 @@ span.sb-toggle {
     margin-top: 30px;
 }
 
-#profile_wrapper .container {
+/* #profile_wrapper .container {
     position: absolute;
     top: -60px;
     width: 0;
     height: 0;
     right: 1000px;
-}
+} */
 
 #profile_wrapper .sb-container div h4{
     color: #333;

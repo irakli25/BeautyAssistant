@@ -222,7 +222,7 @@
   margin-top: 25px;
 }
 
-#calculate_button {
+#calculate_button, #order_button {
   width: 90%;
   border-radius: 5px;
   background-color: #d015ed;
@@ -235,7 +235,7 @@
   transition: 0.5s;
 }
 
-#calculate_button:hover{
+#calculate_button:hover, #order_button:hover{
   color:#d015ed;
   background-color:#FFF;
   transition: 0.3s;

@@ -4,8 +4,8 @@ require_once '../kendo/lib/DataSourceResult.php';
 require_once '../kendo/lib/Kendo/Autoload.php';
 require_once '../../classes/class.settings.php';
 require_once "../../classes/class.db.php";
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 session_start();
 $sql_details = array(
 	'user' => settings::DB_USER,
@@ -20,6 +20,25 @@ $table_name = $_REQUEST['table_name'];
 $list =   $_REQUEST['list'];
 $select_id = $_REQUEST['select_id'];
 $get_val   = $_REQUEST['get_val'];
+$profile  = $_REQUEST['profile'];
+$query ="";
+
+if($select_id == "calc_experience" && $profile != ""){
+    $query ="SELECT experience.id, 	experience.`name`
+
+    FROM experience
+    JOIN user_experience ON experience_id = experience.id
+    WHERE user_experience.user_id = '$profile'";
+}
+
+
+
+if(!isset($_REQUEST['arr']) || $_REQUEST['arr'] =='')
+    $value = get_val($table_name,$get_val);
+    else{
+        $arr = $_REQUEST['arr'];
+        $value = get_in($arr,$table_name);
+    }
 
 $width = $_REQUEST['width'];
 
@@ -36,7 +55,7 @@ $width = $_REQUEST['width'];
 
                 );
 
-                echo json_encode($result->read($table_name, array($id, $list), $request));
+                echo json_encode($result->read($table_name, array($id, $list), $request,'','',$query));
 
                 exit;
             }
@@ -45,7 +64,7 @@ $width = $_REQUEST['width'];
 
             $read = new \Kendo\Data\DataSourceTransportRead();
 
-            $read->url('server/filters/multiple.php?select_id='.$select_id.'&table_name='.$table_name.'&id='.$id.'&list='.$list.'&width='.$width.'&get_val='.$get_val)
+            $read->url('server/filters/multiple.php?select_id='.$select_id.'&table_name='.$table_name.'&id='.$id.'&list='.$list.'&width='.$width.'&get_val='.$get_val.'&profile='.$profile)
                 ->contentType('application/json')
                 ->type('POST');
 
@@ -72,7 +91,7 @@ $width = $_REQUEST['width'];
             $multiselect->dataSource($dataSource)
                         ->dataTextField($list)
                         ->dataValueField($id)
-                        ->value(get_val($table_name,$get_val))
+                        ->value($value)
                         ->autoBind(false)
                         ->filter('contains')
                         ->ignoreCase(false)
@@ -110,6 +129,20 @@ $width = $_REQUEST['width'];
             return $arr;
 
         return 0;
+    }
+
+    function get_in($arr,$table_name){
+        $db = new DB();
+        $array = array();
+        if($arr == "") $arr = 0;
+        $query = "SELECT `id`, `name` FROM $table_name WHERE id in ($arr)";
+        $res = $db->query($query);
+        while ($r = $res->fetch_assoc()){
+            array_push($array,array("name"=>$r['name'],"id"=>$r['id']));
+        }
+
+        return $array;
+
     }
 
 ?>

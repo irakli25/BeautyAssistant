@@ -7,7 +7,17 @@ $(document).on("click",".closebtn",function (){
     $(this).parent().css("display","none");
 })
 
+$(document).on("click","#close_order_window",function (){
+    $("#order_window").css("display","none");
+})
+
 $(document).on("click","#id01", function (e){
+    if (e.target !== this)
+        return;
+    $(this).css("display","none");
+})
+
+$(document).on("click","#order_window", function (e){
     if (e.target !== this)
         return;
     $(this).css("display","none");
@@ -254,3 +264,35 @@ class Mail {
         })
     }
 }
+
+
+
+function setCookie(cname, cvalue, exdays = 1) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+  
+  function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+
+
+  $(document).on("click","#order_button", function(){
+    //   get_order_price();
+    //   get_order_experience();
+    $("#order_window").css("display","block");
+  })
+

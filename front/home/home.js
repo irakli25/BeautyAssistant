@@ -4,7 +4,9 @@ $(document).ready(function (){
   animate ();
   get_staff();
 
- 
+  if($("#container").attr("user") == "" || $("#container").attr("user") == $("#profile_id").val())
+
+    $(".calculator").hide();
  
 })
 
@@ -65,3 +67,13 @@ $(document).on("click", ".profile", function(){
   window.location = $(this).attr("link");
 })
 
+
+$(document).on("change","#calc_district", function(){
+   let k = $(this).val();
+   setCookie('calc_district',k);
+})
+
+$(document).on("change","#calc_experience", function(){
+  let k = $(this).val();
+  setCookie('calc_experience',k);
+})

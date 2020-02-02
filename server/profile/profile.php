@@ -104,12 +104,14 @@ switch($action){
         $exp = implode(",", $experience);
         $query = "SELECT SUM(price) AS `price`
                     FROM finance
-                    WHERE user_id = '$profile' AND experience_id in ($exp)";
+                    WHERE user_id = '$profile' AND experience_id in ('$exp')";
 
         $req = $db->query($query);
         $res = $req->fetch_assoc();
 
-        $data = array("price" => $res['price']);
+        $price = $res['price'] == "" ? 0.00 : $res['price'];
+
+        $data = array("price" => $price);
 
     break;
     case "get_uid":
