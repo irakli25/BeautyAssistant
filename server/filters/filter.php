@@ -20,9 +20,19 @@ $list =   $_REQUEST['list'];
 $select_id = $_REQUEST['select_id'];
 $where = $_REQUEST['where'];
 $width = $_REQUEST['width'];
-
+$get_val   = $_REQUEST['get_val'];
 $profile  = $_REQUEST['profile'];
 $query ="";
+
+
+
+if(!isset($_REQUEST['arr']) || $_REQUEST['arr'] =='')
+    $value = get_val($table_name,$get_val);
+    else{
+        $arr = $_REQUEST['arr'];
+        $value = get_in($arr,$table_name);
+    }
+
 
 if($select_id == "calc_district" && $profile != ""){
     $query ="SELECT district.id, 	district.`name`
@@ -54,7 +64,7 @@ if($select_id == "calc_district" && $profile != ""){
 
 						$read = new \Kendo\Data\DataSourceTransportRead();
 
-						$read->url('server/filters/filter.php?select_id='.$select_id.'&table_name='.$table_name.'&id='.$id.'&list='.$list.'&width='.$width.'&where='.$where.'&profile='.$profile)
+						$read->url('server/filters/filter.php?select_id='.$select_id.'&table_name='.$table_name.'&id='.$id.'&list='.$list.'&width='.$width.'&where='.$where.'&get_val='.$get_val.'&profile='.$profile)
 							->contentType('application/json')
 							->type('POST');
 
@@ -76,7 +86,7 @@ if($select_id == "calc_district" && $profile != ""){
 						$dropDownList = new \Kendo\UI\DropDownList($select_id);
 
 						$dropDownList->dataSource($dataSource)
-									->value(get_val($table_name))
+									->value($value)
 									->dataTextField($list)
 									->dataValueField($id)
 									->filter('contains')
@@ -92,10 +102,12 @@ if($select_id == "calc_district" && $profile != ""){
 
 
 								echo json_encode($data);
+					
 								
 
 
-	function get_val($table_name){
+
+	function get_val($table_name,$get){
 		$table = "user_".$table_name;
 		$id = $table_name."_id";
 		$db = new DB();
@@ -108,11 +120,25 @@ if($select_id == "calc_district" && $profile != ""){
 		$res = $db->query($query);
 		$arr = $res->fetch_assoc();
 
-		if($arr['id'] != '') return $arr['id'];
+		if($arr['id'] != '' && $get == "1") return $arr['id'];
 
 
 		return 0;
 	}
+
+	function get_in($arr,$table_name){
+        $db = new DB();
+        $array = array();
+        if($arr == "") $arr = 0;
+        $query = "SELECT `id`, `name` FROM $table_name WHERE id in ($arr)";
+        $res = $db->query($query);
+		$arr = $res->fetch_assoc();
+
+		if($arr['id'] != '' ) return $arr['id'];
+
+        return $array;
+
+    }
 
 
 

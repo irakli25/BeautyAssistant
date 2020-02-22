@@ -120,7 +120,7 @@ $grid->addColumn( $contactTitle, $companyName)
 // echo $grid->render();
 
 
-$data= array("page" => '<head><meta charset="utf-8"/></head><body><div >
+$data= array("page" => '<head><meta charset="utf-8"/></head><body><div>
 									
 								
 '. $grid->render().'

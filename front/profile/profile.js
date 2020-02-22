@@ -31,7 +31,7 @@ $(document).ready(function ()
                 var calc_profiles            =   new template_filter("calc_profiles","users","id","name","100%",getCookie("calc_experience"),getCookie("calc_district"));
             
                     show_assistant();
-                    $("#calc_price").html(getCookie("calc_price"));
+                    $("#calc_price").html(`<span>${getCookie("calc_price")}</span><div class="lari"></div>`);
                     $("#order_button").show();
                     get_calc_price();
             }
@@ -73,13 +73,15 @@ function tabs() {
 
 
 class filter {
-    constructor(select_id, table,id, list, width = "300px", where = ''){
+    constructor(select_id, table,id, list, width = "300px", where = '',val = 1, arr = ''){
         this.select_id = select_id;
         this.table_name = table;
         this.id = id;
         this.list = list;
         this.width = `width: ${width}`;
         this.where = where;
+        this.get_val = val;
+        this.arr = arr;
         this.profile = isNaN(Number($("#profile_id").val())) ? "" : Number($("#profile_id").val());
         this.send();
     }
@@ -207,6 +209,7 @@ $(document).on("click", ".done", function(){
                 success:function(data){
                     $(`.done[target="${id}"]`).hide();
                     $(`.edit[target="${id}"]`).show();
+                    webalert("ცვლილება შენახულია","success");
                 }
             })
         }
@@ -521,6 +524,36 @@ $(document).on("change", "#calc_experience, #calc_district", function(){
 
 })
 
+$(document).on("click","#order_button", function(){
+    let district = $("#calc_district").val();
+
+    $.ajax({
+        url:"server/server.php",
+        data:{
+            act:"get_address",
+            district:district
+        },
+        success:function(data){
+            if(data.isaddress){
+                var order_district              =   new filter("order_district","district","id","name",'300px','',0,$("#calc_district").val());
+                var order_street                =   new filter("order_street","street","id","name","300px",'',0,data.street);
+                $("#order_corect_address").val(data.street_name);
+            }
+            else{
+                var order_district              =   new filter("order_district","district","id","name",'300px','',0,$("#calc_district").val());
+                var order_street                =   new filter("order_street","street","id","name","300px",`district_id = ${$("#calc_district").val()}`,0);
+
+                webalert("მითითებულ უბანზე მისამართი ვერ მოიძებნა, გთხოვთ შეიყვანოთ მისამართი !");
+            }
+        }
+    })
+
+   
+    get_order_price();
+    get_order_experience();
+  $("#order_window").css("display","block");
+})
+
 $(document).on("change","#calc_profiles", function(){
     get_calc_price();
     if($(this).val() > 0){
@@ -566,7 +599,7 @@ function get_calc_price() {
         success:function(data){
             var p = data.price;
             var price = Number(p).toFixed(2);
-            $("#calc_price").html(price);
+            $("#calc_price").html(`<span>${price}</span><div class="lari"></div>`);
             setCookie("calc_price",price);
         }
     })

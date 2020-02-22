@@ -50,6 +50,18 @@ textarea:focus, input:focus{
     clear: both;
 }
 /* footer */
+.flex{
+    display:flex;
+}
+
+.lari{
+    width: 25px;
+    height: 20px;
+    background-image: url(../media/icons/lari.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 
 .alert_wrapper{
     height: auto;

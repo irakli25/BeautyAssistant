@@ -290,9 +290,44 @@ function setCookie(cname, cvalue, exdays = 1) {
   }
 
 
-  $(document).on("click","#order_button", function(){
-    //   get_order_price();
-    //   get_order_experience();
-    $("#order_window").css("display","block");
-  })
+
+
+
+  function get_order_price(){
+    var profile = "";
+    if(isNaN(Number($("#profile_id").val()))){
+        profile = $("#calc_profiles").val();
+    }
+    else{
+        profile = Number($("#profile_id").val());
+    }
+    $.ajax({
+        url:"server/profile/profile.php",
+        data:{
+            act:"get_price",
+            exp:$("#calc_experience").val(),
+            profile:profile
+        },
+        success:function(data){
+            var p = data.price;
+            var price = Number(p).toFixed(2);
+            $("#get_price").html(`<span>${price}</span><div class="lari"></div>`);
+            setCookie("calc_price",price);
+        }
+    })
+  }
+
+
+  function get_order_experience(){
+      $.ajax({
+          url:"server/server.php",
+          data:{
+              exps:getCookie("calc_experience"),
+              act:"get_products"
+          },
+          success:function(data){
+              $("#get_service").html(data.products);
+          }
+      })
+  }
 

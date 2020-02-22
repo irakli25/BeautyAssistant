@@ -104,7 +104,7 @@ switch($action){
         $exp = implode(",", $experience);
         $query = "SELECT SUM(price) AS `price`
                     FROM finance
-                    WHERE user_id = '$profile' AND experience_id in ('$exp')";
+                    WHERE user_id = '$profile' AND experience_id in ($exp)";
 
         $req = $db->query($query);
         $res = $req->fetch_assoc();

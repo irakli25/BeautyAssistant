@@ -51,19 +51,20 @@ class Staff {
           <div class="container">
             <label><b>თქვენი შეკვეთა</b></label>
             <p>ასისტენტი : <b id="get_assistant"  user_id="'.$this->id.'" >'.$this->name.' '.$this->surname.'</b> </p> 
-            <p> მომსახურება : </p> <p id="get_service"></p>
+            <div class="flex"><p> მომსახურება : </p> <p class="flex" style="margin-left: 10px;"  id="get_service"></p></div>
+            <div class="flex"><p> ფასი : </p> <p class="flex" style="margin-left: 10px;" id="get_price"></p></div>
                         <div class="address-grid" style="grid-auto-flow: row"> 
                             <div class="address-in">
                                 <label for="district" style="margin-top:12px" >უბანი</label>
                                 <span>
-                                    <select id="district" ></select>
+                                    <select id="order_district" ></select>
                                 </span>
                             
                             </div>
                             <div class="address-in" >
                                 <label for="street" style="margin-top:12px" >ქუჩა</label>
                                 <span>
-                                    <select id="street" ></select>
+                                    <select id="order_street" ></select>
                                 </span>
                             
                             </div>
@@ -72,7 +73,7 @@ class Staff {
                                     <label for="street" style="margin-top:12px" >დააზუსტე მისამართი</label>
                                 </div>
                                     <kendo-textbox-container floatingLabel="corect_address">
-                                            <input class="register_in" id="corect_address" kendoTextBox />
+                                            <input class="register_in" style="width: 600px;" id="order_corect_address" kendoTextBox />
                                     </kendo-textbox-container>
                             
                             </div>
@@ -108,7 +109,7 @@ class Staff {
             
             <div class="calc_price">
                 <label>ფასი :</label>
-                <span id="calc_price">00.00</span>
+                <span id="calc_price" class="flex"></span>
             </div>
             <div>
 

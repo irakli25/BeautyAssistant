@@ -43,6 +43,54 @@ switch ($action){
         $data = array("email"=>$arr['email']);
     break;
 
+    case "get_products":
+        $exp = $_REQUEST['exps'];
+
+        if (is_array($exp)){
+            $expe = implode(",",$exp);
+        }
+        else{
+            $expe = $exp;
+
+        }
+
+        $query = "SELECT `name` FROM experience WHERE id  IN ($expe)";
+
+        $res = $db->query($query);
+        $arr_string = array();
+        while($arr = $res->fetch_assoc()){
+            array_push($arr_string, $arr['name']);
+        }
+
+        $data = array("products" => implode(',',$arr_string));
+
+    break;
+    case "get_address":
+        $id = $_SESSION['USER'];
+        $district = $_REQUEST['district'];
+        $query = "SELECT `district_id` FROM `user_district` WHERE `user_id` = '$id' LIMIT 1 ";
+        $res = $db->query($query);
+        $arr = $res->fetch_assoc();
+        $street = '';
+        if($district == $arr['district_id']){
+            $query = "SELECT `street_id` FROM `user_street` WHERE `user_id` = '$id' LIMIT 1 ";
+            $res = $db->query($query);
+            $arr = $res->fetch_assoc();
+            $street = $arr['street_id'];
+
+            $query = "SELECT `client_correct_address` AS `name` FROM `users` WHERE `id` = '$id' LIMIT 1 ";
+            $res = $db->query($query);
+            $arr = $res->fetch_assoc();
+            $street_name = $arr['name'];
+
+            $data = array("isaddress" => true, "street" => $street, "street_name" => $street_name);
+        }
+        else{
+            $data = array("isaddress" => false, "street" => "");
+        }
+
+    break;
+
 }
 
 $data["error"] = $Error;

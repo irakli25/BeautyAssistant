@@ -17,7 +17,7 @@ class Client {
       $this->id = $_SESSION['USER'];
       $this->db = $db;
 
-      $res =  $db->getResults("SELECT `id`,`name`, `surname`, `email`, `birthday`,`img`, about FROM `users` WHERE id = '$this->id' AND `uid` = 'client' LIMIT 1");
+      $res =  $db->getResults("SELECT `id`,`name`, `surname`, `email`, `birthday`,`img`, about, client_correct_address FROM `users` WHERE id = '$this->id' AND `uid` = 'client' LIMIT 1");
       $arr = $res[0];
       $this->id = $arr['id'];
       $this->name = $arr['name'];
@@ -26,6 +26,8 @@ class Client {
       $this->birthday = $arr['birthday'];
       $this->img       = $arr['img'];
       $this->about       = $arr['about'];
+      $this->client_correct_address = $arr['client_correct_address'];
+
 
   }
 
@@ -143,10 +145,16 @@ class Client {
                                 
                                 </div>
                                 <div class="address-in" >
-                                <div><label for="street" style="margin-top:12px" >დააზუსტე მისამართი</label></div>
-                                    <kendo-textbox-container floatingLabel="corect_address">
-                                            <input id="corect_address" kendoTextBox />
-                                    </kendo-textbox-container>
+                                <div><label for="street" style="margin-top:12px" >დააზუსტე მისამართი</label></div> 
+                                <kendo-textbox-container floatingLabel="corect_address" class="flex">
+                                    <input class="register_in" id="client_correct_address" value="'.$this->client_correct_address.'" readonly kendoTextBox />
+                                    <button class="edit" target="client_correct_address"   title="ჩასწორება">
+                                        <i class="fas fa-pencil-alt"></i>
+                                    </button> 
+                                    <button class="done" target="client_correct_address"   title="შენახვა">
+                                        <i class="fas fa-check"></i>
+                                    </button> 
+                            </kendo-textbox-container>
                                 
                                 </div>
                         
