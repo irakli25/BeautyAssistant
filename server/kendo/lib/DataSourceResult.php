@@ -500,7 +500,7 @@ class DataSourceResult {
         return $result;
     }
 
-    public function read($table, $properties, $request = null, $mode ='',  $where ='', $query = '') {
+    public function read($table, $properties, $request = null, $mode ='',  $where ='', $query = '',$number = -1) {
         $result = array();
         $UNION ="";
 
@@ -514,17 +514,25 @@ class DataSourceResult {
         if ($mode == "first")
             $UNION = 'SELECT 0 AS '.$propertyNames[0].' , "----" AS '.$propertyNames[1].' UNION ';
 
-        $result['total'] = $this->total($table, $properties, $request);
+            if($number ==-1 )
+                $result['total'] = $this->total($table, $properties, $request);
+            else $result['total'] = $number;
 
         $sql = sprintf($UNION.' SELECT %s FROM %s', implode(', ', $propertyNames), $table);
  
         if (isset($request->filter)) {
             $sql .= $this->filter($properties, $request->filter);
-            $sql.=" LIMIT 50 ";
+            $sql.=" ";
         }
-        else $sql.= " WHERE ".$where." active = 1 AND ".$properties[1]." is not null LIMIT 50 ";
+        else $sql.= " WHERE ".$where." active = 1 AND ".$properties[1]." is not null ";
 
        
+
+        if($query != '')
+        {
+            $sql = $query;
+            
+        }
         
 
         $sort = $this->mergeSortDescriptors($request);
@@ -537,11 +545,7 @@ class DataSourceResult {
             $sql .= $this->page();
         }
 
-        if($query != '')
-        {
-            $sql = $query;
-            
-        }
+       
         
         // echo $sql;
         $statement = $this->db->prepare($sql);

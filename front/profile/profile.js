@@ -100,6 +100,19 @@ class filter {
     }
 }
 
+function history_grid(){
+    $.ajax({
+        url:"server/grid/grid.php",
+        type:"get",
+        data:{
+            id: $("#user_id").val() == undefined ? $("#profile_id").val() : $("#user_id").val()
+        },
+        success:function(data){
+                $(".history_grid").html(data.page);
+        }
+    })
+}
+
 class template_filter {
     constructor(select_id, table,id, list, width = "300px",exp,dist){
         this.select_id = select_id;
@@ -394,6 +407,14 @@ function update_district_user(ids){
     })
 }
 
+$(document).on("click",".staff_profile li[aria-controls='id4']", function(){
+    history_grid();
+})
+
+$(document).on("click",".client_profile li[aria-controls='id3']", function(){
+    history_grid();
+})
+
 
 function update_experience(ids){
     $.ajax({
@@ -593,7 +614,7 @@ function get_calc_price() {
         url:"server/profile/profile.php",
         data:{
             act:"get_price",
-            exp:$("#calc_experience").val(),
+            exp:($("#calc_experience").val() == '' ? getCookie("calc_price") : $("#calc_experience").val()),
             profile:profile
         },
         success:function(data){

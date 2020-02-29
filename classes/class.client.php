@@ -34,7 +34,7 @@ class Client {
   function getPage(){
 
       if($this->id != "")  return '
-        <div>
+        <div class="client_profile">
             <div class="main-grid">
                 <div class="user-pic-wrap">
                     <div class="user-pic" style="background-image:url('.$this->get_img().')"> 
@@ -197,7 +197,7 @@ class Client {
             </div >
             <!-- END id2 -->
             <div id="id3" class="tab">
-            
+            <table class="history_grid"></table>
             </div>
             <!-- END id3 -->
         </div>

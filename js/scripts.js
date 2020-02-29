@@ -305,7 +305,7 @@ function setCookie(cname, cvalue, exdays = 1) {
         url:"server/profile/profile.php",
         data:{
             act:"get_price",
-            exp:$("#calc_experience").val(),
+            exp:($("#calc_experience").val() == '' ? getCookie("calc_price") : $("#calc_experience").val()),
             profile:profile
         },
         success:function(data){
@@ -331,3 +331,26 @@ function setCookie(cname, cvalue, exdays = 1) {
       })
   }
 
+
+
+  $(document).on("click","#order_done_button",function(){
+      var obj = new Object();
+      obj.act = "save_order";
+      obj.assistant = $("#get_assistant").attr("user_id");
+      obj.products = $("#calc_experience").val();
+      obj.district = $("#order_district").val();
+      obj.street = $("#order_street").val();
+      obj.address = $("#order_corect_address").val();
+      $.ajax({
+          url:"server/server.php",
+          data:obj,
+          success:function(data){
+            if(data.error != "")
+                webalert(data.error);
+            else {
+                $("#order_window").css("display","none");
+            }
+          }
+          
+      })
+  })

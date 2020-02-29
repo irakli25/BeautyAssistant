@@ -101,6 +101,7 @@ switch($action){
     case "get_price":
         $profile = $_REQUEST['profile'];
         $experience = $_REQUEST['exp'];
+        if($experience != ''){
         $exp = implode(",", $experience);
         $query = "SELECT SUM(price) AS `price`
                     FROM finance
@@ -112,6 +113,10 @@ switch($action){
         $price = $res['price'] == "" ? 0.00 : $res['price'];
 
         $data = array("price" => $price);
+        }
+        else{
+            $data = array("price" => 0);
+        }
 
     break;
     case "get_uid":

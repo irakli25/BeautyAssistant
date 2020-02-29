@@ -96,7 +96,7 @@ class Staff {
       </div>
 
 
-        <div>
+        <div class="staff_profile">
         <div class="calculator">
             <label>მომსახურება</label>
             <div>
@@ -301,7 +301,7 @@ class Staff {
             <!-- END id3 -->
 
             <div id="id4" class="tab">
-            
+                <table class="history_grid"></table>
             </div>
             <!-- END id4 -->
             <div id="id5" class="tab">

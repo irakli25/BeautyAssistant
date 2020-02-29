@@ -91,6 +91,57 @@ switch ($action){
 
     break;
 
+    case "save_order":
+        $user_id = $_SESSION['USER'];
+        $assistant = $_REQUEST['assistant'];
+        $products = $_REQUEST['products'];
+        $district = $_REQUEST['district'];
+        $street = $_REQUEST['street'];
+        $address = $_REQUEST['address'];
+
+        if($user_id != ''){
+
+                if (is_array($products)){
+                    $expe = implode(",",$products);
+                }
+                else{
+                    $expe = $products;
+
+                }
+
+                $query = "SELECT SUM(price) AS `price` FROM finance WHERE user_id = $assistant AND experience_id in ($expe)";
+                $res = $db->query($query);
+                $p = $res->fetch_assoc();
+                $price = $p['price'];
+                
+
+                $query = "INSERT INTO `orders`
+                                SET `datetime` = NOW(),
+                                    `staff_id` = $assistant,
+                                    `client_id`= $user_id,
+                                    `district_id` = $district,
+                                    `street_id` = $street,
+                                    `local_address` = '$address',
+                                    `price`         = $price,
+                                    `status`        = 1
+                                ";
+
+                $db->query($query);
+
+                $order_id = $db->lastId();
+
+                for($i=0; $i<sizeof($products); $i++){
+                    $query = "INSERT INTO `products`
+                                    SET experience_id = '$products[$i]',
+                                        `order_id` = '$order_id' ";
+                                        $db->query($query);
+                }
+        }
+        else $Error = "თქვენ არ ხართ ავტორიზებული, გაიარეთ ავტორიზაცია";
+        
+
+    break;
+
 }
 
 $data["error"] = $Error;
