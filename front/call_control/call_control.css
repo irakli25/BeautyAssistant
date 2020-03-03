@@ -1,0 +1,33 @@
+.control_buttons{
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin-left: 30%;
+}
+button{
+    border-radius: 5px;
+    background-color: #d015ed;
+    border: 1px solid transparent;
+    padding: 25px;
+    color: #FFF;
+    margin-left: 5%;
+    cursor: pointer;
+    font-size: 20px;
+    margin-top: 30px;
+    border:2px solid transparent;
+    transition: 0.3s;
+}
+button:hover{
+    color:#d015ed;
+    background-color:#FFF;
+    border:2px solid #d015ed;
+    transition: 0.3s;
+    cursor:pointer;
+}
+
+.checked_button{
+    color:#d015ed;
+    background-color:#FFF;
+    border:2px solid #d015ed;
+    pointer-events: none;
+}

@@ -136,6 +136,26 @@ switch ($action){
                                         `order_id` = '$order_id' ";
                                         $db->query($query);
                 }
+
+                $query = "INSERT INTO `order_status`
+                                    SET `user_id` = '$assistant',
+                                        `order_id` = '$order_id',
+                                        `status` = 0 ";
+                                        $db->query($query);
+
+                $email = "<p> ".get_username($user_id)." თქვენ გაქვთ ახალი შეკვეთა</p>
+                            <p> ასისტენტი : ".get_username($assistant)."
+                            <p>მომსახურება : ".get_products($order_id)."</p>
+                            <p>ფასი : ".$price."</p>
+                            <p>მისამართი : ".get_address($order_id)." </p>
+
+                ";
+
+                
+                $res = $db->query("SELECT `uid` FROM users WHERE id = $assistant");
+                $arr = $res->fetch_assoc();
+                $link = "<p>შეკვეთის ლინკი : http://localhost:81/?route=8&uid=".$arr['uid']."&order_id=".$order_id."</p>";
+                $data = array("id" => $order_id,"email" => $email, "link" => $link);
         }
         else $Error = "თქვენ არ ხართ ავტორიზებული, გაიარეთ ავტორიზაცია";
         
@@ -147,5 +167,40 @@ switch ($action){
 $data["error"] = $Error;
 echo json_encode($data);
 
+
+function get_username($id){
+    global $db;
+
+    $query = "SELECT CONCAT(`name`, ' ', `surname`) AS `name` FROM `users` WHERE `id` = $id ";
+    $res = $db->query($query);
+    $arr = $res->fetch_assoc();
+    return $arr['name'];
+}
+
+function get_products($id) {
+    global $db;
+    $query = "SELECT  GROUP_CONCAT(experience.`name`) AS `products`
+    FROM products
+    JOIN experience ON experience.id = products.experience_id
+    WHERE order_id = $id
+    GROUP BY order_id";
+     $res = $db->query($query);
+     $arr = $res->fetch_assoc();
+     return $arr['products'];
+}
+
+function get_address($id) {
+    global $db;
+    $query = "SELECT  CONCAT(district.`name`,' ', street.`name`, ' ', o.local_address) `address`
+
+    FROM orders o
+    JOIN district ON o.district_id = district.id
+    JOIN street ON o.street_id = street.id
+    WHERE o.id = $id ";
+
+$res = $db->query($query);
+$arr = $res->fetch_assoc();
+return $arr['address'];
+}
 
 ?>
