@@ -14,7 +14,7 @@ session_start();
     <meta name="description" content="Beauty and Fashion">
     <meta name="keywords" content="HTML,CSS,XML,JavaScript">
     <meta name="author" content="Irakli Tabukashvili">
-    <meta name="theme-color" content="#d015ed" />
+    <meta name="theme-color" content="var(--main-color)" />
     <?php echo get_css();?>
     <?php echo get_js();?>
     <title>Beauty Assistant</title>

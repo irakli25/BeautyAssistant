@@ -6,7 +6,7 @@
 }
 button{
     border-radius: 5px;
-    background-color: #d015ed;
+    background-color: var(--main-color);
     border: 1px solid transparent;
     padding: 25px;
     color: #FFF;
@@ -18,16 +18,16 @@ button{
     transition: 0.3s;
 }
 button:hover{
-    color:#d015ed;
+    color:var(--main-color);
     background-color:#FFF;
-    border:2px solid #d015ed;
+    border:2px solid var(--main-color);
     transition: 0.3s;
     cursor:pointer;
 }
 
 .checked_button{
-    color:#d015ed;
+    color:var(--main-color);
     background-color:#FFF;
-    border:2px solid #d015ed;
+    border:2px solid var(--main-color);
     pointer-events: none;
 }

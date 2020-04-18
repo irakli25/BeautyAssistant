@@ -22,10 +22,11 @@ switch ($action){
         $res = $db->query($query);
         while($arr = $res->fetch_assoc()){
             $html .= '
-            <div class="profile" link = "?route=7&uid='.$arr['uid'].'">
-					<div class="profile_image shadow" style="background-image:url(\'server/uploads/'.$arr['img'].'\')"></div>
+            <div class="profile shadow" link = "?route=7&uid='.$arr['uid'].'">
+					<div class="profile_image" style="background-image:url(\'server/uploads/'.$arr['img'].'\')"></div>
 					<div class="profile_text">
-						<h4>'.$arr['name'].' '.$arr['surname'].'</h4>
+                        <h3>'.$arr['name'].' '.$arr['surname'].'</h3>
+                        <br>
 						<p>'.$arr['about'].'</p>
 					</div>
 			</div>
@@ -162,6 +163,23 @@ switch ($action){
 
     break;
 
+    case "select" :
+        $table = $_REQUEST['table_name'];
+        $name  = $_REQUEST['list'];
+        $arr = get_select ($table, $name);
+        $data = array("arr" => $arr);
+    break;
+    case "selectwp" :
+        $table = $_REQUEST['table_name'];
+        $name  = $_REQUEST['list'];
+        $exp = $_REQUEST['exp'];
+        $dist = $_REQUEST['dist'];
+        $arr = get_selectwp ($table, $name, $exp, $dist);
+        $data = array("arr" => $arr);
+    break;
+    
+    default : $Error = "უცნობი ქეისი";
+
 }
 
 $data["error"] = $Error;
@@ -201,6 +219,94 @@ function get_address($id) {
 $res = $db->query($query);
 $arr = $res->fetch_assoc();
 return $arr['address'];
+}
+
+
+
+function get_val($table_name,$get){
+    $table = "user_".$table_name;
+    $id = $table_name."_id";
+    $db = new DB();
+    $user_id = $_SESSION['USER'];
+    $arr = array();
+    $query = "SELECT `$id` AS `id` , `$table_name`.`name`
+    FROM `$table` 
+    JOIN `$table_name` ON `$table_name`.id = `$id`
+    WHERE `user_id` = '$user_id'";
+    $res = $db->query($query);
+    while ($r = $res->fetch_assoc()){
+        array_push($arr,array("name"=>$r['name'],"id"=>$r['id']));
+    }
+
+    if($get == "1" && sizeof($arr) > 0)
+        return $arr;
+
+    return 0;
+}
+
+function get_in($arr,$table_name){
+    $db = new DB();
+    $array = array();
+    if($arr == "") $arr = 0;
+    $query = "SELECT `id`, `name` FROM $table_name WHERE id in ($arr)";
+    $res = $db->query($query);
+    while ($r = $res->fetch_assoc()){
+        array_push($array,array("name"=>$r['name'],"id"=>$r['id']));
+    }
+
+    return $array;
+
+}
+
+function get_select ($table, $name){
+    $db = new DB();
+    $user_id = $_SESSION['USER'];
+    $array = array();
+    $query = "SELECT  `id` , `$table`.`name`
+    FROM `$table` 
+    ";
+    $res = $db->query($query);
+    while ($r = $res->fetch_assoc()){
+        array_push($array,array("name"=>$r['name'],"id"=>$r['id']));
+    }
+
+    return $array;
+}
+
+function get_selectwp ($table, $name, $exp, $dist){
+    $db = new DB();
+    $user_id = $_SESSION['USER'];
+    $array = array();
+
+
+if (is_array($exp)){
+	$expe = implode(",",$exp);
+	$size = sizeof($exp);
+}
+else{
+	$expe = $exp;
+	$arr = explode(",",$exp);
+	$size = sizeof($arr);
+}
+
+
+$query = " SELECT users.id,  users.name, users.img 
+
+FROM users 
+
+JOIN user_experience ON user_experience.user_id = users.id
+JOIN user_district ON user_district.user_id = users.id
+
+WHERE  users.active = 1 AND users.name is not null AND user_experience.experience_id in ($expe) AND user_district.district_id = $dist
+group by users.id
+having count(distinct  user_experience.experience_id) = $size";
+
+    $res = $db->query($query);
+    while ($r = $res->fetch_assoc()){
+        array_push($array,array("name"=>$r['name'],"id"=>$r['id'], "img"=> $r['img']));
+    }
+
+    return $array;
 }
 
 ?>

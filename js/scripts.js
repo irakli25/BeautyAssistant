@@ -2,7 +2,29 @@ $.ajaxSetup({
     dataType:"json",
     type:'POST'
   });
+// scroll
+  $(document).ready(function() {
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var route = url.searchParams.get("route");
 
+    $(`a[href='?route=${route}']`).parent().addClass("active_menu");
+
+
+    var lastScrollTop = 0;
+    $(window).scroll(function(event){
+        var st = $(this).scrollTop();
+        if (st > lastScrollTop){
+            $("header").addClass("up");
+        } else {
+            $("header").removeClass("up");
+        
+        }
+        lastScrollTop = st;
+    });
+    $('select').selectric();
+  });
+// scroll
 $(document).on("click",".closebtn",function (){
     $(this).parent().css("display","none");
 })
@@ -214,7 +236,7 @@ function html(email,name){
     <a href='https://beautyassistant.herokuapp.com/server/authentication.php?email=${email}'>
     <button
     style="border-radius: 5px;
-    background-color: #d015ed;
+    background-color: var(--main-color);
     border: 1px solid transparent;
     padding: 7px;
     color: #FFF;

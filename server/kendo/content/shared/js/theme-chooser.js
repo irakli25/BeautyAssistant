@@ -152,7 +152,7 @@
 
     var ThemeChooserViewModel = kendo.observable({
         sassThemes: [
-            { value: "default-v2", name: "Default v2", colors: [ "#d015ed", "#eb5b51", "#fff" ]  },
+            { value: "default-v2", name: "Default v2", colors: [ "var(--main-color)", "#eb5b51", "#fff" ]  },
             { value: "bootstrap-v4", name: "Bootstrap v4", colors: [ "#0275d8", "#67afe9", "#fff" ]  },
             { value: "material-v2", name: "Material", colors: [ "#3f51b5", "#283593", "#fff"] }
         ],

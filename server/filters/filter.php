@@ -91,6 +91,7 @@ if($select_id == "calc_district" && $profile != ""){
 									->dataValueField($id)
 									->filter('contains')
 									->ignoreCase(false)
+									// ->animation(false)
 									->attr('style', $width);
 
 									$data= array("page" => '<head><meta charset="utf-8"/></head><body><div class="demo-section k-content">

@@ -1,7 +1,7 @@
 nav{
   margin-bottom:2vw;
   background: #FFF;
-  border-bottom: 2px solid #d015ed;
+  border-bottom: 2px solid var(--main-color);
   padding-top: 1px;
 }
 .logo{
@@ -21,7 +21,7 @@ nav{
   background-size: 70%;
   width: 30px;
   height: 30px;
-  border: 2px solid #d015ed;
+  border: 2px solid var(--main-color);
   border-radius: 50%;
   position: absolute;
   left: 42%;
@@ -50,13 +50,7 @@ nav{
 .navigation_ul{
   list-style-type: none;
   position: relative;
-  left: 230px;
-  width: 84%;
-  background: #FFF;
-  border-radius: 13px;
-  padding: 5px;
-  padding-left: 60px;
-  height: 30px;
+  top: 17px;
 }
 
 .social {
@@ -93,32 +87,42 @@ nav{
 }
 
 .navigation_ul li{
-	display: inline-block;
-	width: 10vw;
+  display: inline-block;
+
 }
-.navigation_ul li a, .in{
-	color: #444;
+
+.navigation_ul li a{
+	color: #CCC;
 	text-decoration: none;
 	font-size: 1em;
   font-weight: bold;
 }
 .menu_list{
-  position:absolute;
-  top: 15px;
+  padding: 40px;
+}
+.active_menu{
+  border-bottom: 3px solid #FFF;
+  padding-bottom: 13px;
+}
+.active_menu a{
+  color:#FFF!important;
 }
 .navigation_ul li a:hover, .in:hover{
-	color: #d015ed;
+	color: #FFF;
 }
 .in{
   cursor:pointer;
+  color:#FFF!important;
 }
 header{
-  display: block;
-  margin: auto;
-  margin-bottom: 2vw;
-  position: fixed;
   width: 100%;
   top: 0;
+  display: flex;
+  flex-direction: column;
+  position:fixed;
+  height:120px;
+  transition: 0.3s ease;
+  z-index: 1;
 }
 /* social icons aside */
 aside a{

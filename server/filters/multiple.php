@@ -95,6 +95,7 @@ $width = $_REQUEST['width'];
                         ->autoBind(false)
                         ->filter('contains')
                         ->ignoreCase(false)
+                        // ->animation(false)
                         ->attr('style', $width);
 
 

@@ -39,7 +39,7 @@
   background-image: none;
 }
 .ktb-var-selected-text-color {
-  color: #d015ed;
+  color: var(--main-color);
 }
 .ktb-var-error {
   color: #ffcdd2;
@@ -574,7 +574,7 @@ html .km-pane-wrapper .k-header {
   background: transparent;
 }
 table:not(.k-scheduler-dayview) .k-scheduler-header-wrap .k-today {
-  color: #d015ed;
+  color: var(--main-color);
 }
 .k-scheduler-now-arrow {
   border-left-color: #eed3d7;
@@ -696,7 +696,7 @@ table:not(.k-scheduler-dayview) .k-scheduler-header-wrap .k-today {
 .k-scheduler .k-today.k-state-selected,
 .k-marquee-color,
 .k-drag-clue.k-state-selected {
-  color: #d015ed;
+  color: var(--main-color);
   background-color: #ffffff;
   border-color: #ffffff;
 }
@@ -711,15 +711,15 @@ table:not(.k-scheduler-dayview) .k-scheduler-header-wrap .k-today {
 .k-popup > .k-group-header,
 .k-popup > .k-virtual-wrap > .k-group-header {
   background: #ebebeb;
-  color: #d015ed;
+  color: var(--main-color);
 }
 .k-popup .k-list .k-item > .k-group {
   background: #ebebeb;
-  color: #d015ed;
+  color: var(--main-color);
   border-bottom-left-radius: 1px;
 }
 .k-marquee-text {
-  color: #d015ed;
+  color: var(--main-color);
 }
 .k-state-focused,
 .k-list > .k-state-focused,
@@ -742,7 +742,7 @@ td.k-state-focused.k-state-selected {
 .k-state-selected > .k-link,
 .k-panelbar > .k-item > .k-state-selected,
 .k-panelbar .k-group .k-item > .k-state-selected {
-  color: #d015ed;
+  color: var(--main-color);
 }
 .k-state-hover,
 .k-splitbar-horizontal-hover,
@@ -1005,12 +1005,12 @@ div.k-filebrowser-dropzone em {
   color: #999999;
 }
 .k-upload .k-upload-selected {
-  color: #d015ed;
+  color: var(--main-color);
   border-color: #e6e6e6;
 }
 .k-upload .k-upload-selected:hover {
   color: #ffffff;
-  background-color: #d015ed;
+  background-color: var(--main-color);
 }
 .k-tile {
   border-color: #ffffff;
@@ -1978,7 +1978,7 @@ span.k-colorpicker {
 }
 .k-list > .k-state-selected.k-state-focused {
   box-shadow: none;
-  color: #d015ed;
+  color: var(--main-color);
 }
 .k-list > .k-state-selected {
   box-shadow: none;
@@ -2216,10 +2216,10 @@ td.k-group-cell,
   border-radius: 0;
 }
 .k-pager-numbers .k-state-selected {
-  border-color: #d015ed transparent transparent;
+  border-color: var(--main-color) transparent transparent;
   border-radius: 0;
   box-shadow: none;
-  color: #d015ed;
+  color: var(--main-color);
 }
 .k-pager-wrap .k-link {
   border-color: #fafafa;
@@ -2977,7 +2977,7 @@ div.k-scheduler-marquee:after {
 .k-chart .k-handle {
   width: 15px;
   height: 15px;
-  background-color: #d015ed;
+  background-color: var(--main-color);
   border-radius: 10px;
 }
 .k-chart .k-left-handle {
@@ -3159,7 +3159,7 @@ div.k-scheduler-marquee:after {
   box-shadow: inset 0 0 0 1px #e6e6e6;
 }
 .k-spreadsheet-filter.k-state-active {
-  color: #d015ed;
+  color: var(--main-color);
   background-color: #ff9e40;
 }
 .k-spreadsheet-filter:hover {
@@ -3278,7 +3278,7 @@ div.k-scheduler-marquee:after {
 }
 .k-spreadsheet-formula-list .k-state-focused {
   background-color: #ff9e40;
-  color: #d015ed;
+  color: var(--main-color);
 }
 .k-spreadsheet .k-spreadsheet-quick-access-toolbar .k-button,
 .k-spreadsheet .k-spreadsheet-sheets-bar .k-button {
@@ -3520,7 +3520,7 @@ div.k-scheduler-marquee:after {
 .k-grid-header .k-i-sort-asc-sm,
 .k-grid-header .k-i-sort-desc-sm,
 .k-grid-header .k-sort-order {
-  color: #d015ed;
+  color: var(--main-color);
   opacity: 1;
   margin-bottom: -1px;
 }

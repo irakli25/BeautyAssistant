@@ -17,18 +17,21 @@ $(document).ready(function ()
             tabs();
             let img_array;
             get_images();
-            var district              =   new filter("district","district","id","name");
-            var street                =   new filter("street","street","id","name","300px");
-            var hear                =   new filter("hear","street","id","name");
-            var skin                =   new filter("skin","street","id","name");
-            var district_multi      =   new multiSelect("district_multi","district","id","name","1550px");
-            var experince           =   new multiSelect("experience","experience","id","name","1550px");
-            var calc_experince           =   new multiSelect("calc_experience","experience","id","name","100%",0,getCookie("calc_experience"));
-            var calc_district            =   new filter("calc_district","district","id","name","100%");
+            // var district              =   new filter("district","district","id","name");
+            // var street                =   new filter("street","street","id","name","300px");
+            // var hear                =   new filter("hear","street","id","name");
+            // var skin                =   new filter("skin","street","id","name");
+            // var district_multi      =   new multiSelect("district_multi","district","id","name","1550px");
+            // var experince           =   new multiSelect("experience","experience","id","name","1550px");
+            // var calc_experince           =   new multiSelect("calc_experience","experience","id","name","100%",0,getCookie("calc_experience"));
+            // var calc_district            =   new filter("calc_district","district","id","name","100%");
+            select("calc_district","district","name");
+            select("calc_experience","experience","name");
+            select_wp("calc_profiles","users","name",getCookie("calc_experience"),getCookie("calc_district"));
 
             if(!(getCookie("calc_experience") == "" || getCookie("calc_district") == "")){
                
-                var calc_profiles            =   new template_filter("calc_profiles","users","id","name","100%",getCookie("calc_experience"),getCookie("calc_district"));
+                // var calc_profiles            =   new template_filter("calc_profiles","users","id","name","100%",getCookie("calc_experience"),getCookie("calc_district"));
             
                     show_assistant();
                     $("#calc_price").html(`<span>${getCookie("calc_price")}</span><div class="lari"></div>`);
@@ -69,6 +72,68 @@ function tabs() {
     $(".tab").hide();
 
     $("#id1").show();
+}
+
+
+
+function select(select_id, table,list){
+    $.ajax({
+            url:"server/server.php",
+            data:{
+            act:"select",    
+            select_id : select_id,
+            table_name : table,
+            // id : id,
+            list : list,
+            // width : `width: ${width}`,
+            // where : where,
+            // get_val : val,
+            // arr : arr,
+            profile : isNaN(Number($("#profile_id").val())) ? "" : Number($("#profile_id").val())
+        },
+        success:function(data){
+            if(data.error == ''){
+                let array = data.arr;
+                $(`#${select_id}`).append(`<option value="0">აირჩიეთ</option>`);
+                for(let i=0; i<array.length; i++){
+                    $(`#${select_id}`).append(`<option value="${array[i].id}">${array[i].name}</option>`);
+                    $(`#${select_id}`).selectric('refresh');
+                }
+            }
+
+            else {
+                alert(data.error);
+            }
+        }
+    })
+}
+
+function select_wp(select_id, table,list,exp, dist){
+    $.ajax({
+            url:"server/server.php",
+            data:{
+            act:"selectwp",    
+            select_id : select_id,
+            table_name : table,
+            list : list,
+            exp: exp,
+            dist: dist
+        },
+        success:function(data){
+            if(data.error == ''){
+                let array = data.arr;
+                $(`#${select_id}`).append(`<option value="0">აირჩიეთ</option>`);
+                for(let i=0; i<array.length; i++){
+                    $(`#${select_id}`).append(`<option style="${get_img(array[i].img)}"; value="${array[i].id}">${array[i].name}</option>`);
+                    $(`#${select_id}`).selectric('refresh');
+                }
+            }
+
+            else {
+                alert(data.error);
+            }
+        }
+    })
 }
 
 
@@ -158,6 +223,8 @@ class multiSelect {
         type:"GET",
         success:function(data){
             $("#"+data.element_id).parent().html(data.page);
+            $(`#${data.element_id}-list`).parent().css("margin-top",$(`#${data.element_id}`).css("margin-top"));
+            console.log("test");
         }
     })
     }
@@ -532,7 +599,9 @@ function hide_assistant(){
 
 $(document).on("change", "#calc_experience, #calc_district", function(){
     $("#calc_profiles_span").html('<select id="calc_profiles" ></select>');
-    var calc_profiles            =   new template_filter("calc_profiles","users","id","name","100%",$("#calc_experience").val(),$("#calc_district").val());
+    select_wp("calc_profiles","users","name",$("#calc_experience").val(),$("#calc_district").val());
+    
+    // var calc_profiles            =   new template_filter("calc_profiles","users","id","name","100%",$("#calc_experience").val(),$("#calc_district").val());
     if(!($("#calc_experience").val() == 0 || $("#calc_district").val() == 0)){
         show_assistant();
         $("#order_button").show();
