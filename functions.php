@@ -13,14 +13,15 @@ function get_css(){
             <link rel='stylesheet' href='js/kendo/styles/kendo.custom.css'/>
             <link rel='stylesheet' href='js/kendo/styles/kendo.default-v2.min.css'/>
             <link rel='stylesheet' href='selectric/themes/p-th/selectric.css'>
-            <link rel='stylesheet' href='bootstrap/css/bootstrap.min.css'>
+
 
             <link rel='stylesheet' href='css/modern-normalize.css'/>
-            <link rel='stylesheet' href='css/style.css?v=".$rand."'>
+           
             <link rel='stylesheet' href='css/menu.css?v=".$rand."'>
             <link rel='stylesheet' href='front/home/home.css?v=".$rand."'>
             <link rel='stylesheet' href='front/login/login.css?v=".$rand."'>
             <link rel='stylesheet' href='front/profile/profile.css?v=".$rand."'>
+            <link rel='stylesheet' href='css/style.css?v=".$rand."'>
 
             
             ";
@@ -32,7 +33,7 @@ function get_js(){
     $js="   <script src='js/jquery-3.4.1.min.js'></script>
             <script src='js/jquery-ui.min.js'></script>
             <script src='selectric/jquery.selectric.min.js'></script>
-            <script src='bootstrap/js/bootstrap.min.js'></script>
+           
             <script src='js/scripts.js?v=".$rand."'></script>
             <script src='front/home/home.js?v=".$rand."'></script>
             <script src='front/profile/profile.js?v=".$rand."'></script>

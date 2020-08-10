@@ -4,7 +4,6 @@ require_once '../kendo/lib/DataSourceResult.php';
 require_once '../kendo/lib/Kendo/Autoload.php';
 require_once '../../classes/class.settings.php';
 require_once "../../classes/class.db.php";
-error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 $sql_details = array(

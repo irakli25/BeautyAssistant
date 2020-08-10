@@ -6,8 +6,7 @@ $action = $_REQUEST['act'];
 $Error  = "";
 $data = array();
 $db = new DB();
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
+
 switch($action){
 
     case "update_user" :
@@ -63,7 +62,7 @@ switch($action){
             $query = "INSERT INTO `user_district` SET `district_id` = '$id', `user_id` = '$user_id', `datetime` = NOW()";
             $done = $db->query($query);
         }
-        if(! $done){
+        if(! $done && $ids != NULL){
             $Error =" დაუდგენელი შეცდომა !";
         }
     break;
@@ -133,14 +132,15 @@ switch($action){
         }
         
     break;
-    case "update_street" :
+    case "update" :
         $done = false;
         $id = $_REQUEST['id'];
+        $table = $_REQUEST['table'];
         $user_id = $_SESSION['USER'];
-        $query = "DELETE FROM `user_street` WHERE `user_id` = '$user_id'";
+        $query = "DELETE FROM `user_$table` WHERE `user_id` = '$user_id'";
         $db->query($query);
 
-            $query = "INSERT INTO `user_street` SET `street_id` = '$id', `user_id` = '$user_id', `datetime` = NOW()";
+            $query = "INSERT INTO `user_$table` SET ".$table."_id = '$id', `user_id` = '$user_id', `datetime` = NOW()";
             $done = $db->query($query);
 
         if(! $done){
@@ -149,14 +149,56 @@ switch($action){
     break;
 
     case "update_experience" :
+        $done = false;
         $ids = $_REQUEST['ids'];
         $user_id = $_SESSION['USER'];
         $query = "DELETE FROM `user_experience` WHERE `user_id` = '$user_id'";
         $db->query($query);
         foreach($ids as $id){
             $query = "INSERT INTO `user_experience` SET `experience_id` = '$id', `user_id` = '$user_id', `datetime` = NOW()";
-            $db->query($query);
+            $done = $db->query($query);
         }
+        if(! $done && $ids != NULL){
+            $Error =" დაუდგენელი შეცდომა !";
+        }
+    break;
+    case "get_history_window":
+        $id = $_REQUEST['id'];
+        $query = "SELECT o.id,o.datetime, CONCAT(clients.`name`,' ',clients.surname)  AS client, GROUP_CONCAT(experience.`name`) AS `exp`, o.price,  CONCAT(district.`name`, ' ', street.`name`, ' ', o.local_address) AS street
+
+        FROM orders o
+        JOIN users AS clients ON o.client_id = clients.id
+        JOIN products ON products.order_id = o.id
+        JOIN experience ON experience.id = products.experience_id
+        JOIN district ON district.id = o.district_id
+		JOIN  street ON o.street_id = street.id
+        WHERE o.id = $id
+        group by o.id
+        ";
+        $result = $db->query($query);
+        $res = $result->fetch_assoc();
+        $data = array("datetime" => $res[datetime], "client" => $res[client],"exp" => $res[exp], "price" => $res[price], "street" => $res[street]);
+        
+
+    break;
+    case "get_history_window_client":
+        $id = $_REQUEST['id'];
+        $query = "SELECT o.id,o.datetime, CONCAT(staff.`name`,' ',staff.surname)  AS client, GROUP_CONCAT(experience.`name`) AS `exp`, o.price,  CONCAT(district.`name`, ' ', street.`name`, ' ', o.local_address) AS street
+
+        FROM orders o
+        JOIN users AS staff ON o.staff_id = staff.id
+        JOIN products ON products.order_id = o.id
+        JOIN experience ON experience.id = products.experience_id
+        JOIN district ON district.id = o.district_id
+		JOIN  street ON o.street_id = street.id
+        WHERE o.id = $id
+        group by o.id
+        ";
+        $result = $db->query($query);
+        $res = $result->fetch_assoc();
+        $data = array("datetime" => $res[datetime], "client" => $res[client],"exp" => $res[exp], "price" => $res[price], "street" => $res[street]);
+        
+
     break;
     case "get_district":
         $user_id = $_REQUEST['user_id'];

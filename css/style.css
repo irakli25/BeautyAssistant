@@ -2,23 +2,67 @@
     margin:0;
     padding: 0;
     box-sizing: border-box;
+    font-family: Typewriter;
+}
+
+
+
+/*************************************** FONTS */
+
+
+@font-face {
+  font-family: Typewriter;
+  src: url(/css/font/Typewriter.ttf);
+}
+
+@font-face {
+    font-family: Typewriter-Black;
+    src: url(/css/font/Typewriter-Black.ttf);
+  }
+
+
+  @font-face {
+    font-family: Typewriter-Bold;
+    src: url(/css/font/Typewriter-Bold.ttf);
+  }
+
+  @font-face {
+    font-family: Typewriter-Thin;
+    src: url(/css/font/Typewriter-Thin.ttf);
+  }
+
+
+/************************************/
+
+
+
+
+
+select{
+    display:none;
+}
+#container{
+    overflow:hidden;
+}
+
+.container {
+    width: 960px;
+    margin: auto;
+    padding: 16px;
 }
 
 :root{
-    --main-color:#d015ed;
+    --main-color:#f5577b;
+    --tab_color:#f4d8e6;
+    --tab_active:#d36685;
+    --tab_hover:#d36685;
+    --tab_text:#b0a0ab;
 }
 
 body{
-    min-height: 100%;
+    min-width: 320px;
+    display:block;
     position:relative;
-    width:100vw;
-    height: 100vh;
-    overflow-x: hidden;
-    background-repeat: no-repeat;
-    background-size: 100vw;
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire container */
 }
 .shadow {
     -webkit-box-shadow: 3px 3px 5px 6px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
@@ -55,36 +99,53 @@ textarea:focus, input:focus{
 
 .header1{
     height:70px;
-    background:#EEE;
+    background:#fbe6f3;
     width:100%;
     transition: 0.3s;
     overflow: hidden;
 }
 .header1_content{
-    max-width: 1160px;
+
     height: 100%;
-    margin: auto;
+    display: flex;
+    justify-content: space-between;
+
 }
 .header2{
     height:50px;
     background:var(--main-color);
     width:100%;
+    transition: width 0.2s;
 }
 .header2_content{
-    max-width: 1160px;
+
     height: 100%;
-    margin: auto;
+
 }
-.beauty_logo i {
-    color:var(--main-color);
-    font-weight: bold;
+
+.beauty_logo div {
+    width: 40px;
+    height: 40px;
+    background-image: url(../media/icons/logo.png);
+    background-position: center;
+    background-size: contain;
+    margin-top: -1px;
+}
+
+
+
+.beauty_logo span {
+    font-size: 19px;
+    color: #777;
+    margin-top: 11px;
 }
 
 .beauty_logo{
     width: max-content;
     font-size: 150%;
     position: relative;
-    top: 35%;
+    top: 10px;
+    display: flex;
 }
 
 .icon_log_in{
@@ -94,7 +155,7 @@ textarea:focus, input:focus{
     height: 30px;
     width: 30px;
     text-align: center;
-    padding-top: 3px;
+    padding-top: 6px;
 }
 
 .login {
@@ -102,11 +163,12 @@ textarea:focus, input:focus{
     width: 10%;
     justify-content: space-evenly;
     cursor:pointer;
-    margin-top:-10px;
+    margin-top:10px;
 }
 
 .login span {
-    margin: auto;
+    line-height: 30px;
+    margin-left: 10px;
 }
 
 
@@ -164,6 +226,15 @@ textarea:focus, input:focus{
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: 999;
+}
+
+.selectric_wrap{
+    width:250px;
+}
+
+.fullWidth{
+    width:100%;
 }
 
 .alert {
@@ -173,7 +244,6 @@ textarea:focus, input:focus{
     margin: 1% 10%;
     width: 80%;
     border-radius: 15px;
-    z-index: 2;
     opacity: 0.9;
 
 }
@@ -195,10 +265,10 @@ textarea:focus, input:focus{
     margin-top:170px;
 }
 .container_style{
-    width: 1160px;
     margin: auto;
-    margin-top:250px;
+    margin-top:130px;
     height: inherit;
+    padding-bottom: 150px;
 }
 .bold{
     font-weight:bold;
@@ -299,11 +369,12 @@ textarea:focus, input:focus{
     width: 100px;
     height: auto;
     list-style: none;
-    padding-bottom: 15px;
+    padding-bottom: 50px;
 }
 
 .dropdown-content {
-    display: block;
+
+    opacity: 0;
     position: absolute;
     background-color: var(--main-color);
     width: 170px;
@@ -331,8 +402,8 @@ textarea:focus, input:focus{
 
 .dropdown-content a:hover {background-color: #FFF; color:var(--main-color)!important;}
 .dropbtn:hover .dropdown-content {
-
-    height:95px;
+    opacity: 1;
+    height:auto;
 }
 
 #canvas_wrapper{
@@ -354,24 +425,474 @@ button:focus {outline:0;}
   -webkit-margin-before: 0.3em; 
   -webkit-margin-after: 0.2em;
 }
-.golden1 {
-  /* background-image: -webkit-linear-gradient(#FFF65C, #3A2C00);
-  text-shadow: -0.02em -0.03em 0.005em rgba(255, 223, 0, 0.60); */
-  /* background-color:#FFD102; */
-  background-color:#444;
-}
-/* .golden2 {
-  background-image: -webkit-linear-gradient(#E8D800, #E0CF00 52%, #A86800 55%, #A86800 );
-  text-shadow: -0.02em -0.03em 0.005em rgba(255, 255, 0, 0.56);
-}
-.golden3 {
-  background-image: -webkit-linear-gradient(#FFF65C 45%, #9A8000 75%);
-  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.09),
-    -1px -1px 0 rgba(255, 220, 0, 0.670);
-  
-} */
 
 
-/* select {
-    display:none;
-} */
+.mobile_li{
+    display:none!important;
+  }
+
+
+  #close_menu {
+    text-align: right;
+    font-size: 25px;
+    color:#FFF;
+  }
+
+  #menu{
+    right: 30px;
+    position: absolute;
+    top: 30px;
+    font-size: 25px;
+    color:var(--main-color);
+  }
+
+.person_info{
+    display: flex;
+    flex-direction: column;
+}
+
+.history_item{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-radius: 7px;
+    margin-top: 25px;
+}
+
+.history_item:hover{
+    cursor:pointer;
+    background-color:var(--main-color);
+    color:#FFF;
+}
+
+
+.history_item_client{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-radius: 7px;
+    margin-top: 25px;
+}
+
+.history_item_client:hover{
+    cursor:pointer;
+    background-color:var(--main-color);
+    color:#FFF;
+}
+
+.history_flex{
+    display:flex;
+    justify-content: space-between;
+}
+
+.history_container {
+    margin-top: 70px;
+    width: 90%;
+    margin: auto;
+    padding: 16px;
+    line-height: 40px;
+}
+
+#history_price{
+    display: flex;
+    line-height: 20px;
+}
+
+/*  @media  */ 
+
+@media all and (max-width:960px) and (min-width:768px) {
+    .container{
+        width:100%;
+    }
+    .login {
+        width: 15%;
+    }
+
+    .ui-tabs-nav li a{
+        width: 130px;
+        font-size: 10px;
+    }
+
+    .row-wrapper{
+        
+    grid-template-columns: 10% 45% 30%;
+    }
+
+    .phone-grid-in{
+        grid-auto-columns: 65% 30%;
+    }
+    
+}
+
+@media all and (max-width:768px) and (min-width:520px) {
+    .container{
+        width:100%;
+    }
+    .login {
+        width: 15%;
+    }
+    .header2 {
+        width:0;
+        right: 0;
+        position: absolute;
+        height: 100vh;
+    }
+    .open_menu{
+        width: 50%;
+      }
+      
+    .navigation_ul {
+        list-style-type: none;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 60vh;
+    }
+
+    .navigation_ul li{
+        width: 100%;
+        text-align: center;
+    }
+
+    .active_menu {
+        padding: 13px;
+        background: #FFF;
+        color: #CCC;
+        border-radius: 13px 1px;
+    }
+    .mobile_li{
+        display:inline-block!important;
+    }
+    .up {
+        height: auto;
+    }
+    .login{
+        display:none;
+    }
+
+    .calc_price{
+        width:30%;
+    }
+
+    #need-job-img{
+        width: 100px;
+        height: 75px;
+
+    }
+    
+    #need-assistant-img{
+      width: 100px;
+      height: 75px;
+
+    }
+
+    .home_tab_text {
+        margin: 10px;
+        font-size: 12px;
+    }
+
+    .ui-tabs-nav li a {
+        width: 35px;
+        overflow: hidden;
+        height: 40px;
+        
+    }
+
+.ui-tabs-nav li.ui-state-active a{
+    width:auto;
+    transition:width 0.3s;
+}
+
+.ui-tabs-nav{
+    margin: 50px auto;
+    width: 80%;
+}
+
+.main-grid{
+    width:95%;
+}
+
+.row-wrapper{
+        
+    grid-template-columns: 10% 45% 30%;
+    }
+
+    .phone-grid-in{
+        grid-auto-columns: 50% 35%;
+    }
+
+    .staff-info {
+        display: grid;
+        grid-auto-flow: row;
+        line-height: 10px;
+        margin-bottom: 15px;
+        grid-gap: 15px;
+        grid-auto-columns: 100%;
+    }
+
+
+}
+
+@media all and (max-width:570px) and (min-width:520px) {
+    .portfolio_wrap{
+        justify-content: space-around;
+    }
+    
+}
+@media all and (max-width:520px) and (min-width:320px){
+    .container{
+        width:100%;
+    }
+    .login {
+        width: 15%;
+    }
+    .header2 {
+        width:0;
+        right: 0;
+        position: absolute;
+        height: 100vh;
+    }
+    .open_menu{
+        width: 100%;
+      }
+      
+    .navigation_ul {
+        list-style-type: none;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 60vh;
+    }
+
+    .navigation_ul li{
+        width: 100%;
+        text-align: center;
+    }
+
+    .active_menu {
+        padding: 13px;
+        background: #FFF;
+        color: #CCC;
+        border-radius: 13px 1px;
+    }
+    .mobile_li{
+        display:inline-block!important;
+    }
+    .up {
+        height: auto;
+    }
+    .login{
+        display:none;
+    }
+
+    .calc_price{
+        width:50%;
+    }
+
+    .calculator{
+        width:100%;
+    }
+    .profile{
+        width:95%;
+    }
+    .profile_image{
+        width:70px;
+        height:70px;
+    }
+
+    #calc_text {
+        width: 100%;
+        margin: 0;
+    }
+
+    #need-job-img{
+        width: 140px;
+        height: 75px;
+        margin:0;
+    }
+    
+    #need-assistant-img{
+      width: 140px;
+      height: 75px;
+      margin:0;
+    }
+
+    .home_tab_text {
+        font-size: 12px;
+    }
+
+    .main-buttons .home_tab{
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .main-buttons {
+        display: flex;
+        width: 100%;
+        border: none;
+        flex-direction: column;
+    }
+
+
+    /*********/
+
+
+    .ui-tabs-nav li a {
+        width: 35px;
+        overflow: hidden;
+        height: 40px;
+        
+    }
+
+.ui-tabs-nav li.ui-state-active a{
+    width:auto;
+    transition:width 0.3s;
+}
+
+.ui-tabs-nav{
+    margin: 50px auto;
+    width: 100%;
+}
+
+.main-grid{
+    width:95%;
+}
+
+.row-wrapper{
+        
+    grid-template-columns: 2% 45% 30%;
+    font-size: 10px;
+    }
+
+    .phone-grid-in{
+        grid-auto-columns: 45% 25%;
+        font-size: 10px;
+    }
+
+    .profile_name {
+        line-height: 35px;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .user-pic {
+        height: 100px;
+        width: 100px;
+    }
+
+    .staff-info {
+        display: grid;
+        grid-auto-flow: row;
+        line-height: 10px;
+        margin-bottom: 15px;
+        grid-gap: 15px;
+        grid-auto-columns: 100%;
+    }
+
+    .portfolio_wrap{
+        justify-content: space-around;
+    }
+}
+
+
+
+@media all and (max-width:320px){
+    .container{
+        width:100%;
+    }
+    .login {
+        width: 15%;
+    }
+    .header2 {
+        width:0;
+        right: 0;
+        position: absolute;
+        height: 100vh;
+    }
+    .open_menu{
+        width: 100%;
+      }
+      
+    .navigation_ul {
+        list-style-type: none;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 60vh;
+    }
+
+    .navigation_ul li{
+        width: 100%;
+        text-align: center;
+    }
+
+    .active_menu {
+        padding: 13px;
+        background: #FFF;
+        color: #CCC;
+        border-radius: 13px 1px;
+    }
+    .mobile_li{
+        display:inline-block!important;
+    }
+    .up {
+        height: auto;
+    }
+    .login{
+        display:none;
+    }
+
+    .calc_price{
+        width:50%;
+    }
+
+    .calculator{
+        width:100%;
+    }
+    .profile{
+        width:95%;
+    }
+
+    .profile_image{
+        width:70px;
+        height:70px;
+    }
+
+    #calc_text {
+        width: 100%;
+        margin: 0;
+    }
+
+    #need-job-img{
+        width: 140px;
+        height: 75px;
+        margin:0;
+    }
+    
+    #need-assistant-img{
+      width: 140px;
+      height: 75px;
+      margin:0;
+    }
+
+    .home_tab_text {
+        font-size: 12px;
+    }
+
+    .main-buttons .home_tab{
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .main-buttons {
+        display: flex;
+        width: 100%;
+        border: none;
+        flex-direction: column;
+    }
+}

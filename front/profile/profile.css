@@ -1,14 +1,11 @@
-.container_profile {
-    position: relative;
-    top: 170px;
-    left: 12%;
-}
+
 
 .row-wrapper {
     width: 100%;
     margin-bottom: 20px;
     display: grid;
-    grid-template-columns: 10% 48% 4% 4%;
+    grid-template-columns: 10% 45% 20%;
+    grid-gap: 15px;
 }
 
 .k-multiselect-wrap .k-select{
@@ -19,17 +16,13 @@
     border-radius:0!important;
 }
 
-
-.districts-grid{
-    bottom: -70px;
-    position: absolute;
-    display: grid;
-    grid-gap: 15px;
-    grid-auto-flow: row;
+.info-grid .selectric-items {
+    top: auto;
+    bottom: 100%;
 }
 
+
 .row-wrapper input , .phone-grid-in input{
-    width: 400px;
     border: 1px solid var(--main-color);
     border-radius: 12px;
     padding-left: 12px;
@@ -47,18 +40,15 @@
 }
 
 .done {
-    background: #008000;
+    background: #18b6bf;
     color: #FFF;
     padding: 8px;
-    border-radius: 50%;
+    border-radius: 8px;
     cursor: pointer;
     display:none;
 }
 
-.user-pic-wrap{
-    top: -40px;
-    position: relative;
-}
+
 
 .user-pic{
     background-color: #cccccc;
@@ -99,11 +89,10 @@
     
 }
 
-.info-grid{
+.info-grid {
     display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 50% 50%;
-    width: 100%;
+    grid-auto-flow: row;
+    grid-gap: 50px;
 }
 
 .phone-grid{
@@ -116,24 +105,25 @@
 .phone-grid-in{
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: 48% 4%;
+    grid-auto-columns: 50% 20%;
+    grid-gap: 15px;
     height:25px;
 }
 
 .add {
-    background: #008;
+    background:#18b6bf;
     color: #FFF;
     padding: 8px;
-    border-radius: 50%;
+    border-radius: 8px;
     cursor: pointer;
     
 }
 
 .delete {
-    background: #e02e0d;
+    background: #fa4033;
     color: #FFF;
     padding: 8px;
-    border-radius: 50%;
+    border-radius: 8px;
     cursor: pointer;
     
 }
@@ -143,13 +133,29 @@
 }
 
 .address-grid{
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 20% 20% 20%;
+    display: flex;
+    justify-content: space-between;
+    width: 65%;
 }
 
+.address_wrap{
+    display:flex;
+    justify-content: space-between;
+}
+.register_in_address{
+    width: 85%;
+    padding: 7px 10px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.correct_address{
+    line-height: 50px;
+}
 .address-in {
     line-height:40px;
+    width:45%;
 }
 
 #corect_address{
@@ -157,11 +163,14 @@
 }
 
 .main-grid{
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 15% 50%;
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
 }
 
+.profile_name{
+    line-height: 140px;
+}
 
 .coin{
     background-image: url(/media/icons/coin.png);
@@ -192,19 +201,27 @@
 
 
 .ui-tabs-nav{
-    display: grid;
+    /* display: grid;
     grid-auto-flow: column;
     text-decoration: none;
     list-style: none;
     outline: 0;
     margin-bottom: 50px;
     width: max-content;
-    grid-gap: 10px;
+    grid-gap: 10px; */
+
+    display: flex;
+    text-decoration: none;
+    list-style: none;
+    outline: 0;
+    margin-bottom: 50px;
+    width: 100%;
+    justify-content: space-between;
 
 }
 
 .ui-tabs-nav li a {
-    background: orange;
+    background: var(--tab_color);
     text-align: center;
     border-radius: 15px 0 15px 0;
     border-bottom: none;
@@ -214,18 +231,21 @@
     text-decoration: none;
     outline: 0;
     display: flex;
-    color: #333;
+    color: var(--tab_text);
     font-weight: bold;
-    width:180px;
+    width: 160px;
+    transition: width 0.3s;
+    font-size: 12px;
+    border: 1px solid var(--tab_color);
 }
 
 .ui-tabs-nav li.ui-state-active a{
-    color:#FFF;
+    color: var(--tab_active);
 }
 
 .ui-tabs-nav li a:hover{
 
-    color:#FFF;
+    color:var(--tab_hover);
 }
 
 
@@ -233,11 +253,18 @@
 #about{
     margin: 0px;
     height: 200px;
-    width: 1255px;
+    width: 100%;
+    resize: vertical;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid lightgray;
+    border-radius: 7px;
 }
 
 [target="about"]{
-    position:absolute;
+    margin-top:10px;
 }
 
 .per-info {
@@ -258,21 +285,19 @@
     line-height: 10px;
     margin-bottom: 15px;
 }
-.portfolio_wrap{
-    height: 330px;
-    width: 80%;
-    display: grid;
-    grid-auto-flow: row;
-    grid-auto-columns: 20%;
-    grid-template-columns: 17% repeat(4, 17%);
-    grid-gap: 1%;
-    overflow: auto;
+.portfolio_wrap {
+    width: 100%;
+    display: flex;
+    overflow-y: scroll;
+    height: 300px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 15px;
 }
 
 .portfolio-add{
     display: flex;
     justify-content: center;
-    padding-top: 40%;
     border: 2px solid var(--main-color);
     border-radius: 18px;
     cursor: pointer;
@@ -282,6 +307,7 @@
 .portfolio-add svg {
     font-size: 25px;
     color: var(--main-color);
+    margin: auto;
 }
 
 .portfolio-pic{
@@ -293,6 +319,8 @@
     background-size: cover!important;
     width:250px;
     height:250px;
+    cursor:pointer;
+    margin-bottom: 15px;
 }
 
 
@@ -469,10 +497,6 @@ span.sb-toggle {
 }
 
 
-.portfolio-pic{
-    cursor:pointer;
-}
-
 .pic_view{
 
     border: 2px solid var(--main-color);
@@ -506,7 +530,7 @@ span.sb-toggle {
     background: #FFF;
     padding: 10px;
     border-radius: 15px 0;
-    color: orange;
+    color: var(--tab_active); 
 }
 
 .tab-text{
@@ -605,11 +629,15 @@ span.sb-toggle {
       .finance_input{
         display: flex;
         justify-content: space-between;
-        width: 30%;
+        width: 75%;
       }
 
       .finance_input input {
-        width: 60px;
+        width: 35%;
+        text-align: center;
+        border-radius: 7px;
+        border: none;
+        padding: 4px;
       }
   
 
@@ -624,6 +652,14 @@ span.sb-toggle {
         border: none;
         color: #FFF;
         background-color: var(--main-color);
+        border:1px solid transparent;
+      }
+
+      .finance_button button:hover{
+          cursor:pointer;
+          color:var(--main-color);
+          background:#FFF;
+          border:1px solid var(--main-color);
       }
 
       #calc_assistant{
@@ -637,4 +673,9 @@ span.sb-toggle {
         line-height: 25px;
         margin-top: 10px;
         color: var(--main-color);
+      }
+
+      .districts-grid{
+        display: grid;
+        grid-gap: 20px;
       }

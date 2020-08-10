@@ -50,7 +50,7 @@ nav{
 .navigation_ul{
   list-style-type: none;
   position: relative;
-  top: 17px;
+
 }
 
 .social {
@@ -105,7 +105,7 @@ nav{
   padding-bottom: 13px;
 }
 .active_menu a{
-  color:#FFF!important;
+  color:#FFF;
 }
 .navigation_ul li a:hover, .in:hover{
 	color: #FFF;

@@ -81,3 +81,8 @@ $(document).on("change","#calc_experience", function(){
   let k = $(this).val();
   setCookie('calc_experience',k);
 })
+
+$(document).on("change","#calc_profiles", function(){
+  let k = $(this).val();
+  setCookie('calc_profiles',k);
+})

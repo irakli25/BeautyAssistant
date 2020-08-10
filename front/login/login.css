@@ -14,8 +14,9 @@ img.login_logo {
     border-radius: 50%;
 }
 
-.container {
+.loginContainer{
     padding: 16px;
+    width:100%;
 }
 
 
@@ -40,7 +41,7 @@ img.login_logo {
     background-color: #fefefe;
     margin: 5% auto 15% auto;
     border: 1px solid #888;
-    width: 60%;
+    width: max-content;
 }
 
 /* The Close Button (x) */
@@ -118,8 +119,7 @@ img.login_logo {
 .register_div
 {
 
-  width:60%;
-  margin:10% 20%;
+  width:100%;
   border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;

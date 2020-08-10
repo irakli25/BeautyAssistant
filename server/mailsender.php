@@ -50,7 +50,7 @@ $mail->SMTPAuth = true;
 $mail->Username = 'beautyassistantgeorgia@gmail.com';
 
 //Password to use for SMTP authentication
-$mail->Password = 'Beauty_Assistant_2020';
+$mail->Password = 'Beautyassistant123';
 
 //Set who the message is to be sent from
 $mail->setFrom('beautyassistantgeorgia@gmail.com', 'Beauty Assistant');

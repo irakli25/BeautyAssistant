@@ -72,9 +72,9 @@ class Staff {
                                 <div>
                                     <label for="street" style="margin-top:12px" >დააზუსტე მისამართი</label>
                                 </div>
-                                    <kendo-textbox-container floatingLabel="corect_address">
+                                   
                                             <input class="register_in" style="width: 600px;" id="order_corect_address" kendoTextBox />
-                                    </kendo-textbox-container>
+                                   
                             
                             </div>
                         
@@ -96,11 +96,53 @@ class Staff {
       </div>
 
 
+      <div id="history_window" class="modal">
+
+        <div class="modal-content animate" >
+            <div class="imgcontainer">
+                <span  id ="close_history_window" class="close" title="Close Modal">&times;</span>
+            </div>
+
+            <div class="history_container">
+                <div class="history_flex" >
+                    <label for="history_date"  >დრო</label>
+                    <span id="history_date"></span>
+                </div>
+                <div class="history_flex">
+                    <label for="history_name"  >სახელი და გვარი</label>
+                    <span id="history_name"></span>
+                </div>
+                <div class="history_flex">
+                    <label for="history_product"  >მომსახურება</label>
+                    <span id="history_product"></span>
+                </div>
+
+                <div class="history_flex">
+                    <label for="history_address"  >მისამართი</label>
+                    <span id="history_address"></span>
+                </div>
+                
+                <div class="history_flex">
+                    <label for="history_price"  >ფასი</label>
+                    <span id="history_price"></span>
+                </div>
+
+            </div>
+
+
+            <div class="container" style="background-color:#f1f1f1">
+                    
+            </div>
+            </div>
+        </div>
+
+
+
         <div class="staff_profile">
         <div class="calculator">
             <label>მომსახურება</label>
             <div>
-                <select id="calc_experience" ></select>
+                <select id="calc_experience" multiple ></select>
             </div>
             <label>უბანი</label>
             <div>
@@ -124,7 +166,7 @@ class Staff {
                     </div>
                     
                 </div>
-                <div >
+                <div class="profile_name" >
                     <h1>'.$this->name.' '.$this->surname.'</h1>
                    
                 </div>
@@ -132,7 +174,7 @@ class Staff {
 
             <div id="tabs">
             <ul>
-                <li><a href="#id1" class="shadow">
+                <li><a href="#id1" >
                     <div class="tab-icon">
                         <i class="fas fa-home"></i>
                     </div>
@@ -140,7 +182,7 @@ class Staff {
                         პროფილი
                     </div>
                 </a></li>
-                <li><a href="#id2" class="shadow">
+                <li><a href="#id2" >
                 <div class="tab-icon">
                         <i class="far fa-user"></i>
                 </div>
@@ -148,7 +190,7 @@ class Staff {
                         ჩემს შესახებ
                     </div>
                 </a></li>
-                <li><a href="#id3" class="shadow">
+                <li><a href="#id3" >
                     <div class="tab-icon">
                             <i class="fas fa-images"></i>
                     </div>
@@ -156,15 +198,17 @@ class Staff {
                         პორტფოლიო
                     </div>
                 </a></li>
-                <li><a href="#id4" class="shadow">
+                '.( $this->isuser ?
+                '<li><a href="#id4" >
                     <div class="tab-icon">
                             <i class="fas fa-history"></i>
                     </div>
                     <div class="tab-text">
                         ისტორია
                     </div>
-                </a></li>
-                <li><a href="#id5" class="shadow">
+                </a></li>' : ''
+                ).'
+                <li><a href="#id5" >
                     <div class="tab-icon">
                             <i class="fas fa-coins"></i>
                     </div>
@@ -181,10 +225,10 @@ class Staff {
                                         <input id="name" type="text" value="'.$this->name.'" readonly/> 
                                         '.( $this->isuser ? 
                                                   ' <button class="edit" target="name"   title="ჩასწორება">
-                                                        <i class="fas fa-pencil-alt"></i>
+                                                        <i class="fas fa-pencil-alt"></i> ჩასწორება 
                                                     </button> 
                                                     <button class="done" target="name"   title="შენახვა">
-                                                        <i class="fas fa-check"></i>
+                                                        <i class="fas fa-check"></i> შენახვა 
                                                     </button> ' : ''
                                         
                                         ).'
@@ -195,10 +239,10 @@ class Staff {
                                         <input id="surname" type="text" value="'.$this->surname.'" readonly/>
                                         '.( $this->isuser ? 
                                                   ' <button class="edit" target="surname"   title="ჩასწორება">
-                                                        <i class="fas fa-pencil-alt"></i>
+                                                        <i class="fas fa-pencil-alt"></i> ჩასწორება 
                                                     </button> 
                                                     <button class="done" target="surname"   title="შენახვა">
-                                                        <i class="fas fa-check"></i>
+                                                        <i class="fas fa-check"></i> შენახვა 
                                                     </button> ' : ''
                                         
                                         ).'
@@ -208,24 +252,24 @@ class Staff {
                                         <input id="email" type="text" value="'.$this->email.'" readonly/>
                                         '.( $this->isuser ? 
                                                   ' <button class="edit" target="email"   title="ჩასწორება">
-                                                        <i class="fas fa-pencil-alt"></i>
+                                                        <i class="fas fa-pencil-alt"></i> ჩასწორება 
                                                     </button> 
                                                     <button class="done" target="email"    title="შენახვა">
-                                                        <i class="fas fa-check"></i>
+                                                        <i class="fas fa-check"></i> შენახვა 
                                                     </button> ' : ''
                                         
                                         ).'
                                     </div>
                                     <div class="row-wrapper">
                                         <span>დაბადების თარიღი</span>  
-                                        <input id="birthday" type="text" value="" class="datepicker"  readonly/>
+                                        <input id="birthday" type="date" value="'.$this->birthday.'"   />
                                         <input type="hidden" id="hidden_birth" value="'.$this->birthday.'" />
                                         '.( $this->isuser ? 
                                                   ' <button class="edit" target="birthday"   title="ჩასწორება">
-                                                        <i class="fas fa-pencil-alt"></i>
+                                                        <i class="fas fa-pencil-alt"></i> ჩასწორება 
                                                     </button> 
                                                     <button class="done" target="birthday"   title="შენახვა">
-                                                        <i class="fas fa-check"></i>
+                                                        <i class="fas fa-check"></i> შენახვა 
                                                     </button> ' : ''
                                         
                                         ).'
@@ -238,11 +282,11 @@ class Staff {
                                 </div>
                                 <div class="districts-grid">
                                     <div><span>უბნები</span> </div>
-                                    <div class=" districts">
+                                    <div class="districts">
                                             
                                             '.( $this->isuser ? 
                                                     ' <div>
-                                                            <select id="district_multi" ></select>
+                                                            <select id="district_multi" multiple ></select>
                                                         </div>' 
                                                         
                                                         : $this->get_district()
@@ -263,7 +307,7 @@ class Staff {
                     
                     '.( $this->isuser ? 
                     ' <span>
-                            <select id="experience" ></select>
+                            <select id="experience" multiple ></select>
                         </span>' 
                         
                         : $this->get_experience()
@@ -273,16 +317,16 @@ class Staff {
                 </div>
                 
 
-                <div>
-                    <kendo-textbox-container  floatingLabel="First name" >
+                <div class="person_info">
+                  
                         <textarea id="about" placeholder="დაამატე ინფორმაცია"  kendoTextArea readonly >'.$this->about.'</textarea>
                         <button class="edit" target="about"   title="ჩასწორება">
-                            <i class="fas fa-pencil-alt"></i>
+                            <i class="fas fa-pencil-alt"></i> ჩასწორება 
                         </button> 
                         <button class="done" target="about"   title="შენახვა">
-                            <i class="fas fa-check"></i>
+                            <i class="fas fa-check"></i> შენახვა 
                         </button> 
-                    </kendo-textbox-container>
+                 
                     
                 </div>
 
@@ -299,10 +343,13 @@ class Staff {
                 </div>
             </div>
             <!-- END id3 -->
-
-            <div id="id4" class="tab">
-                <table class="history_grid"></table>
-            </div>
+            '.($this->isuser ?
+                '<div id="id4" class="tab" >
+                '.$this->get_history().'
+              </div>' : ''
+            )
+            
+            .'
             <!-- END id4 -->
             <div id="id5" class="tab">
                 '.$this->get_finance().'
@@ -327,7 +374,7 @@ class Staff {
                     <input type="text" value="'.$result['phone'].'" readonly/>
                     '.( $this->isuser ? '
                         <button class="delete" title="წაშლა" row_id = "'.$result['id'].'" >
-                            <i class="fas fa-minus"></i>
+                            <i class="fas fa-minus"></i> წაშლა
                         </button> ' : '' ).
                 '</div>';
         $i++;
@@ -336,7 +383,7 @@ class Staff {
         $html .= '<div class="phone-grid-in">
                     <input type="text" value="" maxlength="9"/>
                     <button class="add" title="დამატება">
-                        <i class="fas fa-plus"></i>
+                        <i class="fas fa-plus"></i> დამატება
                     </button> 
                 </div>';
     }
@@ -403,16 +450,48 @@ class Staff {
                 FROM users 
                 JOIN user_experience ON user_experience.user_id = users.id
                 JOIN experience ON experience.id = user_experience.experience_id
-                JOIN finance ON finance.user_id = users.id AND experience.id = finance.experience_id
+                LEFT JOIN finance ON finance.user_id = users.id AND experience.id = finance.experience_id
                 WHERE users.id = $this->id";
 
     $res = $mysql->query($query);
 
     while($result = $res->fetch_assoc()){
-        $html .= "<div class='finance_input'> <label>".$result['name']."</label><input class='f_in' id='".$result['ex_id']."' type='number' value='".$result['price']."' /> </div>";
+        $html .= "<div class='finance_input'> <label>".$result['name']."</label><input class='f_in shadow' id='".$result['ex_id']."' type='number' value='".$result['price']."' /> </div>";
     }
     $html .="</div><div  class='finance_button'><button id='save_finance' >შენახვა</button></div>";
     return $html;
+  }
+
+
+  function get_history(){
+    $mysql = $this->db;
+
+    $query = "SELECT o.id,o.datetime, CONCAT(clients.`name`,' ',clients.surname)  AS client, GROUP_CONCAT(experience.`name`) AS `exp`
+
+    FROM orders o
+    JOIN users AS staff ON o.staff_id = staff.id
+    JOIN users AS clients ON o.client_id = clients.id
+    JOIN products ON products.order_id = o.id
+    JOIN experience ON experience.id = products.experience_id
+    WHERE staff.id = $_SESSION[USER]
+    group by o.id";
+
+$result = $mysql->query($query);
+$html = "";
+while($res = $result->fetch_assoc()){
+    $html .='<div class="history_item shadow" order_id = "'.$res[id].'">
+                <div>'.$res[datetime].'</div>
+                <div>'.$res[client].'</div>
+                <div>'.$res[exp].'</div>
+                
+            </div>';
+}
+
+        return '<div class="history_container"> 
+                    '.$html.'
+                    
+        
+        </div>';
   }
 
 }

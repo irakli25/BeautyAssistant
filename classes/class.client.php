@@ -16,7 +16,8 @@ class Client {
   function __construct ($db){
       $this->id = $_SESSION['USER'];
       $this->db = $db;
-
+      $this->isuser = ($this->id == $_SESSION['USER'] ? true : false);
+      
       $res =  $db->getResults("SELECT `id`,`name`, `surname`, `email`, `birthday`,`img`, about, client_correct_address FROM `users` WHERE id = '$this->id' AND `uid` = 'client' LIMIT 1");
       $arr = $res[0];
       $this->id = $arr['id'];
@@ -34,6 +35,49 @@ class Client {
   function getPage(){
 
       if($this->id != "")  return '
+
+
+      <div id="history_window" class="modal">
+
+      <div class="modal-content animate" >
+          <div class="imgcontainer">
+              <span  id ="close_history_window" class="close" title="Close Modal">&times;</span>
+          </div>
+
+          <div class="history_container">
+              <div class="history_flex" >
+                  <label for="history_date"  >დრო</label>
+                  <span id="history_date"></span>
+              </div>
+              <div class="history_flex">
+                  <label for="history_name"  >სახელი და გვარი</label>
+                  <span id="history_name"></span>
+              </div>
+              <div class="history_flex">
+                  <label for="history_product"  >მომსახურება</label>
+                  <span id="history_product"></span>
+              </div>
+
+              <div class="history_flex">
+                  <label for="history_address"  >მისამართი</label>
+                  <span id="history_address"></span>
+              </div>
+              
+              <div class="history_flex">
+                  <label for="history_price"  >ფასი</label>
+                  <span id="history_price"></span>
+              </div>
+
+          </div>
+
+
+          <div class="container" style="background-color:#f1f1f1">
+                  
+          </div>
+          </div>
+      </div>
+
+
         <div class="client_profile">
             <div class="main-grid">
                 <div class="user-pic-wrap">
@@ -41,7 +85,7 @@ class Client {
                         <div class="change_user_pic"><i class="fas fa-camera"></i></div> 
                     </div>
                 </div>
-                <div >
+                <div class="profile_name">
                     <h1>'.$this->name.' '.$this->surname.'</h1>
                     <div class="bautycoin" >
                         <div class="coin"></div>
@@ -52,7 +96,7 @@ class Client {
 
             <div id="tabs">
             <ul>
-                <li><a href="#id1" class="shadow">
+                <li><a href="#id1" >
                     <div class="tab-icon">
                         <i class="fas fa-home"></i>
                     </div>
@@ -60,7 +104,7 @@ class Client {
                         პროფილი
                     </div>
                 </a></li>
-                <li><a href="#id2" class="shadow">
+                <li><a href="#id2" >
                 <div class="tab-icon">
                         <i class="far fa-user"></i>
                 </div>
@@ -68,7 +112,7 @@ class Client {
                         შენს შესახებ
                     </div>
                 </a></li>
-                <li><a href="#id3" class="shadow">
+                <li><a href="#id3" >
                     <div class="tab-icon">
                             <i class="fas fa-history"></i>
                     </div>
@@ -84,10 +128,10 @@ class Client {
                                         <span>სახელი</span> 
                                         <input id="name" type="text" value="'.$this->name.'" readonly/> 
                                         <button class="edit" target="name"   title="ჩასწორება">
-                                            <i class="fas fa-pencil-alt"></i>
+                                            <i class="fas fa-pencil-alt"></i> ჩასწორება 
                                         </button> 
                                         <button class="done" target="name"   title="შენახვა">
-                                            <i class="fas fa-check"></i>
+                                            <i class="fas fa-check"></i> შენახვა 
                                         </button> 
                                         
                                     </div>
@@ -95,31 +139,31 @@ class Client {
                                         <span>გვარი</span> 
                                         <input id="surname" type="text" value="'.$this->surname.'" readonly/>
                                         <button class="edit" target="surname"   title="ჩასწორება">
-                                            <i class="fas fa-pencil-alt"></i>
+                                            <i class="fas fa-pencil-alt"></i> ჩასწორება 
                                         </button> 
                                         <button class="done" target="surname"   title="შენახვა">
-                                            <i class="fas fa-check"></i>
+                                            <i class="fas fa-check"></i> შენახვა 
                                         </button>
                                     </div>
                                     <div class="row-wrapper">
                                         <span>ელფოსტა</span>  
                                         <input id="email" type="text" value="'.$this->email.'" readonly/>
                                         <button class="edit" target="email"   title="ჩასწორება">
-                                            <i class="fas fa-pencil-alt"></i>
+                                            <i class="fas fa-pencil-alt"></i> ჩასწორება 
                                         </button> 
                                         <button class="done" target="email"    title="შენახვა">
-                                            <i class="fas fa-check"></i>
+                                            <i class="fas fa-check"></i> შენახვა 
                                         </button>
                                     </div>
                                     <div class="row-wrapper">
                                         <span>დაბადების თარიღი</span>  
-                                        <input id="birthday" type="text" value="" class="datepicker"  readonly/>
+                                        <input id="birthday" type="date" value="'.$this->birthday.'"  readonly />
                                         <input type="hidden" id="hidden_birth" value="'.$this->birthday.'" />
                                         <button class="edit" target="birthday"   title="ჩასწორება">
-                                            <i class="fas fa-pencil-alt"></i>
+                                            <i class="fas fa-pencil-alt"></i> ჩასწორება 
                                         </button> 
                                         <button class="done" target="birthday"   title="შენახვა">
-                                            <i class="fas fa-check"></i>
+                                            <i class="fas fa-check"></i> შენახვა 
                                         </button> 
                                     </div>
                                 </div> 
@@ -144,22 +188,25 @@ class Client {
                                     </span>
                                 
                                 </div>
-                                <div class="address-in" >
-                                <div><label for="street" style="margin-top:12px" >დააზუსტე მისამართი</label></div> 
-                                <kendo-textbox-container floatingLabel="corect_address" class="flex">
-                                    <input class="register_in" id="client_correct_address" value="'.$this->client_correct_address.'" readonly kendoTextBox />
-                                    <button class="edit" target="client_correct_address"   title="ჩასწორება">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </button> 
-                                    <button class="done" target="client_correct_address"   title="შენახვა">
-                                        <i class="fas fa-check"></i>
-                                    </button> 
-                            </kendo-textbox-container>
                                 
-                                </div>
                         
                         
                         </div>
+
+                        <div class="correct_address" >
+                                <div><label for="street" style="margin-top:12px" >დააზუსტე მისამართი</label></div> 
+                                    <div class="address_wrap">
+                                        <input class="register_in_address" id="client_correct_address" value="'.$this->client_correct_address.'" readonly kendoTextBox />
+                                        <button class="edit" target="client_correct_address"   title="ჩასწორება">
+                                            <i class="fas fa-pencil-alt"></i> ჩასწორება 
+                                        </button> 
+                                        <button class="done" target="client_correct_address"   title="შენახვა">
+                                            <i class="fas fa-check"></i> შენახვა 
+                                        </button> 
+                                    </div>
+                            
+                                
+                                </div>
 
             </div>
             <!-- END id1 -->
@@ -167,38 +214,44 @@ class Client {
             <div id="id2" class="tab">
                 <div class="per-info">
                     <label for="hear" style="margin-top:12px" >თმის ტიპი</label>
-                    <span>
+                    <div class="selectric_wrap">
                         <select id="hear" ></select>
-                    </span>
+                    </div>
                 
                 </div>
                 <div class="per-info">
                     <label for="skin" style="margin-top:12px" >კანის ტიპი</label>
-                    <span>
+                    <div class="selectric_wrap">
                         <select id="skin" ></select>
-                    </span>
+                    </div>
                 
                 </div>
 
                 <div>
-                    <kendo-textbox-container  floatingLabel="First name" >
+                  
                     <textarea id="about" placeholder="დაამატე ინფორმაცია"  kendoTextArea readonly >'.$this->about.'</textarea>
-                        <button class="edit" target="about"   title="ჩასწორება">
-                            <i class="fas fa-pencil-alt"></i>
+                        <button class="edit fullWidth" target="about"   title="ჩასწორება">
+                            <i class="fas fa-pencil-alt"></i> ჩასწორება 
                         </button> 
-                        <button class="done" target="about"   title="შენახვა">
-                            <i class="fas fa-check"></i>
+                        <button class="done fullWidth" target="about"   title="შენახვა">
+                            <i class="fas fa-check"></i> შენახვა 
                         </button> 
-                    </kendo-textbox-container>
+                  
                 
                 </div>
 
             
             </div >
             <!-- END id2 -->
-            <div id="id3" class="tab">
-            <table class="history_grid"></table>
-            </div>
+            
+            '.($this->isuser ?
+                '<div id="id3" class="tab">
+                '.$this->get_history().'
+              </div>' : ''
+            )
+            
+            .'
+            
             <!-- END id3 -->
         </div>
         
@@ -222,7 +275,7 @@ class Client {
                     <input type="text" value="'.$result['phone'].'" readonly/>
                     
                         <button class="delete" title="წაშლა" row_id = "'.$result['id'].'" >
-                            <i class="fas fa-minus"></i>
+                            <i class="fas fa-minus"></i> წაშლა
                         </button> 
                 </div>';
         $i++;
@@ -231,7 +284,7 @@ class Client {
         $html .= '<div class="phone-grid-in">
                     <input type="text" value="" maxlength="9"/>
                     <button class="add" title="დამატება">
-                        <i class="fas fa-plus"></i>
+                        <i class="fas fa-plus"></i> დამატება
                     </button> 
                 </div>';
     }
@@ -245,6 +298,41 @@ class Client {
     $img = $mysql->getResult($query);
       return 'server/uploads/'.$img;
 }
+
+
+
+function get_history(){
+    $mysql = $this->db;
+
+    $query = "SELECT o.id,o.datetime, CONCAT(staff.`name`,' ',staff.surname)  AS staff, GROUP_CONCAT(experience.`name`) AS `exp`
+
+    FROM orders o
+    JOIN users AS staff ON o.staff_id = staff.id
+    JOIN users AS clients ON o.client_id = clients.id
+    JOIN products ON products.order_id = o.id
+    JOIN experience ON experience.id = products.experience_id
+    WHERE clients.id = $_SESSION[USER]
+    group by o.id";
+
+
+$result = $mysql->query($query);
+$html = "";
+while($res = $result->fetch_assoc()){
+    $html .='<div class="history_item_client shadow" order_id = "'.$res[id].'">
+                <div>'.$res[datetime].'</div>
+                <div>'.$res[staff].'</div>
+                <div>'.$res[exp].'</div>
+                
+            </div>';
+}
+
+        return '<div class="history_container"> 
+                    '.$html.'
+                    
+        
+        </div>';
+  }
+
 
 }
    

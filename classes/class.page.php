@@ -27,7 +27,7 @@ class Page
 			$page = "404";
 			$pnf = "404";
 		}
-		echo "<div id ='container' class='container_" . $page . " container_style " . $pnf . "' user = '".$_SESSION['USER']."'>";
+		echo "<div id ='container' class='container container_" . $page . " container_style " . $pnf . "' user = '".$_SESSION['USER']."'>";
 		
 		if($this->user_id != 0){
 			$query = "SELECT `authentication` from `users` WHERE `id`=" . $this->user_id;

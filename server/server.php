@@ -1,4 +1,9 @@
 <?php
+
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
 require_once("../classes/class.db.php");
 session_start();
 $action = $_REQUEST['act'];
@@ -11,7 +16,8 @@ switch ($action){
 
     case "get_list_staff" :
         $html = "";
-        $query = "SELECT  `users`.`name`, 
+        $query = "SELECT  `users`.`id`,
+                `users`.`name`, 
                 `users`.`surname`,  
                 `users`.`about` ,
                 `users`.`uid`,
@@ -22,7 +28,7 @@ switch ($action){
         $res = $db->query($query);
         while($arr = $res->fetch_assoc()){
             $html .= '
-            <div class="profile shadow" link = "?route=7&uid='.$arr['uid'].'">
+            <div class="profile shadow" link = "?route=7&uid='.$arr['uid'].'" user_id = "'.$arr['id'].'">
 					<div class="profile_image" style="background-image:url(\'server/uploads/'.$arr['img'].'\')"></div>
 					<div class="profile_text">
                         <h3>'.$arr['name'].' '.$arr['surname'].'</h3>
@@ -166,8 +172,11 @@ switch ($action){
     case "select" :
         $table = $_REQUEST['table_name'];
         $name  = $_REQUEST['list'];
-        $arr = get_select ($table, $name);
-        $data = array("arr" => $arr);
+        $parent_id = $_REQUEST['parent_id'];
+        $parent_name = $_REQUEST['parent_name'];
+        $arr = get_select ($table, $name,$parent_id, $parent_name);
+        $arr_string = get_select_active($table, $name);
+        $data = array("arr" => $arr, "arr_string" => $arr_string);
     break;
     case "selectwp" :
         $table = $_REQUEST['table_name'];
@@ -258,19 +267,41 @@ function get_in($arr,$table_name){
 
 }
 
-function get_select ($table, $name){
+function get_select ($table, $name,$parent_id, $parent_name){
     $db = new DB();
     $user_id = $_SESSION['USER'];
     $array = array();
     $query = "SELECT  `id` , `$table`.`name`
     FROM `$table` 
     ";
+    if($parent_id !=0 && $parent_name != ""){
+        $query .= "WHERE `$parent_name` = $parent_id";
+    }
+    
     $res = $db->query($query);
     while ($r = $res->fetch_assoc()){
         array_push($array,array("name"=>$r['name'],"id"=>$r['id']));
     }
-
+   
     return $array;
+}
+
+function get_select_active ($table, $name) {
+    $db = new DB(); 
+    $query = "SELECT  `$table`.`id` 
+                    FROM `user_$table`
+                    JOIN `$table` On `$table`.id = user_$table.".$table."_id
+                    WHERE `user_$table`.user_id = '$_SESSION[USER]' ";
+                    
+    $res = $db->query($query); 
+    $arr = "[";     
+    while ($r = $res->fetch_assoc()){
+        if($arr != "[")
+            $arr .= ",";
+        $arr .= $r['id'];
+    }
+    $arr .= "]";
+   return $arr;
 }
 
 function get_selectwp ($table, $name, $exp, $dist){
@@ -300,6 +331,7 @@ JOIN user_district ON user_district.user_id = users.id
 WHERE  users.active = 1 AND users.name is not null AND user_experience.experience_id in ($expe) AND user_district.district_id = $dist
 group by users.id
 having count(distinct  user_experience.experience_id) = $size";
+
 
     $res = $db->query($query);
     while ($r = $res->fetch_assoc()){

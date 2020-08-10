@@ -25,23 +25,33 @@ $(document).ready(function ()
             // var experince           =   new multiSelect("experience","experience","id","name","1550px");
             // var calc_experince           =   new multiSelect("calc_experience","experience","id","name","100%",0,getCookie("calc_experience"));
             // var calc_district            =   new filter("calc_district","district","id","name","100%");
-            select("calc_district","district","name");
-            select("calc_experience","experience","name");
+            select("calc_district","district","name",0,"",false);
+            select("calc_experience","experience","name",0,"",false);
             select_wp("calc_profiles","users","name",getCookie("calc_experience"),getCookie("calc_district"));
-
-            if(!(getCookie("calc_experience") == "" || getCookie("calc_district") == "")){
+            select("district_multi","district","name");
+            select("district","district","name");
+            select("street","street","name");
+            select("hear","hear","name");
+            select("skin","skin","name");
+            select("experience","experience","name");
+            get_districts();
+            // if(!(getCookie("calc_experience") == "" || getCookie("calc_district") == "")){
                
-                // var calc_profiles            =   new template_filter("calc_profiles","users","id","name","100%",getCookie("calc_experience"),getCookie("calc_district"));
+            //     // var calc_profiles            =   new template_filter("calc_profiles","users","id","name","100%",getCookie("calc_experience"),getCookie("calc_district"));
             
-                    show_assistant();
-                    $("#calc_price").html(`<span>${getCookie("calc_price")}</span><div class="lari"></div>`);
-                    $("#order_button").show();
-                    get_calc_price();
-            }
-            else{
-                hide_assistant();
-                $("#order_button").hide();
-            }
+            //         // $("#calc_experience").val(getCookie("calc_experience")).selectric('refresh');
+            //         // $("#calc_district").val(getCookie("calc_district")).selectric('refresh');
+            //         // $("#calc_profiles").val(getCookie("calc_profiles")).selectric('refresh');
+                    
+            //         show_assistant();
+            //         $("#calc_price").html(`<span>${getCookie("calc_price")}</span><div class="lari"></div>`);
+            //         $("#order_button").show();
+            //         get_calc_price();
+            // }
+            // else{
+            //     hide_assistant();
+            //     $("#order_button").hide();
+            // }
 
             
             var val = "";
@@ -75,30 +85,47 @@ function tabs() {
 }
 
 
+function get_districts(){
+    $.ajax({
+        url:"server/server.php",
+        data:{
+            profile:$("#profile_id").val()
+        },
+        success:function(data){
+            
+        }
+    })
+}
 
-function select(select_id, table,list){
+
+function select(select_id, table,list, parent_id = 0, parent_name = "", getSelect = true){
     $.ajax({
             url:"server/server.php",
             data:{
             act:"select",    
             select_id : select_id,
             table_name : table,
-            // id : id,
+            parent_id : parent_id,
+            parent_name : parent_name,
             list : list,
-            // width : `width: ${width}`,
-            // where : where,
-            // get_val : val,
-            // arr : arr,
             profile : isNaN(Number($("#profile_id").val())) ? "" : Number($("#profile_id").val())
         },
         success:function(data){
             if(data.error == ''){
                 let array = data.arr;
+                $(`#${select_id}`).html("");
                 $(`#${select_id}`).append(`<option value="0">აირჩიეთ</option>`);
                 for(let i=0; i<array.length; i++){
                     $(`#${select_id}`).append(`<option value="${array[i].id}">${array[i].name}</option>`);
-                    $(`#${select_id}`).selectric('refresh');
+                    
                 }
+                if(getSelect){
+                    arr = JSON.parse(data.arr_string);
+                    $(`#${select_id}`).val(arr);
+                    
+                }
+                $(`#${select_id}`).selectric('refresh');
+                
             }
 
             else {
@@ -125,8 +152,9 @@ function select_wp(select_id, table,list,exp, dist){
                 $(`#${select_id}`).append(`<option value="0">აირჩიეთ</option>`);
                 for(let i=0; i<array.length; i++){
                     $(`#${select_id}`).append(`<option style="${get_img(array[i].img)}"; value="${array[i].id}">${array[i].name}</option>`);
-                    $(`#${select_id}`).selectric('refresh');
+                    
                 }
+                $(`#${select_id}`).selectric('refresh');
             }
 
             else {
@@ -238,17 +266,11 @@ $(document).on("click", ".edit", function(){
     var id = $(this).attr("target");
     val = $(`#${id}`).val();
 
-    if (id == "birthday"){
-        var datepicker = $(`#${id}`).data("kendoDatePicker");
-        datepicker.readonly(false);
-        $(`#${id}`).val('');
-        $(`#${id}`).focus();
-    }
-    else {
+   
         $(`#${id}`).prop("readonly",false);
         $(`#${id}`).not("[kendotextarea]").val('');
         $(`#${id}`).focus();
-    }
+    
 
         $(`.edit[target="${id}"]`).hide();
         $(`.done[target="${id}"]`).show();
@@ -267,15 +289,10 @@ $(document).on("click", ".done", function(){
 
     
 
-    if (id == "birthday"){
-        var datepicker = $(`#${id}`).data("kendoDatePicker");
-        datepicker.readonly(true);
-
-    }
-    else {
+    
         $(`#${id}`).prop("readonly",true);
 
-    }
+    
 
         if($(`#${id}`).val().replace(/\s/g, '') != ''){
 
@@ -410,16 +427,26 @@ $(document).on("change","#experience", function (){
 $(document).on("change","#district", function (){
     var ids = $(this).val();
     update_district_user(ids);
-    var street                =   new filter("street","street","id","name","300px",`district_id = ${$("#district").val()}`);
-
+    select("street","street","name",ids,"district_id",false);
+    $(`#street`).selectric('refresh');
 })
 
 
 $(document).on("change","#street", function (){
     var id = $(this).val();
-    update_street(id);
+    update(id,"street");
 
 
+})
+
+$(document).on("change","#hear", function (){
+    var id = $(this).val();
+    update(id,"hear");
+})
+
+$(document).on("change","#skin", function (){
+    var id = $(this).val();
+    update(id,"skin");
 })
 
 $(document).on("click",".edit[target='birthday']", function(){
@@ -442,12 +469,13 @@ function update_district(ids){
     })
 }
 
-function update_street(id){
+function update(id,table){
     $.ajax({
         url:"server/profile/profile.php",
         data:{
-            act:"update_street",
-            id:id
+            act:"update",
+            id:id,
+            table:table
         },
         success:function(data){
             if(data.error != "")
@@ -474,13 +502,7 @@ function update_district_user(ids){
     })
 }
 
-$(document).on("click",".staff_profile li[aria-controls='id4']", function(){
-    history_grid();
-})
 
-$(document).on("click",".client_profile li[aria-controls='id3']", function(){
-    history_grid();
-})
 
 
 function update_experience(ids){
@@ -668,6 +690,60 @@ $(document).on("click","#calculate_button", function(){
                 window.location = data.link;
         }
     })
+})
+
+$(document).on("click", ".history_item", function(){
+    let id = $(this).attr("order_id");
+    $.ajax({
+        url:"server/profile/profile.php",
+        data:{
+            act:"get_history_window",
+            id:id
+        },
+        success:function(data){
+            $("#history_date").html(data.datetime);
+            $("#history_name").html(data.client);
+            $("#history_product").html(data.exp);
+            $("#history_address").html(data.street);
+            $("#history_price").html(`<span>${data.price}</span><div class="lari"></div>`);
+            $("#history_window").show();
+        }
+    })
+})
+
+$(document).on("click", ".history_item_client", function(){
+    let id = $(this).attr("order_id");
+    $.ajax({
+        url:"server/profile/profile.php",
+        data:{
+            act:"get_history_window_client",
+            id:id
+        },
+        success:function(data){
+            $("#history_date").html(data.datetime);
+            $("#history_name").html(data.client);
+            $("#history_product").html(data.exp);
+            $("#history_address").html(data.street);
+            $("#history_price").html(`<span>${data.price}</span><div class="lari"></div>`);
+            $("#history_window").show();
+        }
+    })
+})
+
+$(document).on("click", "#close_history_window", function () {
+    $("#history_window").hide();
+})
+
+$(document).on("change", "#calc_profiles", function(){
+   let user_id = + this.value;
+   if(user_id){
+    $(".profile").hide();
+    $(`.profile[user_id = '${user_id}']`).show();
+   }
+   else {
+    $(".profile").show();
+   }
+   
 })
 
 
