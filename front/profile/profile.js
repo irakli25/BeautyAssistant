@@ -55,21 +55,7 @@ $(document).ready(function ()
 
             
             var val = "";
-            $(".datepicker").kendoDatePicker({
-                culture: "ka-GE",
-                format: "yyyy-MM-dd",
-                value: $("#hidden_birth").val(),
-                animation: {
-                 close: {
-                   effects: "fadeOut zoom:out",
-                   duration: 300
-                 },
-                 open: {
-                   effects: "fadeIn zoom:in",
-                   duration: 300
-                 }
-                }
-              });
+          
 
               
 
@@ -647,13 +633,13 @@ $(document).on("click","#order_button", function(){
         },
         success:function(data){
             if(data.isaddress){
-                var order_district              =   new filter("order_district","district","id","name",'300px','',0,$("#calc_district").val());
-                var order_street                =   new filter("order_street","street","id","name","300px",'',0,data.street);
+                select("order_district","district","name");
+                select("order_street","street","name");
                 $("#order_corect_address").val(data.street_name);
             }
             else{
-                var order_district              =   new filter("order_district","district","id","name",'300px','',0,$("#calc_district").val());
-                var order_street                =   new filter("order_street","street","id","name","300px",`district_id = ${$("#calc_district").val()}`,0);
+                select("order_district","district","name");
+                select("order_street","street","name");
 
                 webalert("მითითებულ უბანზე მისამართი ვერ მოიძებნა, გთხოვთ შეიყვანოთ მისამართი !");
             }

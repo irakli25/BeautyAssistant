@@ -49,31 +49,26 @@ class Staff {
           </div>
 
           <div class="container">
-            <label><b>თქვენი შეკვეთა</b></label>
-            <p>ასისტენტი : <b id="get_assistant"  user_id="'.$this->id.'" >'.$this->name.' '.$this->surname.'</b> </p> 
-            <div class="flex"><p> მომსახურება : </p> <p class="flex" style="margin-left: 10px;"  id="get_service"></p></div>
-            <div class="flex"><p> ფასი : </p> <p class="flex" style="margin-left: 10px;" id="get_price"></p></div>
-                        <div class="address-grid" style="grid-auto-flow: row"> 
+            <div><b>თქვენი შეკვეთა</b></div>
+            <br>
+            <p>ასისტენტი : <b id="get_assistant"  user_id="'.$this->id.'" >'.$this->name.' '.$this->surname.'</b> </p> <br>
+            <div class="flex"><p> მომსახურება : </p> <p class="flex" style="margin-left: 10px;"  id="get_service"></p></div><br>
+            <div class="flex"><p> ფასი : </p> <p class="flex" style="margin-left: 10px;" id="get_price"></p></div><br>
+                        <div class="address-grid" > 
                             <div class="address-in">
                                 <label for="district" style="margin-top:12px" >უბანი</label>
-                                <span>
                                     <select id="order_district" ></select>
-                                </span>
-                            
                             </div>
                             <div class="address-in" >
                                 <label for="street" style="margin-top:12px" >ქუჩა</label>
-                                <span>
                                     <select id="order_street" ></select>
-                                </span>
-                            
                             </div>
                             <div class="address-in" >
                                 <div>
                                     <label for="street" style="margin-top:12px" >დააზუსტე მისამართი</label>
                                 </div>
                                    
-                                            <input class="register_in" style="width: 600px;" id="order_corect_address" kendoTextBox />
+                                            <input class="register_in" style="width: 600px;" id="order_corect_address"  />
                                    
                             
                             </div>
@@ -81,9 +76,9 @@ class Staff {
                         
                         </div>
            
-
+                        <br>
                         <p><b>გთხოვთ გადაამოწმოთ შეკვეთის დეტალები, შეკვეთის შემთხვევაში მას ვერ გააუქმებთ !</b></p>
-
+                        <br>
                         <button id="order_done_button" form="none" class="register_button" type="submit" >შეკვეთა</button><br/>
 
           </div>
@@ -139,7 +134,7 @@ class Staff {
 
 
         <div class="staff_profile">
-        <div class="calculator">
+        <div class="calculator shadow">
             <label>მომსახურება</label>
             <div>
                 <select id="calc_experience" multiple ></select>
@@ -303,7 +298,7 @@ class Staff {
 
             <div id="id2" class="tab">
                 <div class="staff-info">
-                    <label for="experience" style="margin-top:12px" >გამოცდილება</label>
+                    <label for="experience" style="margin-top:12px" >გამოცდილება : </label>
                     
                     '.( $this->isuser ? 
                     ' <span>
@@ -319,7 +314,7 @@ class Staff {
 
                 <div class="person_info">
                   
-                        <textarea id="about" placeholder="დაამატე ინფორმაცია"  kendoTextArea readonly >'.$this->about.'</textarea>
+                        <textarea id="about" placeholder="დაამატე ინფორმაცია"   readonly >'.$this->about.'</textarea>
                         <button class="edit" target="about"   title="ჩასწორება">
                             <i class="fas fa-pencil-alt"></i> ჩასწორება 
                         </button> 
@@ -421,15 +416,15 @@ class Staff {
   }
 
   function get_experience() {
-    $html = "<div>";
+    $html = "<div class='experiences'>";
     $mysql = $this->db;
-    $query = "SELECT  `experience`.`name` 
+    $query = "SELECT  group_concat(`experience`.`name`) AS `name`
                     FROM user_experience
                     JOIN experience On experience.id = user_experience.experience_id
                     WHERE user_experience.user_id = $this->id";
     $res = $mysql->query($query);
     while($result = $res->fetch_assoc()){
-        $html .= "<span> ".$result['name'].", </span>";
+        $html .= $result['name'];
     }
     $html .="</div>";
     return $html;

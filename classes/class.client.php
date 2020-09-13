@@ -176,17 +176,11 @@ class Client {
                         <div class="address-grid">
                                 <div class="address-in">
                                     <label for="district" style="margin-top:12px" >უბანი</label>
-                                    <span>
                                         <select id="district" ></select>
-                                    </span>
-                                
                                 </div>
                                 <div class="address-in" >
                                     <label for="street" style="margin-top:12px" >ქუჩა</label>
-                                    <span>
                                         <select id="street" ></select>
-                                    </span>
-                                
                                 </div>
                                 
                         
@@ -196,7 +190,7 @@ class Client {
                         <div class="correct_address" >
                                 <div><label for="street" style="margin-top:12px" >დააზუსტე მისამართი</label></div> 
                                     <div class="address_wrap">
-                                        <input class="register_in_address" id="client_correct_address" value="'.$this->client_correct_address.'" readonly kendoTextBox />
+                                        <input class="register_in_address" id="client_correct_address" value="'.$this->client_correct_address.'" readonly />
                                         <button class="edit" target="client_correct_address"   title="ჩასწორება">
                                             <i class="fas fa-pencil-alt"></i> ჩასწორება 
                                         </button> 
@@ -229,7 +223,7 @@ class Client {
 
                 <div>
                   
-                    <textarea id="about" placeholder="დაამატე ინფორმაცია"  kendoTextArea readonly >'.$this->about.'</textarea>
+                    <textarea id="about" placeholder="დაამატე ინფორმაცია"   readonly >'.$this->about.'</textarea>
                         <button class="edit fullWidth" target="about"   title="ჩასწორება">
                             <i class="fas fa-pencil-alt"></i> ჩასწორება 
                         </button> 

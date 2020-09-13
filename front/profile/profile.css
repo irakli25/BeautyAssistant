@@ -132,10 +132,9 @@
     background-color:transparent!important;
 }
 
-.address-grid{
-    display: flex;
-    justify-content: space-between;
-    width: 65%;
+.experiences{
+    padding: 12px;
+    font-size: 15px;
 }
 
 .address_wrap{
@@ -372,18 +371,8 @@
 }
 
  #profile_wrapper .calculator {
-    height: auto;
-    width: 450px;
-    background: #FFF;
-    position: absolute;
-    top: -65px!important;
-    right: 375px!important;
-    left: unset!important;
-    padding: 20px;
-    border: 2px solid var(--main-color);
-    border-radius: 13px 1px;
-    display: grid;
-    grid-gap: 10px;
+   width:100%;
+   margin-bottom: 50px;
 }
 
 span.sb-icon {

@@ -21,6 +21,7 @@ switch ($action){
                 `users`.`surname`,  
                 `users`.`about` ,
                 `users`.`uid`,
+                `users`.rating,
                 `file`.`rand_name` AS `img`
                 from users
                 LEFT JOIN  file ON file.id = `users`.img
@@ -34,7 +35,16 @@ switch ($action){
                         <h3>'.$arr['name'].' '.$arr['surname'].'</h3>
                         <br>
 						<p>'.$arr['about'].'</p>
-					</div>
+                    </div>
+                    <div class="rate">';
+                    if ($arr['rating'] != 0){
+                        for($i = 5; $i > 0; $i--){
+                            $html .='<input type="radio"  value="'.$i.'" '.($arr['rating'] >= $i ? "checked" : "").' disabled/>
+                            <label  title="'.$i.'"></label>';
+                        }
+
+                    }
+            $html .= ' </div>
 			</div>
             ';
         }
@@ -174,7 +184,8 @@ switch ($action){
         $name  = $_REQUEST['list'];
         $parent_id = $_REQUEST['parent_id'];
         $parent_name = $_REQUEST['parent_name'];
-        $arr = get_select ($table, $name,$parent_id, $parent_name);
+        $profile_id = $_REQUEST["profile"];
+        $arr = get_select ($table, $name,$parent_id, $parent_name,$profile_id);
         $arr_string = get_select_active($table, $name);
         $data = array("arr" => $arr, "arr_string" => $arr_string);
     break;
@@ -267,7 +278,7 @@ function get_in($arr,$table_name){
 
 }
 
-function get_select ($table, $name,$parent_id, $parent_name){
+function get_select ($table, $name,$parent_id, $parent_name,$profile_id){
     $db = new DB();
     $user_id = $_SESSION['USER'];
     $array = array();
@@ -276,6 +287,12 @@ function get_select ($table, $name,$parent_id, $parent_name){
     ";
     if($parent_id !=0 && $parent_name != ""){
         $query .= "WHERE `$parent_name` = $parent_id";
+    }
+    if($profile_id != "" && $profile_id != $_SESSION['USER'] && ($table == "experience" || $table == "district")){
+        $query = "SELECT  `$table`.`id` , `$table`.`name`
+                    FROM `user_$table`
+                    JOIN `$table` On `$table`.id = user_$table.".$table."_id
+                    WHERE `user_$table`.user_id = '$profile_id' ";
     }
     
     $res = $db->query($query);

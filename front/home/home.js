@@ -67,7 +67,7 @@ function get_staff(){
 }
 
 
-$(document).on("click", ".profile", function(){
+$(document).not(".rate").on("click", ".profile", function(){
   window.location = $(this).attr("link");
 })
 

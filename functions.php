@@ -8,15 +8,11 @@ function get_css(){
     global $rand;
     $css="  
     
-            <!-- Kendo UI -->
-            <link rel='stylesheet' href='js/kendo/styles/kendo.common-material.min.css'/>
-            <link rel='stylesheet' href='js/kendo/styles/kendo.custom.css'/>
-            <link rel='stylesheet' href='js/kendo/styles/kendo.default-v2.min.css'/>
-            <link rel='stylesheet' href='selectric/themes/p-th/selectric.css'>
+           
 
 
             <link rel='stylesheet' href='css/modern-normalize.css'/>
-           
+            <link rel='stylesheet' href='selectric/themes/p-th/selectric.css'>
             <link rel='stylesheet' href='css/menu.css?v=".$rand."'>
             <link rel='stylesheet' href='front/home/home.css?v=".$rand."'>
             <link rel='stylesheet' href='front/login/login.css?v=".$rand."'>
@@ -40,9 +36,7 @@ function get_js(){
             <script src='front/authentication/authentication.js?v=".$rand."'></script>
             <script src='fontawesome/js/all.js'></script>
 
-            <!-- Kendo UI -->
-            <script src='js/kendo/js/kendo.all.min.js'></script>
-            <script src='js/kendo/js/cultures/kendo.culture.ka-GE.min.js'></script>
+        
 
 
            ";
