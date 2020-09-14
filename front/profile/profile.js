@@ -111,7 +111,10 @@ function select(select_id, table,list, parent_id = 0, parent_name = "", getSelec
                     
                 }
                 $(`#${select_id}`).selectric('refresh');
-                
+                $(`#${select_id}`).selectric({
+                    disableOnMobile: false,
+                    nativeOnMobile: false
+                  });
             }
 
             else {
