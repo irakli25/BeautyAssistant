@@ -51,6 +51,10 @@ $(document).on("click","#login, #login_mobile", function (){
     $("#id01").css("display","block");
 })
 
+$(document).on("click", ".beauty_logo", function () {
+    window.location="?route=1";
+})
+
 $(document).on("click", "#need-job", function () {
     window.location="?route=2";
 })

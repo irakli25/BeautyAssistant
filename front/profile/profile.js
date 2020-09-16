@@ -144,6 +144,10 @@ function select_wp(select_id, table,list,exp, dist){
                     
                 }
                 $(`#${select_id}`).selectric('refresh');
+                $(`#${select_id}`).selectric({
+                    disableOnMobile: false,
+                    nativeOnMobile: false
+                  });
             }
 
             else {

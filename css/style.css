@@ -39,7 +39,8 @@
 
 .rate {
     position: absolute;
-    right:100px;
+    right:5px;
+    top:5px;
 }
 .rate:not(:checked) > input {
     position:absolute;
@@ -542,6 +543,12 @@ button:focus {outline:0;}
 
 /*  @media  */ 
 
+@media all and (max-width:1024px) and (min-width:960px) {
+    .pic_view{
+        background-size: 70%;
+    }
+}
+
 @media all and (max-width:960px) and (min-width:768px) {
     .container{
         width:100%;
@@ -562,6 +569,10 @@ button:focus {outline:0;}
 
     .phone-grid-in{
         grid-auto-columns: 65% 30%;
+    }
+
+    .pic_view{
+        background-size: 70%;
     }
     
 }
@@ -673,6 +684,22 @@ button:focus {outline:0;}
         grid-auto-columns: 100%;
     }
 
+    .rate:not(:checked) > label {
+        font-size:25px;
+    }
+
+
+    .pic_view{
+        background-size: 90%;
+    }
+
+}
+
+@media all and (max-width:620px) and (min-width:570px) {
+    .rate:not(:checked) > label {
+        font-size:20px;
+    }
+
 
 }
 
@@ -680,6 +707,12 @@ button:focus {outline:0;}
     .portfolio_wrap{
         justify-content: space-around;
     }
+
+    .rate:not(:checked) > label {
+        font-size:18px;
+    }
+
+
     
 }
 @media all and (max-width:520px) and (min-width:320px){
@@ -738,6 +771,7 @@ button:focus {outline:0;}
     }
     .profile{
         width:95%;
+        position: relative;
     }
     .profile_image{
         width:70px;
@@ -837,6 +871,21 @@ button:focus {outline:0;}
     .portfolio_wrap{
         justify-content: space-around;
     }
+
+
+    .rate:not(:checked) > label {
+        font-size:15px;
+    }
+
+    .profile_text {
+        margin-top: 15px;
+    }
+
+
+    .pic_view{
+        background-size: 90%;
+    }
+
 }
 
 
@@ -937,4 +986,17 @@ button:focus {outline:0;}
         border: none;
         flex-direction: column;
     }
+
+    .rate:not(:checked) > label {
+        font-size:15px;
+    }
+
+    .profile_text {
+        margin-top: 15px;
+    }
+
+    .pic_view{
+        background-size: 90%;
+    }
+
 }

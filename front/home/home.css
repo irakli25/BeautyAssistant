@@ -201,6 +201,7 @@
     cursor:pointer;
     transition: 0.3;
     width:80%;
+    position: relative;
   }
   .profile:hover{
     background:var(--main-color);
