@@ -48,7 +48,7 @@ class Staff {
             
           </div>
 
-          <div class="container">
+          <div class="windowContainer">
             <div><b>თქვენი შეკვეთა</b></div>
             <br>
             <p>ასისტენტი : <b id="get_assistant"  user_id="'.$this->id.'" >'.$this->name.' '.$this->surname.'</b> </p> <br>
@@ -68,7 +68,7 @@ class Staff {
                                     <label for="street" style="margin-top:12px" >დააზუსტე მისამართი</label>
                                 </div>
                                    
-                                            <input class="register_in" style="width: 600px;" id="order_corect_address"  />
+                                            <input class="register_in"  id="order_corect_address"  />
                                    
                             
                             </div>
@@ -83,7 +83,7 @@ class Staff {
 
           </div>
 
-          <div class="container" style="background-color:#f1f1f1">
+          <div class="windowContainer" style="background-color:#f1f1f1">
 
 
           </div>
@@ -125,7 +125,7 @@ class Staff {
             </div>
 
 
-            <div class="container" style="background-color:#f1f1f1">
+            <div class="windowContainer" style="background-color:#f1f1f1">
                     
             </div>
             </div>
@@ -451,7 +451,7 @@ class Staff {
     $res = $mysql->query($query);
 
     while($result = $res->fetch_assoc()){
-        $html .= "<div class='finance_input'> <label>".$result['name']."</label><input class='f_in shadow' id='".$result['ex_id']."' type='number' value='".$result['price']."' /> </div>";
+        $html .= "<div class='finance_input'> <label>".$result['name']."</label><input class='f_in shadow' id='".$result['ex_id']."' type='number' value='".$result['price']."' ".( $this->isuser ? '' : 'disabled' ) . "/> </div>";
     }
     $html .="</div><div  class='finance_button'><button id='save_finance' >შენახვა</button></div>";
     return $html;
@@ -475,13 +475,13 @@ $result = $mysql->query($query);
 $html = "";
 while($res = $result->fetch_assoc()){
     $html .='<div class="history_item shadow" order_id = "'.$res[id].'">
-                <div>'.$res[datetime].'</div>
-                <div>'.$res[client].'</div>
-                <div>'.$res[exp].'</div>
+                <div>დრო : '.$res[datetime].'</div>
+                <div>კლიენტი : '.$res[client].'</div>
+                <div>მომსახურება : '.$res[exp].'</div>
                 
             </div>';
 }
-
+if($html == "") $html = "<h2>თქვენ არ გაქვთ გამოძახების ისტორია &#128546;</h2>";
         return '<div class="history_container"> 
                     '.$html.'
                     

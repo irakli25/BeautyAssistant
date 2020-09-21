@@ -17,10 +17,16 @@ function control_buttons() {
             order_id:order_id 
         },
         success:function(data){
-            $(".control_buttons").html(data.html);
-            if( $(".control_buttons").html()==''){
-                control_buttons();
+            if(data.error !=""){
+                webalert(data.error);
             }
+            else {
+                $(".control_buttons").html(data.html);
+                if( $(".control_buttons").html()==''){
+                    control_buttons();
+                }
+            }
+            
         }
     })
 }

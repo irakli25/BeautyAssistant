@@ -17,17 +17,10 @@ $(document).ready(function ()
             tabs();
             let img_array;
             get_images();
-            // var district              =   new filter("district","district","id","name");
-            // var street                =   new filter("street","street","id","name","300px");
-            // var hear                =   new filter("hear","street","id","name");
-            // var skin                =   new filter("skin","street","id","name");
-            // var district_multi      =   new multiSelect("district_multi","district","id","name","1550px");
-            // var experince           =   new multiSelect("experience","experience","id","name","1550px");
-            // var calc_experince           =   new multiSelect("calc_experience","experience","id","name","100%",0,getCookie("calc_experience"));
-            // var calc_district            =   new filter("calc_district","district","id","name","100%");
+
             select("calc_district","district","name",0,"",false);
             select("calc_experience","experience","name",0,"",false);
-            select_wp("calc_profiles","users","name",getCookie("calc_experience"),getCookie("calc_district"));
+            // select_wp("calc_profiles","users","name",getCookie("calc_experience"),getCookie("calc_district"));
             select("district_multi","district","name");
             select("district","district","name");
             select("street","street","name");
@@ -35,24 +28,6 @@ $(document).ready(function ()
             select("skin","skin","name");
             select("experience","experience","name");
             get_districts();
-            // if(!(getCookie("calc_experience") == "" || getCookie("calc_district") == "")){
-               
-            //     // var calc_profiles            =   new template_filter("calc_profiles","users","id","name","100%",getCookie("calc_experience"),getCookie("calc_district"));
-            
-            //         // $("#calc_experience").val(getCookie("calc_experience")).selectric('refresh');
-            //         // $("#calc_district").val(getCookie("calc_district")).selectric('refresh');
-            //         // $("#calc_profiles").val(getCookie("calc_profiles")).selectric('refresh');
-                    
-            //         show_assistant();
-            //         $("#calc_price").html(`<span>${getCookie("calc_price")}</span><div class="lari"></div>`);
-            //         $("#order_button").show();
-            //         get_calc_price();
-            // }
-            // else{
-            //     hide_assistant();
-            //     $("#order_button").hide();
-            // }
-
             
             var val = "";
           
@@ -100,7 +75,11 @@ function select(select_id, table,list, parent_id = 0, parent_name = "", getSelec
             if(data.error == ''){
                 let array = data.arr;
                 $(`#${select_id}`).html("");
-                $(`#${select_id}`).append(`<option value="0">აირჩიეთ</option>`);
+                if (document.getElementById(`${select_id}`) != null)
+                    if (document.getElementById(`${select_id}`).hasAttribute("multiple")) 
+                        $(`#${select_id}`).append(`<option value="0">აირჩიეთ ერთი ან რამდენიმე</option>`);
+                    else
+                        $(`#${select_id}`).append(`<option value="0">აირჩიეთ</option>`);
                 for(let i=0; i<array.length; i++){
                     $(`#${select_id}`).append(`<option value="${array[i].id}">${array[i].name}</option>`);
                     
@@ -109,6 +88,10 @@ function select(select_id, table,list, parent_id = 0, parent_name = "", getSelec
                     arr = JSON.parse(data.arr_string);
                     $(`#${select_id}`).val(arr);
                     
+                }
+                if(getCookie(`${select_id}`) > 0){
+                    $(`#${select_id}`).val(getCookie(`${select_id}`));
+                    $(`#${select_id}`).trigger("change");
                 }
                 $(`#${select_id}`).selectric('refresh');
                 $(`#${select_id}`).selectric({
@@ -123,6 +106,12 @@ function select(select_id, table,list, parent_id = 0, parent_name = "", getSelec
         }
     })
 }
+
+$(document).on("change","select[multiple]", function () {
+    if(this.value == 0)
+        $(this).val([]);
+        $(this).selectric('refresh');
+    })
 
 function select_wp(select_id, table,list,exp, dist){
     $.ajax({
@@ -139,9 +128,16 @@ function select_wp(select_id, table,list,exp, dist){
             if(data.error == ''){
                 let array = data.arr;
                 $(`#${select_id}`).append(`<option value="0">აირჩიეთ</option>`);
+                if(array.length > 0){
+                    $(".profile").hide();
+                   
+                   }
+                   else {
+                    $(".profile").show();
+                   }
                 for(let i=0; i<array.length; i++){
-                    $(`#${select_id}`).append(`<option style="${get_img(array[i].img)}"; value="${array[i].id}">${array[i].name}</option>`);
-                    
+                    $(`#${select_id}`).append(`<option value="${array[i].id}">${array[i].name}</option>`);
+                    $(`.profile[user_id = '${array[i].id}']`).show();
                 }
                 $(`#${select_id}`).selectric('refresh');
                 $(`#${select_id}`).selectric({
@@ -424,6 +420,12 @@ $(document).on("change","#district", function (){
     $(`#street`).selectric('refresh');
 })
 
+$(document).on("change","#order_district", function (){
+    var ids = $(this).val();
+    select("order_street","street","name",ids,"district_id",false);
+    $(`#order_street`).selectric('refresh');
+})
+
 
 $(document).on("change","#street", function (){
     var id = $(this).val();
@@ -613,6 +615,7 @@ function hide_assistant(){
 
 
 $(document).on("change", "#calc_experience, #calc_district", function(){
+    $(".profile").show();
     $("#calc_profiles_span").html('<select id="calc_profiles" ></select>');
     select_wp("calc_profiles","users","name",$("#calc_experience").val(),$("#calc_district").val());
     
@@ -704,27 +707,37 @@ $(document).on("click", ".history_item", function(){
     })
 })
 
-$(document).on("click", ".history_item_client", function(){
-    let id = $(this).attr("order_id");
-    $.ajax({
-        url:"server/profile/profile.php",
-        data:{
-            act:"get_history_window_client",
-            id:id
-        },
-        success:function(data){
-            $("#history_date").html(data.datetime);
-            $("#history_name").html(data.client);
-            $("#history_product").html(data.exp);
-            $("#history_address").html(data.street);
-            $("#history_price").html(`<span>${data.price}</span><div class="lari"></div>`);
-            $("#history_window").show();
-        }
-    })
+$(document).on("click", ".history_item_client", function(e){
+    if(e.target === this){
+        let id = $(this).attr("order_id");
+        $.ajax({
+            url:"server/profile/profile.php",
+            data:{
+                act:"get_history_window_client",
+                id:id
+            },
+            success:function(data){
+                $("#history_date").html(data.datetime);
+                $("#history_name").html(data.client);
+                $("#history_product").html(data.exp);
+                $("#history_address").html(data.street);
+                $("#history_price").html(`<span>${data.price}</span><div class="lari"></div>`);
+                $("#history_window").show();
+            }
+        })
+    }
+})
+
+$(document).on("click", ".rate_button", function(){
+    $("#rating_modal").css("display","flex");
 })
 
 $(document).on("click", "#close_history_window", function () {
     $("#history_window").hide();
+})
+
+$(document).on("click", "#close_rating_window", function () {
+    $("#rating_modal").hide();
 })
 
 $(document).on("change", "#calc_profiles", function(){
@@ -737,6 +750,14 @@ $(document).on("change", "#calc_profiles", function(){
     $(".profile").show();
    }
    
+})
+
+$(document).on("click", ".rating label", function(){
+    $(`.rating input`).prop("checked",false);
+    var count = $(this).attr("title");
+    $(`.rating input[value='${count}']`).prop("checked",true);
+ 
+
 })
 
 
@@ -752,7 +773,7 @@ function get_calc_price() {
         url:"server/profile/profile.php",
         data:{
             act:"get_price",
-            exp:($("#calc_experience").val() == '' ? getCookie("calc_price") : $("#calc_experience").val()),
+            exp:($("#calc_experience").val() == '' ? getCookie("calc_experience") : $("#calc_experience").val()),
             profile:profile
         },
         success:function(data){

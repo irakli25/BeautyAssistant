@@ -1,4 +1,6 @@
-
+#profile_wrapper{
+    position: relative;
+}
 
 .row-wrapper {
     width: 100%;
@@ -610,15 +612,18 @@ span.sb-toggle {
       }
 
       .finance{
-        display: grid;
-        grid-template-columns: auto auto;
-        grid-gap: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        height: auto;
       }
 
       .finance_input{
         display: flex;
         justify-content: space-between;
-        width: 75%;
+        width: 280px;
+        line-height: 30px;
+        padding: 20px;
       }
 
       .finance_input input {
@@ -668,3 +673,60 @@ span.sb-toggle {
         display: grid;
         grid-gap: 20px;
       }
+
+      .windowContainer {
+        width: 100%;
+        margin: auto;
+        padding: 16px;
+      }
+
+      .rate_buttons {
+        width: 100%;
+        padding: 5px;
+      }
+
+      .rate_button {
+        display: flex;
+        margin: auto;
+        padding: 5px 25px;
+        background: var(--gold);
+        border: 1px solid transparent;
+        color: #FFF;
+        border-radius: 5px;
+        cursor:pointer;
+      }
+
+      .rate_button:hover{
+          color:var(--gold);
+          background:#FFF;
+          border: 1px solid var(--gold);
+          
+      }
+
+      .rating_wrapper{
+        width: 50%;
+        background: #FFF;
+        display: flex;
+        margin: auto;
+        padding: 30px;
+        flex-direction: column;
+      }
+
+      .rating_wrapper p {
+        text-align: center;
+      }
+
+      #close_rating_window{
+        position: absolute;
+        right: -10px;
+        top: -50px;
+        color: #000;
+        font-size: 35px;
+        font-weight: bold;
+      }
+
+      #close_rating_window:hover,
+      #close_rating_window:focus {
+            color:var(--main-color);
+            cursor: pointer;
+        }

@@ -160,7 +160,15 @@ switch ($action){
                                         `status` = 0 ";
                                         $db->query($query);
 
-                $email = "<p> ".get_username($user_id)." თქვენ გაქვთ ახალი შეკვეთა</p>
+                $query = "SELECT 
+                (SELECT  users.email from users WHERE id = $user_id) AS `user`,
+                (SELECT  users.email from users WHERE id = $assistant) AS `assistant`";
+
+                $res = $db->query($query);
+                $emails = $res->fetch_assoc();
+
+
+                $user_email_text = "<p> ".get_username($user_id)." თქვენ გაქვთ ახალი შეკვეთა</p>
                             <p> ასისტენტი : ".get_username($assistant)."
                             <p>მომსახურება : ".get_products($order_id)."</p>
                             <p>ფასი : ".$price."</p>
@@ -168,11 +176,19 @@ switch ($action){
 
                 ";
 
+                $assistan_email_text = "<p> ".get_username($assistant)." თქვენ გაქვთ ახალი შეკვეთა</p>
+                <p> კლიენტი : ".get_username($user_id)."
+                <p>მომსახურება : ".get_products($order_id)."</p>
+                <p>ფასი : ".$price."</p>
+                <p>მისამართი : ".get_address($order_id)." </p>
+
+    ";
+
                 
                 $res = $db->query("SELECT `uid` FROM users WHERE id = $assistant");
                 $arr = $res->fetch_assoc();
-                $link = "<p>შეკვეთის ლინკი : http://localhost:81/?route=8&uid=".$arr['uid']."&order_id=".$order_id."</p>";
-                $data = array("id" => $order_id,"email" => $email, "link" => $link);
+                $link = "<p><a href = 'http://localhost:81/?route=8&uid=".$arr['uid']."&order_id=".$order_id."'</a>მართე შეკვეთა</p>";
+                $data = array("id" => $order_id,"user_email_text" => $user_email_text, "assistan_email_text" => $assistan_email_text ,"link" => $link, "user_email" => $emails["user"], "assistant_email" => $emails["assistant"]);
         }
         else $Error = "თქვენ არ ხართ ავტორიზებული, გაიარეთ ავტორიზაცია";
         

@@ -41,7 +41,7 @@ img.login_logo {
     background-color: #fefefe;
     margin: 5% auto 15% auto;
     border: 1px solid #888;
-    width: 90%;
+    width: 50%;
 }
 
 /* The Close Button (x) */
@@ -100,10 +100,9 @@ img.login_logo {
   width: 50%;
   margin-left: 25%;
     background-color: var(--main-color);
-    color: white;
+    border: 1px solid transparent;
     padding: 14px 20px;
-
-    border: none;
+    color: #FFF;
     border-radius: 4px;
     cursor: pointer;
     -webkit-transition-duration: 0.4s; /* Safari */
@@ -111,9 +110,9 @@ img.login_logo {
 }
 
 .register_button:hover{
-  margin-left: 0;
-  width:100%;
-
+  color: var(--main-color);
+  border: 1px solid var(--main-color);
+  background-color: #FFF;
 }
 
 .register_div

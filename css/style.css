@@ -60,24 +60,58 @@
 }
 
 .rate input:checked ~ label{
-    color: #ffc700;  
+    color: var(--gold);  
+}
+
+/**********************************************************************************************/
+
+
+
+.rating {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+    flex-direction: row-reverse;
+}
+.rating:not(:checked) > input {
+    position:absolute;
+    top:-9999px;
+}
+.rating:not(:checked) > label {
+    float:right;
+    width:1em;
+    overflow:hidden;
+    white-space:nowrap;
+    cursor:pointer;
+    font-size:30px;
+    color:#ccc;
+}
+.rating:not(:checked) > label:before {
+    content: '★ ';
+}
+
+.rating input:checked ~ label{
+    color: var(--gold);  
 }
 
 
-/* .rate > input:checked ~ label {
+
+
+.rating > input:checked ~ label {
     color: #ffc700;    
 }
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
     color: #deb217;  
 }
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
     color: #c59b08;
-} */
+}
 /**************************************************************/
 
 
@@ -100,6 +134,7 @@ select{
     --tab_active:#d36685;
     --tab_hover:#d36685;
     --tab_text:#b0a0ab;
+    --gold:#ffc700;
 }
 
 body{
@@ -496,10 +531,14 @@ button:focus {outline:0;}
 
 .history_item{
     display: flex;
-    justify-content: space-between;
     padding: 15px;
     border-radius: 7px;
     margin-top: 25px;
+    flex-wrap: wrap;
+    height:auto;
+}
+.history_item div {
+    padding: 0 15px;
 }
 
 .history_item:hover{
@@ -511,10 +550,15 @@ button:focus {outline:0;}
 
 .history_item_client{
     display: flex;
-    justify-content: space-between;
     padding: 15px;
     border-radius: 7px;
     margin-top: 25px;
+    flex-wrap: wrap;
+    height:auto;
+}
+
+.history_item_client div {
+    padding: 0 15px;
 }
 
 .history_item_client:hover{
@@ -573,6 +617,10 @@ button:focus {outline:0;}
 
     .pic_view{
         background-size: 70%;
+    }
+
+    .modal-content{
+        width:70%;
     }
     
 }
@@ -691,6 +739,10 @@ button:focus {outline:0;}
 
     .pic_view{
         background-size: 90%;
+    }
+
+    .modal-content{
+        width:90%;
     }
 
 }
@@ -886,6 +938,11 @@ button:focus {outline:0;}
         background-size: 90%;
     }
 
+    .modal-content{
+        width:90%;
+    }
+
+
 }
 
 
@@ -946,8 +1003,8 @@ button:focus {outline:0;}
     }
     .profile{
         width:95%;
+        position: relative;
     }
-
     .profile_image{
         width:70px;
         height:70px;
@@ -987,6 +1044,67 @@ button:focus {outline:0;}
         flex-direction: column;
     }
 
+
+    /*********/
+
+
+    .ui-tabs-nav li a {
+        width: 35px;
+        overflow: hidden;
+        height: 40px;
+        
+    }
+
+.ui-tabs-nav li.ui-state-active a{
+    width:auto;
+    transition:width 0.3s;
+}
+
+.ui-tabs-nav{
+    margin: 50px auto;
+    width: 100%;
+}
+
+.main-grid{
+    width:95%;
+}
+
+.row-wrapper{
+        
+    grid-template-columns: 2% 45% 30%;
+    font-size: 10px;
+    }
+
+    .phone-grid-in{
+        grid-auto-columns: 45% 25%;
+        font-size: 10px;
+    }
+
+    .profile_name {
+        line-height: 35px;
+        font-size: 12px;
+        text-align: center;
+    }
+
+    .user-pic {
+        height: 100px;
+        width: 100px;
+    }
+
+    .staff-info {
+        display: grid;
+        grid-auto-flow: row;
+        line-height: 10px;
+        margin-bottom: 15px;
+        grid-gap: 15px;
+        grid-auto-columns: 100%;
+    }
+
+    .portfolio_wrap{
+        justify-content: space-around;
+    }
+
+
     .rate:not(:checked) > label {
         font-size:15px;
     }
@@ -995,8 +1113,14 @@ button:focus {outline:0;}
         margin-top: 15px;
     }
 
+
     .pic_view{
         background-size: 90%;
     }
+
+    .modal-content{
+        width:90%;
+    }
+
 
 }

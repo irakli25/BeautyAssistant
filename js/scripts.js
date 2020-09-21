@@ -268,7 +268,7 @@ $(document).on("click","#logout", function(){
             }
             else {
                 if(data.result == "logout"){
-                    location.reload(true);
+                    window.location="?route=1";
                 }
             }
         }
@@ -381,9 +381,9 @@ function setCookie(cname, cvalue, exdays = 1) {
                 webalert(data.error);
             else {
                 $("#order_window").css("display","none");
-                var  mail = new Mail('iraklitabukashvili77@gmail.com',`New Order - ${data.id}`,data.email);
+                var  mail = new Mail(data.user_email,`New Order - ${data.id}`,data.user_email_text);
                 mail.send();
-                var  mail = new Mail('iraklitabukashvili77@gmail.com',`New Order - ${data.id}`,`${data.email} ${data.link}`);
+                var  mail = new Mail(data.assistant_email,`New Order - ${data.id}`,`${data.assistan_email_text} ${data.link}`);
                 mail.send();
             }
           }
@@ -409,7 +409,7 @@ $(document).on("click", ".control_buttons button", function(){
         },
         success:function(data){
             control_buttons();
-            var  mail = new Mail('iraklitabukashvili77@gmail.com',`Order - ${data.id}`,data.text);
+            var  mail = new Mail(data.user_email,`Order - ${data.id}`,data.text);
             mail.send();
         }
     })

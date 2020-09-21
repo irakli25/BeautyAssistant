@@ -71,7 +71,7 @@ class Client {
           </div>
 
 
-          <div class="container" style="background-color:#f1f1f1">
+          <div class="windowContainer" style="background-color:#f1f1f1">
                   
           </div>
           </div>
@@ -248,6 +248,22 @@ class Client {
             
             <!-- END id3 -->
         </div>
+        <div class="modal" id="rating_modal">
+        
+            <div class="rating_wrapper">
+            <div class="imgcontainer">
+              <span  id ="close_rating_window"  title="Close Modal">&times;</span>
+          </div>
+                <p>შეაფასეთ ასისტენტის მომსახურება</p>
+                <div class="rating">
+                    <input type="radio"  value="5"  /><label  title="5"></label>
+                    <input type="radio"  value="4"  /><label  title="4"></label>
+                    <input type="radio"  value="3"  /><label  title="3"></label>
+                    <input type="radio"  value="2"  /><label  title="2"></label>
+                    <input type="radio"  value="1"  /><label  title="1"></label>
+                </div>
+            </div>
+        <div>
         
         <input id="uploader" type="file" name="up_pic" />
         <input id="uploader_user_pic" type="file" name="uploader_user_pic" />
@@ -313,13 +329,16 @@ $result = $mysql->query($query);
 $html = "";
 while($res = $result->fetch_assoc()){
     $html .='<div class="history_item_client shadow" order_id = "'.$res[id].'">
-                <div>'.$res[datetime].'</div>
-                <div>'.$res[staff].'</div>
-                <div>'.$res[exp].'</div>
+                <div>დრო : '.$res[datetime].'</div>
+                <div>ასისტენტი : '.$res[staff].'</div>
+                <div>მომსახურება : '.$res[exp].'</div>
+                <div class="rate_buttons" >
+                    <button class="rate_button" order_id = "'.$res[id].'" > შეაფასე </button>
+                </div>
                 
             </div>';
 }
-
+if($html == "") $html = "<h2>თქვენ არ გაქვთ გამოძახების ისტორია &#128546;</h2>";
         return '<div class="history_container"> 
                     '.$html.'
                     

@@ -5,7 +5,7 @@ session_start();
 $action = $_REQUEST['act'];
 $Error  = "";
 $data = array();
-
+$user_id = $_SESSION["USER"];
 $data = array();
 $db = new DB();
 
@@ -23,7 +23,12 @@ switch($action){
 
         $your_order = $arr['your_order'];
 
-        if($your_order == "1" ){
+        $query = "SELECT uid FROM users WHERE id = '$user_id'";
+        $res = $db->query($query);
+        $arr = $res->fetch_assoc();
+
+
+        if($your_order == "1" && $arr["uid"] == $uid){
 
             $hide = array();
             $query = "SELECT `status` FROM order_status WHERE order_id = $order_id LIMIT 1";
@@ -41,7 +46,7 @@ switch($action){
                         $data = array("html" => $html);
         }
         else {
-            $Error = "შეკვეთა არ არის თქვენი";
+            $Error = "გთხოვთ გაიაროთ ავტორიზაცია თქვენი იუზერით";
         }
     break;
 
@@ -83,7 +88,15 @@ switch($action){
                     break;
                 }
 
-                $data = array("text" =>$text , "id" => $order_id);
+                $query="SELECT email AS user_email
+                FROM users 
+                join orders ON orders.client_id = users.id
+                WHERE orders.id = $order_id";
+
+                $res = $db->query($query);
+                $arr = $res->fetch_assoc();
+                
+                $data = array("text" =>$text , "id" => $order_id, "user_email" => $arr["user_email"]);
         }
 
     break;

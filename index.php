@@ -12,8 +12,8 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" type="icon/png" href="media/icons/mainlogo.png" />
-    <meta name="description" content="Beauty and Fashion">
+    <link rel="icon" type="icon/png" href="media/icons/logo.ico" />
+    <meta name="description" content="Your Beauty Assistant">
     <meta name="keywords" content="HTML,CSS,XML,JavaScript">
     <meta name="author" content="Irakli Tabukashvili">
     <meta name="theme-color" content="var(--main-color)" />

@@ -101,7 +101,13 @@ switch($action){
         $profile = $_REQUEST['profile'];
         $experience = $_REQUEST['exp'];
         if($experience != ''){
-        $exp = implode(",", $experience);
+
+        if (is_array($experience)){
+            $exp = implode(",", $experience);
+        }
+        else{
+            $exp = $experience;
+        }
         $query = "SELECT SUM(price) AS `price`
                     FROM finance
                     WHERE user_id = '$profile' AND experience_id in ($exp)";
