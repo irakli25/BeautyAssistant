@@ -5,7 +5,9 @@
     font-family: Typewriter;
 }
 
-
+.ui-tabs-tab{
+    border:none!important;
+}
 
 /*************************************** FONTS */
 
@@ -65,8 +67,82 @@
 
 /**********************************************************************************************/
 
+.ui-datepicker{
+    background:#FFF;
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+    -moz-box-shadow: 3px 3px 5px 6px #ccc;
+    box-shadow: 3px 3px 5px 6px #ccc;
+    margin: -15px 5px;
+    padding: 10px;
+}
+
+#ui-datepicker-div .ui-state-highlight{
+    background:var(--main-color);
+    color:#FFF!important;
+}
+
+#ui-datepicker-div .ui-datepicker-week-end, #ui-datepicker-div .ui-datepicker-week-end a{
+    color:var(--main-color);
+   
+} 
+#ui-datepicker-div [data-handler="selectDay"] a {
+    text-align: center!important;
+}
+#ui-datepicker-div [data-handler="selectDay"] a:hover{
+    background:var(--main-color);
+    color:#FFF;
+}
+#ui-datepicker-div .ui-slider-handle{
+    border: 2px solid var(--gold);
+    border-radius: 5px;
+    background: var(--main-color);
+    top: -4px!important;
+    cursor:pointer;
+}
+
+#ui-datepicker-div .ui-slider{
+    border: 1px solid var(--main-color);
+    background: var(--tab_color);
+    
+}
+
+#ui-datepicker-div .ui-slider-handle:hover{
+    background: var(--tab_hover)!important;
+    border: 2px solid var(--gold)!important;
+}
+
+[data-handler="today"]{
+    display:none;
+}
+
+.ui-datepicker-close {
+    width: 100%!important;
+    border: 1px solid transparent;
+    color: #fff;
+    background: var(--main-color);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.ui-datepicker-close:hover{
+    color: var(--main-color);
+    background: #FFF;
+    border: 1px solid var(--main-color);
+    transition: 0.3s;
+}
+
+.ui-datepicker-title{
+    color: var(--main-color);
+}
 
 
+.ui-datepicker .ui-datepicker-prev:hover,
+.ui-datepicker .ui-datepicker-next:hover {
+    background-color: var(--main-color);
+    border-radius: 50px;
+    cursor: pointer;
+}
 .rating {
     width: 100%;
     display: flex;
@@ -115,7 +191,7 @@
 /**************************************************************/
 
 
-select{
+select:not(#ui-datepicker-div select){
     display:none;
 }
 #container{
@@ -344,7 +420,7 @@ textarea:focus, input:focus{
 }
 .container_style{
     margin: auto;
-    margin-top:130px;
+    padding-top:130px;
     height: inherit;
     padding-bottom: 150px;
 }
@@ -584,8 +660,22 @@ button:focus {outline:0;}
     display: flex;
     line-height: 20px;
 }
+.selectric {
+    max-width: calc(60vw - 200px);
+    min-width:100%;
+}
 
+.districts{
+    line-height:25px;
+}
 /*  @media  */ 
+@media all and  (max-width:1024px) {
+    .selectric {
+        max-width: calc(90vw - 200px);
+        min-width:100%;
+    }
+}
+
 
 @media all and (max-width:1024px) and (min-width:960px) {
     .pic_view{
@@ -942,7 +1032,14 @@ button:focus {outline:0;}
         width:90%;
     }
 
+    .selectric {
+        max-width: calc(90vw - 50px);
+        min-width:100%;
+    }
 
+    .history_container{
+        font-size: 12px;
+    }
 }
 
 
@@ -1122,5 +1219,14 @@ button:focus {outline:0;}
         width:90%;
     }
 
+    .selectric {
+        max-width: calc(90vw - 25px);
+        min-width:85%;
+    }
 
+    .history_container{
+        padding: 35px 14px;
+        line-height: 29px;
+        font-size: 10px;
+    }
 }

@@ -1,3 +1,4 @@
+var val = new Object;
 $(document).ready(function ()
 
 {
@@ -5,6 +6,7 @@ $(document).ready(function ()
     var url_string = window.location.href;
     var url = new URL(url_string);
     var uid = url.searchParams.get("uid");
+    
     $.ajax({
         dataType:"html",
         url:`server/profile/processing.php?uid=${uid}`,
@@ -13,7 +15,7 @@ $(document).ready(function ()
             $( "#tabs" ).tabs();
             if($("#container").attr("user") == "" || $("#container").attr("user") == $("#profile_id").val())
                     $(".calculator").hide();
-            // $( "#tabs" ).tabs({ active: 0 });
+            $( "#tabs" ).tabs({ active: 0 });
             tabs();
             let img_array;
             get_images();
@@ -29,7 +31,7 @@ $(document).ready(function ()
             select("experience","experience","name");
             get_districts();
             
-            var val = "";
+            
           
 
               
@@ -253,7 +255,7 @@ class multiSelect {
 $(document).on("click", ".edit", function(){
     
     var id = $(this).attr("target");
-    val = $(`#${id}`).val();
+    val[id] = $(`#${id}`).val();
 
    
         $(`#${id}`).prop("readonly",false);
@@ -275,13 +277,7 @@ $(document).on("click", ".done", function(){
     
     var id = $(this).attr("target");
 
-
-    
-
-    
         $(`#${id}`).prop("readonly",true);
-
-    
 
         if($(`#${id}`).val().replace(/\s/g, '') != ''){
 
@@ -300,7 +296,7 @@ $(document).on("click", ".done", function(){
             })
         }
         else{
-            $(`#${id}`).val(val);
+            $(`#${id}`).val(val[id]);
             $(`.done[target="${id}"]`).hide();
             $(`.edit[target="${id}"]`).show();
         }
@@ -760,6 +756,23 @@ $(document).on("click", ".rating label", function(){
 
 })
 
+$(document).on("change", "#status", function(){
+    let checked = $(this).prop("checked");
+    let status = checked ? 1 : 0;
+    $.ajax({
+        url:"server/server.php",
+        data:{
+            act:"update_status",
+            status:status
+        },
+        success:function(data){
+            if(data.status){
+                get_status();
+            }
+        }
+    })
+})
+
 
 function get_calc_price() {
     var profile = "";
@@ -781,6 +794,19 @@ function get_calc_price() {
             var price = Number(p).toFixed(2);
             $("#calc_price").html(`<span>${price}</span><div class="lari"></div>`);
             setCookie("calc_price",price);
+        }
+    })
+}
+
+function get_status(){
+    $.ajax({
+        url:"server/server.php",
+        data:{
+            act:"get_status"
+        },
+        success:function(data){
+            $("#status").prop("checked", data.status);
+            $("#status_text").html(data.text);
         }
     })
 }

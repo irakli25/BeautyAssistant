@@ -170,7 +170,7 @@ switch($action){
     break;
     case "get_history_window":
         $id = $_REQUEST['id'];
-        $query = "SELECT o.id,o.datetime, CONCAT(clients.`name`,' ',clients.surname)  AS client, GROUP_CONCAT(experience.`name`) AS `exp`, o.price,  CONCAT(district.`name`, ' ', street.`name`, ' ', o.local_address) AS street
+        $query = "SELECT o.id,o.datetime, CONCAT(clients.`name`,' ',clients.surname)  AS client, GROUP_CONCAT(experience.`name` SEPARATOR ', ') AS `exp`, o.price,  CONCAT(district.`name`, ' ', street.`name`, ' ', o.local_address) AS street
 
         FROM orders o
         JOIN users AS clients ON o.client_id = clients.id
@@ -189,7 +189,7 @@ switch($action){
     break;
     case "get_history_window_client":
         $id = $_REQUEST['id'];
-        $query = "SELECT o.id,o.datetime, CONCAT(staff.`name`,' ',staff.surname)  AS client, GROUP_CONCAT(experience.`name`) AS `exp`, o.price,  CONCAT(district.`name`, ' ', street.`name`, ' ', o.local_address) AS street
+        $query = "SELECT o.id,o.datetime, CONCAT(staff.`name`,' ',staff.surname)  AS client, GROUP_CONCAT(experience.`name` SEPARATOR ', ') AS `exp`, o.price,  CONCAT(district.`name`, ' ', street.`name`, ' ', o.local_address) AS street
 
         FROM orders o
         JOIN users AS staff ON o.staff_id = staff.id

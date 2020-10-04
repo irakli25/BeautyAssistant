@@ -10,6 +10,7 @@ class Staff {
   protected $birthday;
   protected $img;
   protected $about;
+  protected $status;
 
 
   protected $isuser;
@@ -24,7 +25,7 @@ class Staff {
       
 
 
-      $res =  $db->getResults("SELECT `name`, `surname`, `email`, `birthday`,`img`, about FROM `users` WHERE id = $this->id LIMIT 1");
+      $res =  $db->getResults("SELECT `name`, `surname`, `email`, `birthday`,`img`, about, `status` FROM `users` WHERE id = $this->id LIMIT 1");
       $arr = $res[0];
       $this->name      = $arr['name'];
       $this->surname   = $arr['surname'];
@@ -32,6 +33,7 @@ class Staff {
       $this->birthday  = $arr['birthday'];
       $this->img       = $arr['img'];
       $this->about       = $arr['about'];
+      $this->status    = $arr['status'];
 
 
 
@@ -69,6 +71,16 @@ class Staff {
                                 </div>
                                    
                                             <input class="register_in"  id="order_corect_address"  />
+                                   
+                            
+                            </div>
+
+                            <div class="address-in" >
+                                <div>
+                                    <label for="street" style="margin-top:12px" >მოსვლის დრო</label>
+                                </div>
+                                   
+                                            <input type="text" class="register_in datetime"  id="order_time"  />
                                    
                             
                             </div>
@@ -134,6 +146,13 @@ class Staff {
 
 
         <div class="staff_profile">
+        '.( $this->isuser ? '<div id="status_wrapper">
+            <span>აქტიური სტატუსი <b id="status_text">'.($this->status ? "ჩართული" : "გამორთული").'</b></span>
+            <div id="switcher">
+                <input type="checkbox" id="status" '.($this->status ? "checked" : "").'/>
+                <label for="status"></label>
+            </div>
+        </div>' : '').'
         <div class="calculator shadow">
             <label>მომსახურება</label>
             <div>
@@ -257,7 +276,7 @@ class Staff {
                                     </div>
                                     <div class="row-wrapper">
                                         <span>დაბადების თარიღი</span>  
-                                        <input id="birthday" type="date" value="'.$this->birthday.'"   />
+                                        <input id="birthday" class="date" type="text" value="'.$this->birthday.'"  readonly />
                                         <input type="hidden" id="hidden_birth" value="'.$this->birthday.'" />
                                         '.( $this->isuser ? 
                                                   ' <button class="edit" target="birthday"   title="ჩასწორება">
@@ -298,7 +317,7 @@ class Staff {
 
             <div id="id2" class="tab">
                 <div class="staff-info">
-                    <label for="experience" style="margin-top:12px" >გამოცდილება : </label>
+                    <label for="experience" style="margin-top:12px 0" >გამოცდილება : </label>
                     
                     '.( $this->isuser ? 
                     ' <span>
@@ -403,13 +422,13 @@ class Staff {
   function get_district() {
     $html = "<div>";
     $mysql = $this->db;
-    $query = "SELECT  `district`.`name` 
+    $query = "SELECT  GROUP_CONCAT(`district`.`name` SEPARATOR ', ') AS `name` 
                     FROM user_district
                     JOIN district On district.id = user_district.district_id
                     WHERE user_district.user_id = $this->id";
     $res = $mysql->query($query);
     while($result = $res->fetch_assoc()){
-        $html .= "<span> ".$result['name'].", </span>";
+        $html .= $result['name'];
     }
     $html .="</div>";
     return $html;
@@ -418,7 +437,7 @@ class Staff {
   function get_experience() {
     $html = "<div class='experiences'>";
     $mysql = $this->db;
-    $query = "SELECT  group_concat(`experience`.`name`) AS `name`
+    $query = "SELECT  group_concat(`experience`.`name` SEPARATOR ', ') AS `name`
                     FROM user_experience
                     JOIN experience On experience.id = user_experience.experience_id
                     WHERE user_experience.user_id = $this->id";
@@ -461,7 +480,7 @@ class Staff {
   function get_history(){
     $mysql = $this->db;
 
-    $query = "SELECT o.id,o.datetime, CONCAT(clients.`name`,' ',clients.surname)  AS client, GROUP_CONCAT(experience.`name`) AS `exp`
+    $query = "SELECT o.id,o.datetime, CONCAT(clients.`name`,' ',clients.surname)  AS client, GROUP_CONCAT(experience.`name` SEPARATOR ', ') AS `exp`
 
     FROM orders o
     JOIN users AS staff ON o.staff_id = staff.id

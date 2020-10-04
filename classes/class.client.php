@@ -157,7 +157,7 @@ class Client {
                                     </div>
                                     <div class="row-wrapper">
                                         <span>დაბადების თარიღი</span>  
-                                        <input id="birthday" type="date" value="'.$this->birthday.'"  readonly />
+                                        <input id="birthday" class="date" type="text" value="'.$this->birthday.'"  readonly />
                                         <input type="hidden" id="hidden_birth" value="'.$this->birthday.'" />
                                         <button class="edit" target="birthday"   title="ჩასწორება">
                                             <i class="fas fa-pencil-alt"></i> ჩასწორება 
@@ -314,7 +314,7 @@ class Client {
 function get_history(){
     $mysql = $this->db;
 
-    $query = "SELECT o.id,o.datetime, CONCAT(staff.`name`,' ',staff.surname)  AS staff, GROUP_CONCAT(experience.`name`) AS `exp`
+    $query = "SELECT o.id,o.datetime, CONCAT(staff.`name`,' ',staff.surname)  AS staff, GROUP_CONCAT(experience.`name` SEPARATOR ', ') AS `exp`
 
     FROM orders o
     JOIN users AS staff ON o.staff_id = staff.id

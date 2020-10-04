@@ -135,8 +135,10 @@
 }
 
 .experiences{
-    padding: 12px;
-    font-size: 15px;
+     font-size: 16px;
+     line-height: 25px;
+     padding-top: 10px;
+ 
 }
 
 .address_wrap{
@@ -279,18 +281,15 @@
 
 .staff-info
 {
-
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 130px 500px;
-    line-height: 10px;
     margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
 }
 .portfolio_wrap {
     width: 100%;
     display: flex;
     overflow-y: scroll;
-    height: 300px;
+    height: 50vh;
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 15px;
@@ -729,4 +728,53 @@ span.sb-toggle {
       #close_rating_window:focus {
             color:var(--main-color);
             cursor: pointer;
+        }
+
+        #status_wrapper {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            padding: 20px;
+        }
+
+        #switcher{
+            position: relative;
+        }
+
+        #status{
+            width:0;
+            height:0;
+            visibility:hidden;
+        }
+
+        #switcher label {
+            width: 60px;
+            height: 24px;
+            background: #ddd;
+            position: absolute;
+            top: 0;
+            border-radius: 50px;
+            padding: 2px;
+            cursor:pointer;
+        }
+
+        #switcher label:after {
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            position: absolute;
+            content: '';
+            left: 4px;
+            border-radius: 50%;
+            transition:  0.5s;
+        }
+
+        #status:checked ~ label:after {
+            left: 37px;
+            transition:  0.5s;
+        }
+
+        #status:checked ~ label{
+            background: #008000;
+            transition:  0.5s;
         }

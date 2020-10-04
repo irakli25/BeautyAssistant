@@ -24,6 +24,12 @@ $.ajaxSetup({
         lastScrollTop = st;
     });
     $('select').selectric();
+    
+
+setTimeout(() => {
+    GetDate("birthday");
+    GetDateTimes("order_time");
+}, 1000);
   });
 // scroll
 $(document).on("click",".closebtn",function (){
@@ -182,7 +188,7 @@ class person {
                     }
                     else {
                         if(data.result){
-                            var  mail = new Mail(data.email,"Email authentication",html(data.email,data.name));
+                            var  mail = new Mail(data.email,"Email authentication",mailhtml(data.email,data.name), true);
                             mail.send();
                             webalert(`${data.name} თქვენ წარმატებით გაიარეთ რეგისტრაცია`,"success");
                             window.location = "?route=1";
@@ -234,14 +240,14 @@ function webalert(content, type){
    
 }
 
-function html(email,name){
+function mailhtml(email,name){
     return `
     <p>გამარჯობა ${name},</p>
     <p>რეგისტრაციის დასასრულებლად დააჭირე ღილაკს</p>
     <a href='https://beautyassistant.herokuapp.com/server/authentication.php?email=${email}'>
     <button
     style="border-radius: 5px;
-    background-color: var(--main-color);
+    background-color: #f5577b;
     border: 1px solid transparent;
     padding: 7px;
     color: #FFF;
@@ -278,7 +284,7 @@ $(document).on("click","#logout", function(){
 
 
 class Mail {
-    constructor(mail,subject,html){
+    constructor(mail,subject,html, gomain = false){
         this.mail = mail;
         this.subject = subject;
         this.html = html + this.signature();
@@ -286,7 +292,10 @@ class Mail {
     send(){
         $.ajax({
             url:"server/mailsender.php",
-            data:this
+            data:this,
+            success:function(data){
+                console.log(data);
+            }
 
         })
     }
@@ -442,3 +451,31 @@ $(document).on("keyup", ".staff_form .register_in", function(e){
         $("#register_staff").click();
     }
 })
+
+
+
+function GetDate(name) {
+    $("#" + name).datepicker({
+    	changeMonth: true,
+        changeYear: true,
+        yearRange: "-70:-18"
+    });
+
+    var date = $("#" + name).val();
+
+    $("#" + name).datepicker("option", $.datepicker.regional["ka"]);
+    $("#" + name).datepicker("option", "dateFormat", "yy-mm-dd");
+    $("#" + name).datepicker( "setDate", date );
+
+}
+
+
+function GetDateTimes(name) {
+    $("#" + name).datetimepicker({
+    	dateFormat: "yy-mm-dd"
+
+    });
+    $("#" + name).datepicker("option", $.datepicker.regional["ka"]);
+    $("#" + name).datepicker("option", "dateFormat", "yy-mm-dd");
+
+}

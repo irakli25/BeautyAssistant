@@ -25,7 +25,7 @@ switch ($action){
                 `file`.`rand_name` AS `img`
                 from users
                 LEFT JOIN  file ON file.id = `users`.img
-                WHERE `users`.`user_type_id` = 1 AND active = 1";
+                WHERE `users`.`user_type_id` = 1 AND `status` = 1 AND active = 1";
         $res = $db->query($query);
         while($arr = $res->fetch_assoc()){
             $html .= '
@@ -213,6 +213,20 @@ switch ($action){
         $arr = get_selectwp ($table, $name, $exp, $dist);
         $data = array("arr" => $arr);
     break;
+    case "get_status":
+        $query = "SELECT `status` FROM `users` WHERE `id` = $_SESSION[USER]";
+        $res = $db->query($query);
+        $arr = $res->fetch_assoc();
+        $status = $arr["status"] ? true : false;
+        $text = $status ? "ჩართულია" : "გამორთულია";
+        $data = array("status" => $status, "text" => $text);
+    break;
+    case "update_status":
+        $status = $_REQUEST["status"];
+        $query = "UPDATE `users` SET `status` = '$status' WHERE id = $_SESSION[USER]";
+        $query_status = $db->query($query);
+        $data = array("status" => $query_status);
+    break;
     
     default : $Error = "უცნობი ქეისი";
 
@@ -233,7 +247,7 @@ function get_username($id){
 
 function get_products($id) {
     global $db;
-    $query = "SELECT  GROUP_CONCAT(experience.`name`) AS `products`
+    $query = "SELECT  GROUP_CONCAT(experience.`name` SEPARATOR ', ') AS `products`
     FROM products
     JOIN experience ON experience.id = products.experience_id
     WHERE order_id = $id
@@ -361,7 +375,7 @@ FROM users
 JOIN user_experience ON user_experience.user_id = users.id
 JOIN user_district ON user_district.user_id = users.id
 
-WHERE  users.active = 1 AND users.name is not null AND user_experience.experience_id in ($expe) AND user_district.district_id = $dist
+WHERE  users.active = 1 AND users.status = 1 AND users.name is not null AND user_experience.experience_id in ($expe) AND user_district.district_id = $dist
 group by users.id
 having count(distinct  user_experience.experience_id) = $size";
 
