@@ -1985,7 +1985,7 @@ colors = jQuery.Color.names = {
 	fuchsia: "#ff00ff",
 	gray: "#808080",
 	green: "#008000",
-	lime: "#00ff00",
+	lime: "var(--main_color)",
 	maroon: "#800000",
 	navy: "#000080",
 	olive: "#808000",
@@ -7233,12 +7233,12 @@ function Datepicker() {
 	this.regional = []; // Available regional settings, indexed by language code
 	this.regional[ "" ] = { // Default regional settings
 		closeText: "Done", // Display text for close link
-		prevText: "Prev", // Display text for previous month link
-		nextText: "Next", // Display text for next month link
-		currentText: "Today", // Display text for current month link
+		prevText: "უკან", // Display text for previous month link
+		nextText: "წინ", // Display text for next month link
+		currentText: "დღეს", // Display text for current month link
 		monthNames: [ "January","February","March","April","May","June",
 			"July","August","September","October","November","December" ], // Names of months for drop-down and formatting
-		monthNamesShort: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ], // For formatting
+		monthNamesShort: [ "იანვარი", "თებერვალი", "მარტი", "აპრილი", "მაისი", "ივნისი", "ივლისი", "აგვისტო", "სექტემბერი", "ოქტომბერი", "ნოემბერი", "დეკემბერი" ], // For formatting
 		dayNames: [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ], // For formatting
 		dayNamesShort: [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ], // For formatting
 		dayNamesMin: [ "კვ","ორ","სამ","ოთ","ხუთ","პარ","შაბ" ], // Column headings for days starting at Sunday

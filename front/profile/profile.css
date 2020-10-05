@@ -172,7 +172,8 @@
 }
 
 .profile_name{
-    line-height: 140px;
+    line-height: 30px;
+    margin-top: 60px;
 }
 
 .coin{

@@ -264,11 +264,9 @@ class Client {
                 </div>
             </div>
         <div>
-        
-        <input id="uploader" type="file" name="up_pic" />
-        <input id="uploader_user_pic" type="file" name="uploader_user_pic" />
-        <input type="hidden" id="user_id" value="'.$this->id.'" />
 
+        <input type="hidden" id="rating_user_id" value="'.$this->id.'" />
+        <input type="hidden" id="rating_order_id" value="" />
 
         ';
   }
@@ -314,8 +312,8 @@ class Client {
 function get_history(){
     $mysql = $this->db;
 
-    $query = "SELECT o.id,o.datetime, CONCAT(staff.`name`,' ',staff.surname)  AS staff, GROUP_CONCAT(experience.`name` SEPARATOR ', ') AS `exp`
-
+    $query = "SELECT o.id,o.datetime, CONCAT(staff.`name`,' ',staff.surname)  AS staff, GROUP_CONCAT(experience.`name` SEPARATOR ', ') AS `exp`,
+    rate
     FROM orders o
     JOIN users AS staff ON o.staff_id = staff.id
     JOIN users AS clients ON o.client_id = clients.id
@@ -327,14 +325,29 @@ function get_history(){
 
 $result = $mysql->query($query);
 $html = "";
+
 while($res = $result->fetch_assoc()){
+    $stars = "";
+    if ($res['rate'] != 0){
+        for($i = 5; $i > 0; $i--){
+            $stars .='<input type="radio"  value="'.$i.'" '.($res['rate'] >= $i ? "checked" : "").' disabled/>
+            <label  title="'.$i.'"></label>';
+        }
+
+    }
     $html .='<div class="history_item_client shadow" order_id = "'.$res[id].'">
                 <div>დრო : '.$res[datetime].'</div>
                 <div>ასისტენტი : '.$res[staff].'</div>
                 <div>მომსახურება : '.$res[exp].'</div>
-                <div class="rate_buttons" >
-                    <button class="rate_button" order_id = "'.$res[id].'" > შეაფასე </button>
+                '.( $res[rate] > 0 ? 
+                ' <div class="rate history_rate">
+                    '.$stars.'
                 </div>
+                
+                ' :
+                '<div class="rate_buttons" >
+                    <button class="rate_button" order_id = "'.$res[id].'" > შეაფასე </button>
+                </div>' ).'
                 
             </div>';
 }

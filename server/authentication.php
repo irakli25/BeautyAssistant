@@ -11,7 +11,7 @@ $query = "UPDATE users
                         WHERE `email` = '$email' ";
 $db->query($query);  
 
-header("Location: https://beautyassistant.herokuapp.com");
-
+header("Location: http://".$_SERVER[HTTP_HOST]."/?route=1");
+exit();
 
 ?>

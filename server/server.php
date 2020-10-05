@@ -6,14 +6,22 @@ error_reporting(E_ALL);
 
 require_once("../classes/class.db.php");
 session_start();
-$action = $_REQUEST['act'];
 $Error  = "";
+if(isset($_REQUEST['act']))
+    $action = $_REQUEST['act'];
+    else {
+        $action = "";
+    }
+
 
 $data = array();
 $db = new DB();
 
 switch ($action){
-
+    case "online":
+        $status = isset($_SESSION['USER']) ? true : false;
+        $data = array("status" => $status);
+    break;
     case "get_list_staff" :
         $html = "";
         $query = "SELECT  `users`.`id`,
@@ -52,12 +60,33 @@ switch ($action){
 
     break;
 
-    case "get_mail":
-        $id = $_SESSION['USER'];
-        $query = "SELECT `email` FROM `users` WHERE `id` = '$id' ";
+    case "save_rate":
+
+        $id = $_REQUEST['id'];
+        $rate = $_REQUEST['count'];
+        $query = "UPDATE `orders` SET `rate` = '$rate' WHERE id = '$id'";
+        
+        $query = "SELECT  ROUND(AVG(rate)) AS `avg`,  count(id) AS `count` FROM orders WHERE  staff_id = (SELECT staff_id FROM orders WHERE id = '$id');"; // round 2.5
         $res = $db->query($query);
         $arr = $res->fetch_assoc();
-        $data = array("email"=>$arr['email']);
+        if ($arr['count'] > 10){ // after this count order
+            $query = "UPDATE `users` SET `rating` = '$arr[avg]' WHERE id = (SELECT staff_id FROM orders WHERE id = '$id'); ";
+            $res = $db->query($query);
+        }
+
+        $data = array("status"=>$res);
+    break;
+
+    case "get_mail":
+       
+        if(isset($_SESSION['USER'])){
+            $id = $_SESSION['USER'];
+            $query = "SELECT `email` FROM `users` WHERE `id` = '$id' ";
+            $res = $db->query($query);
+            $arr = $res->fetch_assoc();
+            $data = array("email"=>$arr['email']);
+        }
+        $data = array("email"=>"Null");
     break;
 
     case "get_products":
@@ -115,6 +144,7 @@ switch ($action){
         $district = $_REQUEST['district'];
         $street = $_REQUEST['street'];
         $address = $_REQUEST['address'];
+        $order_time = $_REQUEST['order_time'];
 
         if($user_id != ''){
 
@@ -134,6 +164,7 @@ switch ($action){
 
                 $query = "INSERT INTO `orders`
                                 SET `datetime` = NOW(),
+                                    `order_time` = '$order_time',
                                     `staff_id` = $assistant,
                                     `client_id`= $user_id,
                                     `district_id` = $district,
@@ -173,6 +204,7 @@ switch ($action){
                             <p>მომსახურება : ".get_products($order_id)."</p>
                             <p>ფასი : ".$price."</p>
                             <p>მისამართი : ".get_address($order_id)." </p>
+                            <p>მოსვლის დრო : ".$order_time." </p>
 
                 ";
 
@@ -181,7 +213,7 @@ switch ($action){
                 <p>მომსახურება : ".get_products($order_id)."</p>
                 <p>ფასი : ".$price."</p>
                 <p>მისამართი : ".get_address($order_id)." </p>
-
+                <p>მისვლის დრო : ".$order_time." </p>
     ";
 
                 
@@ -202,7 +234,11 @@ switch ($action){
         $parent_name = $_REQUEST['parent_name'];
         $profile_id = $_REQUEST["profile"];
         $arr = get_select ($table, $name,$parent_id, $parent_name,$profile_id);
-        $arr_string = get_select_active($table, $name);
+        if(isset($_SESSION['USER']))
+            $arr_string = get_select_active($table, $name);
+            else {
+                $arr_string = "[]";
+            }
         $data = array("arr" => $arr, "arr_string" => $arr_string);
     break;
     case "selectwp" :
@@ -310,7 +346,6 @@ function get_in($arr,$table_name){
 
 function get_select ($table, $name,$parent_id, $parent_name,$profile_id){
     $db = new DB();
-    $user_id = $_SESSION['USER'];
     $array = array();
     $query = "SELECT  `id` , `$table`.`name`
     FROM `$table` 
@@ -318,7 +353,7 @@ function get_select ($table, $name,$parent_id, $parent_name,$profile_id){
     if($parent_id !=0 && $parent_name != ""){
         $query .= "WHERE `$parent_name` = $parent_id";
     }
-    if($profile_id != "" && $profile_id != $_SESSION['USER'] && ($table == "experience" || $table == "district")){
+    if($profile_id != "" && ($table == "experience" || $table == "district")){
         $query = "SELECT  `$table`.`id` , `$table`.`name`
                     FROM `user_$table`
                     JOIN `$table` On `$table`.id = user_$table.".$table."_id
@@ -353,7 +388,6 @@ function get_select_active ($table, $name) {
 
 function get_selectwp ($table, $name, $exp, $dist){
     $db = new DB();
-    $user_id = $_SESSION['USER'];
     $array = array();
 
 
@@ -375,7 +409,7 @@ FROM users
 JOIN user_experience ON user_experience.user_id = users.id
 JOIN user_district ON user_district.user_id = users.id
 
-WHERE  users.active = 1 AND users.status = 1 AND users.name is not null AND user_experience.experience_id in ($expe) AND user_district.district_id = $dist
+WHERE  users.active = 1 AND users.status = 1 AND users.name is not null AND user_experience.experience_id in ('$expe') AND user_district.district_id = '$dist'
 group by users.id
 having count(distinct  user_experience.experience_id) = $size";
 

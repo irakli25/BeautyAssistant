@@ -2,11 +2,15 @@ $.ajaxSetup({
     dataType:"json",
     type:'POST'
   });
+  var url_string = window.location.href;
+  var DIR = url_string.slice(0,url_string.indexOf('?'));
 // scroll
   $(document).ready(function() {
     var url_string = window.location.href;
     var url = new URL(url_string);
     var route = url.searchParams.get("route");
+
+    
 
     $(`a[href='?route=${route}']`).parent().addClass("active_menu");
 
@@ -188,10 +192,13 @@ class person {
                     }
                     else {
                         if(data.result){
-                            var  mail = new Mail(data.email,"Email authentication",mailhtml(data.email,data.name), true);
+                            var  mail = new Mail(data.email,"ელფოსტის დადასტურება",mailhtml(data.email,data.name));
                             mail.send();
                             webalert(`${data.name} თქვენ წარმატებით გაიარეთ რეგისტრაცია`,"success");
-                            window.location = "?route=1";
+                            setTimeout(() => {
+                                window.location = "?route=1";
+                            }, 1000);
+                       
                         }
                     }
                 }
@@ -244,7 +251,7 @@ function mailhtml(email,name){
     return `
     <p>გამარჯობა ${name},</p>
     <p>რეგისტრაციის დასასრულებლად დააჭირე ღილაკს</p>
-    <a href='https://beautyassistant.herokuapp.com/server/authentication.php?email=${email}'>
+    <a href='${DIR}server/authentication.php?email=${email}'>
     <button
     style="border-radius: 5px;
     background-color: #f5577b;
@@ -284,7 +291,7 @@ $(document).on("click","#logout", function(){
 
 
 class Mail {
-    constructor(mail,subject,html, gomain = false){
+    constructor(mail,subject,html){
         this.mail = mail;
         this.subject = subject;
         this.html = html + this.signature();
@@ -294,7 +301,7 @@ class Mail {
             url:"server/mailsender.php",
             data:this,
             success:function(data){
-                console.log(data);
+              
             }
 
         })
@@ -382,6 +389,7 @@ function setCookie(cname, cvalue, exdays = 1) {
       obj.district = $("#order_district").val();
       obj.street = $("#order_street").val();
       obj.address = $("#order_corect_address").val();
+      obj.order_time = $("#order_time").val(),
       $.ajax({
           url:"server/server.php",
           data:obj,
@@ -458,7 +466,7 @@ function GetDate(name) {
     $("#" + name).datepicker({
     	changeMonth: true,
         changeYear: true,
-        yearRange: "-70:-18"
+        yearRange: "-70:-0"
     });
 
     var date = $("#" + name).val();

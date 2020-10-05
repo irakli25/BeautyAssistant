@@ -11,8 +11,8 @@ class Staff {
   protected $img;
   protected $about;
   protected $status;
-
-
+  protected $client;
+  protected $rating;
   protected $isuser;
 
 
@@ -25,7 +25,7 @@ class Staff {
       
 
 
-      $res =  $db->getResults("SELECT `name`, `surname`, `email`, `birthday`,`img`, about, `status` FROM `users` WHERE id = $this->id LIMIT 1");
+      $res =  $db->getResults("SELECT `name`, `surname`, `email`, `birthday`,`img`, about, `status`, `rating` FROM `users` WHERE id = $this->id LIMIT 1");
       $arr = $res[0];
       $this->name      = $arr['name'];
       $this->surname   = $arr['surname'];
@@ -34,12 +34,30 @@ class Staff {
       $this->img       = $arr['img'];
       $this->about       = $arr['about'];
       $this->status    = $arr['status'];
+      $this->rating    = $arr['rating'];
 
+      if(isset($_SESSION['USER'])){
+        $res =  $db->getResults("SELECT `uid` FROM `users` WHERE id = $_SESSION[USER] LIMIT 1");
+        $arr = $res[0];
+        $this->client = $arr['uid'] == "client" ? true : false;
+      }
+      else {
+        $this->client = true;
+      }
 
 
   }
 
   function getPage(){
+      
+    $stars = "";
+    if ($this->rating != 0){
+        for($i = 5; $i > 0; $i--){
+            $stars .='<input type="radio"  value="'.$i.'" '.($this->rating >= $i ? "checked" : "").' disabled/>
+            <label  title="'.$i.'"></label>';
+        }
+
+    }
         return '
 
         <div id="order_window" class="modal">
@@ -153,7 +171,7 @@ class Staff {
                 <label for="status"></label>
             </div>
         </div>' : '').'
-        <div class="calculator shadow">
+        '.($this->client ? '<div class="calculator shadow">
             <label>მომსახურება</label>
             <div>
                 <select id="calc_experience" multiple ></select>
@@ -172,7 +190,7 @@ class Staff {
                 <button id="order_button">შეკვეთა</button>
             </div>
 
-        </div>
+        </div>' : '').'
             <div class="main-grid">
                 <div class="user-pic-wrap">
                     <div class="user-pic" style="background-image:url('.$this->get_img().')"> '.( $this->isuser ? ' 
@@ -182,7 +200,9 @@ class Staff {
                 </div>
                 <div class="profile_name" >
                     <h1>'.$this->name.' '.$this->surname.'</h1>
-                   
+                    <div class="rate history_rate">
+                    '.$stars.'
+                    </div>
                 </div>
             </div>
 
@@ -472,7 +492,8 @@ class Staff {
     while($result = $res->fetch_assoc()){
         $html .= "<div class='finance_input'> <label>".$result['name']."</label><input class='f_in shadow' id='".$result['ex_id']."' type='number' value='".$result['price']."' ".( $this->isuser ? '' : 'disabled' ) . "/> </div>";
     }
-    $html .="</div><div  class='finance_button'><button id='save_finance' >შენახვა</button></div>";
+    if ($this->id == $_SESSION['USER'])
+        $html .="</div><div  class='finance_button'><button id='save_finance' >შენახვა</button></div>";
     return $html;
   }
 
@@ -480,8 +501,8 @@ class Staff {
   function get_history(){
     $mysql = $this->db;
 
-    $query = "SELECT o.id,o.datetime, CONCAT(clients.`name`,' ',clients.surname)  AS client, GROUP_CONCAT(experience.`name` SEPARATOR ', ') AS `exp`
-
+    $query = "SELECT o.id,o.datetime, CONCAT(clients.`name`,' ',clients.surname)  AS client, GROUP_CONCAT(experience.`name` SEPARATOR ', ') AS `exp`,
+    rate 
     FROM orders o
     JOIN users AS staff ON o.staff_id = staff.id
     JOIN users AS clients ON o.client_id = clients.id
@@ -493,11 +514,25 @@ class Staff {
 $result = $mysql->query($query);
 $html = "";
 while($res = $result->fetch_assoc()){
+    $stars = "";
+    if ($res['rate'] != 0){
+        for($i = 5; $i > 0; $i--){
+            $stars .='<input type="radio"  value="'.$i.'" '.($res['rate'] >= $i ? "checked" : "").' disabled/>
+            <label  title="'.$i.'"></label>';
+        }
+
+    }
     $html .='<div class="history_item shadow" order_id = "'.$res[id].'">
                 <div>დრო : '.$res[datetime].'</div>
                 <div>კლიენტი : '.$res[client].'</div>
                 <div>მომსახურება : '.$res[exp].'</div>
+                '.( $res[rate] > 0 ? 
+                ' <div class="rate history_rate">
+                    '.$stars.'
+                </div>
                 
+                ' :
+                '' ).'
             </div>';
 }
 if($html == "") $html = "<h2>თქვენ არ გაქვთ გამოძახების ისტორია &#128546;</h2>";

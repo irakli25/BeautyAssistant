@@ -7,9 +7,9 @@ $rand=rand();
 function get_css(){
     global $rand;
     $css="  
-            <link rel='stylesheet' href='css/jquery-ui.css'/>
-            <link rel='stylesheet' href='css/modern-normalize.css'/>
-            <link rel='stylesheet' href='selectric/themes/p-th/selectric.css'>
+            <link rel='stylesheet' href='css/jquery-ui.css?v=".$rand."'/>
+            <link rel='stylesheet' href='css/modern-normalize.css?v=".$rand."'/>
+            <link rel='stylesheet' href='selectric/themes/p-th/selectric.css?v=".$rand."'>
             <link rel='stylesheet' href='css/menu.css?v=".$rand."'>
             <link rel='stylesheet' href='front/home/home.css?v=".$rand."'>
             <link rel='stylesheet' href='front/login/login.css?v=".$rand."'>
@@ -24,19 +24,19 @@ function get_css(){
 }
 function get_js(){
     global $rand;
-    $js="   <script src='js/jquery.js'></script>
-            <script src='js/jquery-ui.min.js'></script>
-            <script src='js/jquery-ui.js'></script>
+    $js="   <script src='js/jquery.js?v=".$rand."'></script>
+            <script src='js/jquery-ui.min.js?v=".$rand."'></script>
+            <script src='js/jquery-ui.js?v=".$rand."'></script>
             <script src='js/jquery-ui-timepicker-addon.js?v=".$rand."'></script>
             <script src='js/jquery-ui-timepicker-ka.js?v=".$rand."'></script>
             <script src='js/jquery.timepicker.min.js?v=".$rand."'></script>
-            <script src='selectric/jquery.selectric.min.js'></script>
+            <script src='selectric/jquery.selectric.min.js?v=".$rand."'></script>
            
             <script src='js/scripts.js?v=".$rand."'></script>
             <script src='front/home/home.js?v=".$rand."'></script>
             <script src='front/profile/profile.js?v=".$rand."'></script>
             <script src='front/authentication/authentication.js?v=".$rand."'></script>
-            <script src='fontawesome/js/all.js'></script>
+            <script src='fontawesome/js/all.js?v=".$rand."'></script>
 
 
 

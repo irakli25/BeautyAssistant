@@ -5,7 +5,7 @@ $(document).ready(function (){
   get_staff();
 
   if($("#container").attr("user") == "" || $("#container").attr("user") == $("#profile_id").val()){
-    $(".calculator").hide();
+    // $(".calculator").hide();
   }
   else{
     $(".main-buttons").hide();

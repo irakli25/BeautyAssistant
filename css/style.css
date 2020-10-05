@@ -65,6 +65,10 @@
     color: var(--gold);  
 }
 
+.history_rate{
+    position: unset!important;
+}
+
 /**********************************************************************************************/
 
 .ui-datepicker{
@@ -72,13 +76,13 @@
     -webkit-box-shadow: 3px 3px 5px 6px #ccc;
     -moz-box-shadow: 3px 3px 5px 6px #ccc;
     box-shadow: 3px 3px 5px 6px #ccc;
-    margin: -15px 5px;
+    margin: 5px 0px -15px 5px;
     padding: 10px;
 }
 
 #ui-datepicker-div .ui-state-highlight{
-    background:var(--main-color);
-    color:#FFF!important;
+    
+    border:1px solid var(--main-color);
 }
 
 #ui-datepicker-div .ui-datepicker-week-end, #ui-datepicker-div .ui-datepicker-week-end a{
@@ -88,6 +92,12 @@
 #ui-datepicker-div [data-handler="selectDay"] a {
     text-align: center!important;
 }
+
+#ui-datepicker-div [data-handler="selectDay"] a.ui-state-active {
+    background:var(--main-color);
+    color:#FFF!important;
+}
+
 #ui-datepicker-div [data-handler="selectDay"] a:hover{
     background:var(--main-color);
     color:#FFF;
@@ -113,6 +123,19 @@
 
 [data-handler="today"]{
     display:none;
+}
+
+.ui-datepicker-year{
+    width: 55px!important;
+    height: 25px!important;
+    font-size: 13px!important;
+    margin-left: 15px!important;
+}
+
+.ui-datepicker-month{
+    width: 100px!important;
+    height: 25px!important;
+    font-size: 13px!important;
 }
 
 .ui-datepicker-close {
@@ -399,7 +422,7 @@ textarea:focus, input:focus{
     width: 80%;
     border-radius: 15px;
     opacity: 0.9;
-
+    line-height: 25px;
 }
 
 .closebtn {
@@ -612,6 +635,7 @@ button:focus {outline:0;}
     margin-top: 25px;
     flex-wrap: wrap;
     height:auto;
+    flex-direction: column;
 }
 .history_item div {
     padding: 0 15px;
@@ -631,6 +655,7 @@ button:focus {outline:0;}
     margin-top: 25px;
     flex-wrap: wrap;
     height:auto;
+    flex-direction: column;
 }
 
 .history_item_client div {
@@ -711,6 +736,15 @@ button:focus {outline:0;}
 
     .modal-content{
         width:70%;
+    }
+
+    .profile_name {
+        line-height: 30px;
+        margin-top: 65px;
+    }
+
+    .profile_name h1 {
+        font-size: 30px;
     }
     
 }
@@ -835,6 +869,15 @@ button:focus {outline:0;}
         width:90%;
     }
 
+    .profile_name {
+        line-height: 30px;
+        margin-top: 65px;
+    }
+
+    .profile_name h1 {
+        font-size: 25px;
+    }
+
 }
 
 @media all and (max-width:620px) and (min-width:570px) {
@@ -955,6 +998,7 @@ button:focus {outline:0;}
     }
 
 
+
     /*********/
 
 
@@ -977,6 +1021,7 @@ button:focus {outline:0;}
 
 .main-grid{
     width:95%;
+    justify-content: space-around;
 }
 
 .row-wrapper{
@@ -991,10 +1036,16 @@ button:focus {outline:0;}
     }
 
     .profile_name {
-        line-height: 35px;
+        line-height: 10px;
         font-size: 12px;
         text-align: center;
+        margin-top: 30px;
     }
+
+    .profile_name h1 {
+        font-size: 16px;
+    }
+
 
     .user-pic {
         height: 100px;
@@ -1164,6 +1215,7 @@ button:focus {outline:0;}
 
 .main-grid{
     width:95%;
+    justify-content: space-around;
 }
 
 .row-wrapper{
@@ -1178,9 +1230,14 @@ button:focus {outline:0;}
     }
 
     .profile_name {
-        line-height: 35px;
+        line-height: 10px;
         font-size: 12px;
         text-align: center;
+        margin-top: 30px;
+    }
+
+    .profile_name h1 {
+        font-size: 16px;
     }
 
     .user-pic {

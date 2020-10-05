@@ -3,7 +3,7 @@
   justify-content: space-around;
   width: 100%;
   border: none;
-
+  padding: 20px;
 }
 
 .main-buttons  .home_tab {
@@ -216,7 +216,7 @@
   margin: auto;
   overflow-y: auto;
   transition: 0.3s;
-  margin-top: 50px;
+  margin-top: 15px;
   
 }
 
@@ -231,6 +231,7 @@
   border-radius: 13px 1px;
   display: grid;
   grid-gap: 10px;
+  margin-top: 15px;
 }
 
 .calc_price{

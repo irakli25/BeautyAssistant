@@ -13,7 +13,7 @@ $(document).ready(function ()
         success:function(data){
             $("#profile_wrapper").html(data);
             $( "#tabs" ).tabs();
-            if($("#container").attr("user") == "" || $("#container").attr("user") == $("#profile_id").val())
+            if($("#container").attr("user") == $("#profile_id").val())
                     $(".calculator").hide();
             $( "#tabs" ).tabs({ active: 0 });
             tabs();
@@ -616,7 +616,7 @@ $(document).on("change", "#calc_experience, #calc_district", function(){
     select_wp("calc_profiles","users","name",$("#calc_experience").val(),$("#calc_district").val());
     
     // var calc_profiles            =   new template_filter("calc_profiles","users","id","name","100%",$("#calc_experience").val(),$("#calc_district").val());
-    if(!($("#calc_experience").val() == 0 || $("#calc_district").val() == 0)){
+    if(!($("#calc_experience").val() == null || $("#calc_district").val() == 0)){
         show_assistant();
         $("#order_button").show();
     }
@@ -634,28 +634,55 @@ $(document).on("click","#order_button", function(){
     $.ajax({
         url:"server/server.php",
         data:{
-            act:"get_address",
-            district:district
+            act:"online",
         },
         success:function(data){
-            if(data.isaddress){
-                select("order_district","district","name");
-                select("order_street","street","name");
-                $("#order_corect_address").val(data.street_name);
+            if(data.status){
+                $.ajax({
+                    url:"server/server.php",
+                    data:{
+                        act:"get_address",
+                        district:district
+                    },
+                    success:function(data){
+                        if(data.isaddress){
+                            select("order_district","district","name");
+                            select("order_street","street","name");
+                            $("#order_corect_address").val(data.street_name);
+                        }
+                        else{
+                            select("order_district","district","name");
+                            select("order_street","street","name");
+            
+                            webalert("მითითებულ უბანზე მისამართი ვერ მოიძებნა, გთხოვთ შეიყვანოთ მისამართი !");
+                        }
+                    }
+                })
+            
+                
+                get_order_price();
+                get_order_experience();
+                $("#order_window").css("display","block");
             }
             else{
-                select("order_district","district","name");
-                select("order_street","street","name");
-
-                webalert("მითითებულ უბანზე მისამართი ვერ მოიძებნა, გთხოვთ შეიყვანოთ მისამართი !");
+                webalert(`გთხოვთ შეხვიდეთ როგორც მომხმარებელი ან დააჭირეთ ღილაკს <a 
+                style="
+                    text-decoration: none;
+                    padding: 10px;
+                    background: var(--gold);
+                    border-radius: 8px;
+                    color: #FFF;
+                    cursor:pointer;
+                    margin-left:20px;
+                " 
+                
+                href='?route=3'>გაიარეთ რეგისტრაცია</a> <p>დამატებითი კითხვების შემთხვევაში დაგვიკავშირდით</p> `);
             }
         }
+        
     })
 
    
-    get_order_price();
-    get_order_experience();
-  $("#order_window").css("display","block");
 })
 
 $(document).on("change","#calc_profiles", function(){
@@ -725,7 +752,11 @@ $(document).on("click", ".history_item_client", function(e){
 })
 
 $(document).on("click", ".rate_button", function(){
+    $(`.rating input`).prop("checked",false);
     $("#rating_modal").css("display","flex");
+    let rating_order_id = $(this).attr("order_id");
+    $(".rating").attr("id",rating_order_id);
+
 })
 
 $(document).on("click", "#close_history_window", function () {
@@ -749,10 +780,27 @@ $(document).on("change", "#calc_profiles", function(){
 })
 
 $(document).on("click", ".rating label", function(){
+    let id = $(this).parent().attr('id');
     $(`.rating input`).prop("checked",false);
     var count = $(this).attr("title");
     $(`.rating input[value='${count}']`).prop("checked",true);
- 
+    
+    $.ajax({
+        url:"server/server.php",
+        data:{
+            act:"save_rate",
+            id:id,
+            count:count
+        },
+        success:function(data){
+            if(data.status){
+                $("#rating_modal").css("display","none");
+                $(`.rate_button[order_id = "${id}"]`).parent().html("");
+                webalert("ასისტენტი შეფასებულია","success");
+            }
+            
+        }
+    })
 
 })
 

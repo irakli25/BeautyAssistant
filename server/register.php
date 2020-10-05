@@ -1,7 +1,7 @@
 <?php
 
 require_once("../classes/class.db.php");
-
+session_start();
 $db = new DB();
 $data = array();
 $error = '';
