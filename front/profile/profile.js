@@ -637,47 +637,45 @@ $(document).on("click","#order_button", function(){
             act:"online",
         },
         success:function(data){
-            if(data.status){
-                $.ajax({
-                    url:"server/server.php",
-                    data:{
-                        act:"get_address",
-                        district:district
-                    },
-                    success:function(data){
-                        if(data.isaddress){
-                            select("order_district","district","name");
-                            select("order_street","street","name");
-                            $("#order_corect_address").val(data.street_name);
-                        }
-                        else{
-                            select("order_district","district","name");
-                            select("order_street","street","name");
             
-                            webalert("მითითებულ უბანზე მისამართი ვერ მოიძებნა, გთხოვთ შეიყვანოთ მისამართი !");
+                if(data.status){
+                    $.ajax({
+                        url:"server/server.php",
+                        data:{
+                            act:"get_address",
+                            district:district
+                        },
+                        success:function(data){
+                            if(data.error == ""){
+                                if(data.isaddress){
+                                    select("order_district","district","name");
+                                    select("order_street","street","name");
+                                    $("#order_corect_address").val(data.street_name);
+                                }
+                                else{
+                                    select("order_district","district","name");
+                                    select("order_street","street","name");
+                    
+                                    webalert("მითითებულ უბანზე მისამართი ვერ მოიძებნა, გთხოვთ შეიყვანოთ მისამართი !");
+                                }
+                                get_order_price();
+                                get_order_experience();
+                                $("#order_window").css("display","block");
+                            }
+                            else {
+                                webalert(data.error);
+                            }
                         }
-                    }
-                })
+                    })
+                
+                    
+                    
+                }
+                else{
+                    webalert(`გთხოვთ შეხვიდეთ როგორც მომხმარებელი ან გაიაროთ რეგისტრაცია, დამატებითი კითხვების შემთხვევაში დაგვიკავშირდით`);
+                }
             
-                
-                get_order_price();
-                get_order_experience();
-                $("#order_window").css("display","block");
-            }
-            else{
-                webalert(`გთხოვთ შეხვიდეთ როგორც მომხმარებელი ან დააჭირეთ ღილაკს <a 
-                style="
-                    text-decoration: none;
-                    padding: 10px;
-                    background: var(--gold);
-                    border-radius: 8px;
-                    color: #FFF;
-                    cursor:pointer;
-                    margin-left:20px;
-                " 
-                
-                href='?route=3'>გაიარეთ რეგისტრაცია</a> <p>დამატებითი კითხვების შემთხვევაში დაგვიკავშირდით</p> `);
-            }
+            
         }
         
     })

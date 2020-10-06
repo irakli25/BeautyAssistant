@@ -199,7 +199,7 @@ class Staff {
                     
                 </div>
                 <div class="profile_name" >
-                    <h1>'.$this->name.' '.$this->surname.'</h1>
+                    <h2>'.$this->name.' '.$this->surname.'</h2>
                     <div class="rate history_rate">
                     '.$stars.'
                     </div>

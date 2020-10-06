@@ -118,10 +118,13 @@ switch ($action){
         $res = $db->query($query);
         $arr = $res->fetch_assoc();
         $street = '';
+       
+        if(is_null($arr) || $arr['district_id'] == 0){ $Error=" უბანი მითითებული არ არის, დაამატეთ მისამართი პროფილის გვერდიდან "; break;}
         if($district == $arr['district_id']){
             $query = "SELECT `street_id` FROM `user_street` WHERE `user_id` = '$id' LIMIT 1 ";
             $res = $db->query($query);
             $arr = $res->fetch_assoc();
+        if(is_null($arr) || $arr['street_id'] == 0){ /*$Error=" მისამართი მითითებული არ არის, დაამატეთ მისამართი პროფილის გვერდიდან ";*/ break;}
             $street = $arr['street_id'];
 
             $query = "SELECT `client_correct_address` AS `name` FROM `users` WHERE `id` = '$id' LIMIT 1 ";
@@ -353,7 +356,8 @@ function get_select ($table, $name,$parent_id, $parent_name,$profile_id){
     if($parent_id !=0 && $parent_name != ""){
         $query .= "WHERE `$parent_name` = $parent_id";
     }
-    if($profile_id != "" && ($table == "experience" || $table == "district")){
+    $user_id = isset($_SESSION['USER']) ? $_SESSION['USER'] : 0;
+    if($profile_id != "" && $profile_id != $user_id && ($table == "experience" || $table == "district")){
         $query = "SELECT  `$table`.`id` , `$table`.`name`
                     FROM `user_$table`
                     JOIN `$table` On `$table`.id = user_$table.".$table."_id

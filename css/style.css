@@ -17,21 +17,7 @@
   src: url(/css/font/Typewriter.ttf);
 }
 
-@font-face {
-    font-family: Typewriter-Black;
-    src: url(/css/font/Typewriter-Black.ttf);
-  }
 
-
-  @font-face {
-    font-family: Typewriter-Bold;
-    src: url(/css/font/Typewriter-Bold.ttf);
-  }
-
-  @font-face {
-    font-family: Typewriter-Thin;
-    src: url(/css/font/Typewriter-Thin.ttf);
-  }
 
 
 /************************************/
@@ -240,7 +226,17 @@ body{
     min-width: 320px;
     display:block;
     position:relative;
+    min-height: 100vh;
 }
+
+select {
+    display:none;
+}
+
+#ui-datepicker-div select {
+    display:unset!important;
+}
+
 .shadow {
     -webkit-box-shadow: 3px 3px 5px 6px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
     -moz-box-shadow:    3px 3px 5px 6px #ccc;  /* Firefox 3.5 - 3.6 */
@@ -311,10 +307,11 @@ textarea:focus, input:focus{
 
 
 
-.beauty_logo span {
+.beauty_logo h1 {
     font-size: 19px;
     color: #777;
     margin-top: 11px;
+    cursor:pointer;
 }
 
 .beauty_logo{
@@ -454,7 +451,8 @@ textarea:focus, input:focus{
 
 
 .up {
-    height: 50px;
+    /* height: 50px; */
+    margin-top:-70px;
     transition: 0.3s ease;
 }
 
@@ -739,12 +737,16 @@ button:focus {outline:0;}
     }
 
     .profile_name {
-        line-height: 30px;
+        line-height: 50px;
         margin-top: 65px;
     }
 
-    .profile_name h1 {
+    .profile_name h2 {
         font-size: 30px;
+    }
+
+    .home_tabs {
+        width: 85%;
     }
     
 }
@@ -790,7 +792,7 @@ button:focus {outline:0;}
         display:inline-block!important;
     }
     .up {
-        height: auto;
+        margin: 0px;
     }
     .login{
         display:none;
@@ -813,7 +815,6 @@ button:focus {outline:0;}
     }
 
     .home_tab_text {
-        margin: 10px;
         font-size: 12px;
     }
 
@@ -870,12 +871,16 @@ button:focus {outline:0;}
     }
 
     .profile_name {
-        line-height: 30px;
+        line-height: 50px;
         margin-top: 65px;
     }
 
-    .profile_name h1 {
+    .profile_name h2 {
         font-size: 25px;
+    }
+
+    .home_tabs {
+        width: 100%;
     }
 
 }
@@ -941,7 +946,7 @@ button:focus {outline:0;}
         display:inline-block!important;
     }
     .up {
-        height: auto;
+        margin: 0px;
     }
     .login{
         display:none;
@@ -1036,13 +1041,13 @@ button:focus {outline:0;}
     }
 
     .profile_name {
-        line-height: 10px;
+        line-height: 30px;
         font-size: 12px;
         text-align: center;
         margin-top: 30px;
     }
 
-    .profile_name h1 {
+    .profile_name h2 {
         font-size: 16px;
     }
 
@@ -1091,6 +1096,11 @@ button:focus {outline:0;}
     .history_container{
         font-size: 12px;
     }
+
+    .home_tabs {
+        width: 75%;
+        flex-direction: column;
+    }
 }
 
 
@@ -1136,7 +1146,7 @@ button:focus {outline:0;}
         display:inline-block!important;
     }
     .up {
-        height: auto;
+        margin: 0px;
     }
     .login{
         display:none;
@@ -1230,13 +1240,13 @@ button:focus {outline:0;}
     }
 
     .profile_name {
-        line-height: 10px;
+        line-height: 30px;
         font-size: 12px;
         text-align: center;
         margin-top: 30px;
     }
 
-    .profile_name h1 {
+    .profile_name h2 {
         font-size: 16px;
     }
 
@@ -1285,5 +1295,9 @@ button:focus {outline:0;}
         padding: 35px 14px;
         line-height: 29px;
         font-size: 10px;
+    }
+    .home_tabs {
+        width: 95%;
+        flex-direction: column;
     }
 }

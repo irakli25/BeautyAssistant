@@ -19,10 +19,10 @@ $.ajaxSetup({
     $(window).scroll(function(event){
         var st = $(this).scrollTop();
         if (st > lastScrollTop){
-            $("header").addClass("up");
+            $(".header1").addClass("up");
             $(".dropdown-content").hide();
         } else {
-            $("header").removeClass("up");
+            $(".header1").removeClass("up");
             $(".dropdown-content").show();
         }
         lastScrollTop = st;
@@ -250,6 +250,7 @@ function webalert(content, type){
 function mailhtml(email,name){
     return `
     <p>გამარჯობა ${name},</p>
+    <p>რეგისტრაციის დასრულების შემდეგ გადახვალთ პროფილის გვერდზე, იმისთვის რომ ისარგებლოთ პლათფორმით უნდა შეავსოთ ინფორმაცია თქვენს შესახებ </p>
     <p>რეგისტრაციის დასასრულებლად დააჭირე ღილაკს</p>
     <a href='${DIR}server/authentication.php?email=${email}'>
     <button

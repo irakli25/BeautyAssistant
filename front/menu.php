@@ -6,7 +6,7 @@
 		<div class = "header1 ">
 			<div class="header1_content container">
 				<div class="beauty_logo">
-					<div></div><span>Beauty Assistant</span>
+					<div></div><h1>Beauty Assistant</h1>
 				</div>
 				<div  class="login flex">
 					<?php

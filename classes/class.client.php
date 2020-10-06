@@ -86,7 +86,7 @@ class Client {
                     </div>
                 </div>
                 <div class="profile_name">
-                    <h1>'.$this->name.' '.$this->surname.'</h1>
+                    <h2>'.$this->name.' '.$this->surname.'</h2>
                     <div class="bautycoin" >
                         <div class="coin"></div>
                         <h4>BeautyCoin : 20 </h4>
