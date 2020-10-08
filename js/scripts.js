@@ -523,5 +523,5 @@ function showError(error) {
 
 function showPosition(position) {
   
-  $("#map").html(`<iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps?width=100%&amp;height=300&amp;hl=ka&amp;mrt=loc&amp;q=${position.coords.latitude},${position.coords.longitude}&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>`);
+  $("#map").html(`<iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps?width=100%&amp;height=300&amp;hl=ka&amp;mrt=loc&amp;q=41.692536, 44.882630&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>`);
 }
