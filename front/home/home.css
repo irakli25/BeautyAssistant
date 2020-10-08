@@ -295,7 +295,15 @@
 /***********************************/
 
 
-
+.map_wrapper{
+  border: 2px solid transparent;
+  padding: 10px;
+  border-radius: 13px 1px;
+  margin: 20px auto;
+  width: 80%;
+  position: relative;
+  height: 320px;
+}
 
 
 

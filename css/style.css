@@ -1101,6 +1101,10 @@ button:focus {outline:0;}
         width: 75%;
         flex-direction: column;
     }
+
+.map_wrapper{
+    width:95%;
+}
 }
 
 
@@ -1300,4 +1304,8 @@ button:focus {outline:0;}
         width: 95%;
         flex-direction: column;
     }
+
+.map_wrapper{
+    width:95%;
+}
 }

@@ -10,7 +10,7 @@ $.ajaxSetup({
     var url = new URL(url_string);
     var route = url.searchParams.get("route");
 
-    
+    getLocation();
 
     $(`a[href='?route=${route}']`).parent().addClass("active_menu");
 
@@ -487,4 +487,41 @@ function GetDateTimes(name) {
     $("#" + name).datepicker("option", $.datepicker.regional["ka"]);
     $("#" + name).datepicker("option", "dateFormat", "yy-mm-dd");
 
+}
+
+
+
+
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+      webalert("Geolocation is not supported by this browser", "error");
+    }
+  }
+
+
+
+
+function showError(error) {
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+        webalert("User denied the request for Geolocation.");
+        break;
+      case error.POSITION_UNAVAILABLE:
+        webalert("Location information is unavailable.");
+        break;
+      case error.TIMEOUT:
+        webalert("The request to get user location timed out.");
+        break;
+      case error.UNKNOWN_ERROR:
+        webalert("An unknown error occurred.");
+        break;
+    }
+  }
+
+
+function showPosition(position) {
+  alert(`${position.coords.latitude},${position.coords.longitude}`);
+//   $("#map").html(`<iframe width="100%" height="300" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.google.com/maps?width=100%&amp;height=300&amp;hl=ka&amp;mrt=loc&amp;q=${position.coords.latitude},${position.coords.longitude}&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>`);
 }
