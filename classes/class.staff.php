@@ -337,7 +337,7 @@ class Staff {
 
             <div id="id2" class="tab">
                 <div class="staff-info">
-                    <label for="experience" style="margin-top:12px 0" >გამოცდილება : </label>
+                    <label for="experience" style="margin:12px 0" >გამოცდილება : </label>
                     
                     '.( $this->isuser ? 
                     ' <span>

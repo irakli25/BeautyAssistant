@@ -86,7 +86,10 @@ switch ($action){
             $arr = $res->fetch_assoc();
             $data = array("email"=>$arr['email']);
         }
-        $data = array("email"=>"Null");
+        else{
+            $data = array("email"=>"Null");
+        }
+       
     break;
 
     case "get_products":
@@ -110,6 +113,12 @@ switch ($action){
 
         $data = array("products" => implode(',',$arr_string));
 
+    break;
+    case "get_finance":
+        if(isset($_SESSION['USER'])){
+            $html = get_finance();
+            $data = array("html" => $html);
+        }
     break;
     case "get_address":
         $id = $_SESSION['USER'];
@@ -163,6 +172,10 @@ switch ($action){
                 $res = $db->query($query);
                 $p = $res->fetch_assoc();
                 $price = $p['price'];
+
+                if(is_null($price)){
+                    $Error = "ფასი არ არის მითითებული";break;
+                }
                 
 
                 $query = "INSERT INTO `orders`
@@ -173,7 +186,7 @@ switch ($action){
                                     `district_id` = $district,
                                     `street_id` = $street,
                                     `local_address` = '$address',
-                                    `price`         = $price,
+                                    `price`         = '$price',
                                     `status`        = 1
                                 ";
 
@@ -425,5 +438,29 @@ having count(distinct  user_experience.experience_id) = $size";
 
     return $array;
 }
+
+
+function get_finance() {
+    $html = "<div class='finance'>";
+    $mysql = new DB();
+    $query = "SELECT  users.id , experience.`name`, experience.`id` AS `ex_id`, finance.price
+
+                FROM users 
+                JOIN user_experience ON user_experience.user_id = users.id
+                JOIN experience ON experience.id = user_experience.experience_id
+                LEFT JOIN finance ON finance.user_id = users.id AND experience.id = finance.experience_id
+                WHERE users.id = $_SESSION[USER]";
+
+    $res = $mysql->query($query);
+
+    while($result = $res->fetch_assoc()){
+        $html .= "<div class='finance_input'> <label>".$result['name']."</label><input class='f_in shadow' id='".$result['ex_id']."' type='number' value='".$result['price']."' /> </div>";
+    }
+    // if ($this->id == $_SESSION['USER'])
+        $html .="</div><div  class='finance_button'><button id='save_finance' >შენახვა</button></div>";
+    return $html;
+  }
+
+
 
 ?>

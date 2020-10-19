@@ -757,6 +757,18 @@ $(document).on("click", ".rate_button", function(){
 
 })
 
+$(document).on("change","#experience",function(){
+    $.ajax({
+        url:"server/server.php",
+        data:{
+            act:"get_finance"
+        },
+        success:function(data){
+            $("#id5").html(data.html);
+        }
+    })
+})
+
 $(document).on("click", "#close_history_window", function () {
     $("#history_window").hide();
 })

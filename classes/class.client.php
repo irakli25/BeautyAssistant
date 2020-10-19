@@ -206,20 +206,7 @@ class Client {
             <!-- END id1 -->
 
             <div id="id2" class="tab">
-                <div class="per-info">
-                    <label for="hear" style="margin-top:12px" >თმის ტიპი</label>
-                    <div class="selectric_wrap">
-                        <select id="hear" ></select>
-                    </div>
                 
-                </div>
-                <div class="per-info">
-                    <label for="skin" style="margin-top:12px" >კანის ტიპი</label>
-                    <div class="selectric_wrap">
-                        <select id="skin" ></select>
-                    </div>
-                
-                </div>
 
                 <div>
                   

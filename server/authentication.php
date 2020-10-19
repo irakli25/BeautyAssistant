@@ -11,7 +11,13 @@ $query = "UPDATE users
                         WHERE `email` = '$email' ";
 $db->query($query);  
 
-header("Location: http://".$_SERVER[HTTP_HOST]."/?route=7&uid=client");
+
+$query = "SELECT `uid` FROM users
+                        WHERE `email` = '$email' ";
+$res = $db->query($query);  
+$arr = $res->fetch_assoc();
+
+header("Location: http://".$_SERVER[HTTP_HOST]."/?route=7&uid=".$arr["uid"]);
 exit();
 
 ?>

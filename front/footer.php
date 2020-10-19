@@ -3,5 +3,5 @@
 </div>
 <div class="clear"></div>
 <div id="footer">
-	<p class="allRight">All Rights Reserved<br>&#169; 2019</p>
+	<!-- <p class="allRight">All Rights Reserved<br>&#169; 2019</p> -->
 </div>
