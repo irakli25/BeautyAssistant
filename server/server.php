@@ -371,10 +371,23 @@ function get_select ($table, $name,$parent_id, $parent_name,$profile_id){
     }
     $user_id = isset($_SESSION['USER']) ? $_SESSION['USER'] : 0;
     if($profile_id != "" && $profile_id != $user_id && ($table == "experience" || $table == "district")){
-        $query = "SELECT  `$table`.`id` , `$table`.`name`
-                    FROM `user_$table`
-                    JOIN `$table` On `$table`.id = user_$table.".$table."_id
-                    WHERE `user_$table`.user_id = '$profile_id' ";
+        switch($table){
+            case "experience" :
+                $query = "SELECT  `$table`.`id` , `$table`.`name`
+                FROM `user_$table`
+                JOIN `$table` On `$table`.id = user_$table.".$table."_id
+                JOIN `finance` ON finance.experience_id = experience.id
+                WHERE `user_$table`.user_id = '$profile_id' AND finance.user_id = '$profile_id' ";
+            break;
+
+            case "district" :
+                $query = "SELECT  `$table`.`id` , `$table`.`name`
+                FROM `user_$table`
+                JOIN `$table` On `$table`.id = user_$table.".$table."_id
+                WHERE `user_$table`.user_id = '$profile_id' ";
+            break;
+        }
+       
     }
     
     $res = $db->query($query);
